@@ -1,22 +1,9 @@
 #include <QCoreApplication>
-#include "database.h"
-#include <QDateTime>
-#include <QDate>
-#include <QTime>
+#include "server.h"
 
-
-int main()
+int main(int argc, char *argv[])
 {
-
-
-    Database tmp("QPSQL","127.0.0.1","database_qt","postgres","postgres");
-
-    if (tmp.is_open()) {
-        std::cout << "OK\n";
-        tmp.info_db();
-    } else {
-        std::cout << "Error\n";
-    }
-
-    return 0;
+    QCoreApplication a(argc, argv);
+    Server server;
+    return a.exec();
 }
