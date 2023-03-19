@@ -11,7 +11,7 @@ QByteArray Server::makeByteMessage(const Command &command, const QString& messag
 }
 
 Server::Server() {
-    if (this->listen(QHostAddress("192.168.0.100"), 1101)) {
+    if (this->listen(QHostAddress("185.125.201.130"), 1101)) {
         std::cout << "Start\n";
         connect(this, &QTcpServer::newConnection, this, &Server::newConnection);
     }
