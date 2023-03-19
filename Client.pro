@@ -14,7 +14,8 @@ SOURCES += \
     client.cpp
 
 HEADERS += \
-    client.h
+    client.h \
+    commands.h
 
 FORMS += \
     client.ui

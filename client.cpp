@@ -59,4 +59,3 @@ void Client::on_pushButton_3_clicked() {
     ui->lineEdit->clear();
 }
 
-
