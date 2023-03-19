@@ -18,7 +18,7 @@ Client::Client(QWidget *parent) : QMainWindow(parent), ui(new Ui::Client) {
 
 void Client::slotReadyRead() { // TODO different commands by enum!
     QDataStream in(socket);
-    in.setVersion(QDataStream::Qt_6_4);
+    in.setVersion(QDataStream::Qt_5_15);
     if (in.status() == QDataStream::Ok) {
         while (true) {
             if (blockSize == 0) {
@@ -50,7 +50,7 @@ Client::~Client() {
 }
 
 void Client::on_pushButton_clicked() {
-    socket->connectToHost("192.168.0.100", 1101); // it's not right port
+    socket->connectToHost("185.125.201.130", 1101); // it's not right port
 }
 
 void Client::on_pushButton_3_clicked() {
