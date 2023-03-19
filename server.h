@@ -5,8 +5,7 @@
 #include <QTcpServer>
 #include <QTcpSocket>
 #include <unordered_map>
-
-enum Command { gotMessageFromClient, gotMessageFromServer };
+#include "commands.h"
 
 class Server : public QTcpServer
 {
