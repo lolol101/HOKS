@@ -30,7 +30,7 @@ void Server::newConnection() {
 void Server::slotReadyRead() {
     QTcpSocket* socket = static_cast<QTcpSocket*>(sender());
     QDataStream in(socket);
-    in.setVersion(QDataStream::Qt_6_4);
+    in.setVersion(QDataStream::Qt_5_15);
     if (in.status() == QDataStream::Ok) {
         while (true) {
             if (clientsMsgSize[socket] == 0) {

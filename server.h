@@ -4,6 +4,7 @@
 #include <iostream>
 #include <QTcpServer>
 #include <QTcpSocket>
+#include <QDataStream>
 #include <unordered_map>
 #include "commands.h"
 
