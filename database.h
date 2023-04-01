@@ -45,6 +45,16 @@ namespace db_space {
         {CHATS::ARRAY_PEOPLE, "people"}
     };
 
+    struct msg {
+        QString author;
+        QString time;
+        QString text_message;
+        bool media;
+
+        msg() = default;
+        msg(QString author_, QString time_, QString text_, bool media_);
+    };
+
     class Database
     {
     public:
@@ -69,17 +79,20 @@ namespace db_space {
         QString get_data_from_chats(int chat_id, CHATS column);
         bool change_data_in_chats(int chat_id, CHATS column, QString new_data);
 
-        //TODO
-//        bool delete_account();
-//        bool send_message();
+        QStringList get_array_of_chat_id_for_user(QString username);
+        QStringList get_array_of_users_in_chat(int id);
 
+        int create_chat(QString name_or_private, QStringList people);
+        void delete_chat(int id);
 
-//        QVector<QString> get_all_messages_from_chat();
-//        QVector<QString> get_other_usernames_in_this_chat();
-//        bool delete_chat();
-//        bool delete_message();
-//        bool edit_message();
-        //-------------------------------
+        void delete_account(QString username);
+        QVector<msg> get_all_msg_from_chat(int id);
+
+        void insert_message(int number_chat, QString author, QString text_msg, bool media);
+        void delete_message(int msg_id);
+        void edit_message(int msg_id, QString new_msg);
+        QString get_time_db();
+
         bool check_user_in_bd(QString username);
         bool check_pass_by_username(QString username, QString pass);
     private:

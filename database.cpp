@@ -115,25 +115,137 @@ namespace db_space {
         }
     }
 
-//    bool Database::delete_account()
-//    {
+    QStringList Database::get_array_of_chat_id_for_user(QString username)
+    {
+        QStringList array;
+        QString tmp_string;
+        QSqlQuery query(obj);
 
-//    }
+        query.exec("SELECT chat_of_users FROM users WHERE username = '"+username+"'");
+        query.next();
 
-//    bool Database::send_message()
-//    {
+        tmp_string = query.value(0).toString();
+        tmp_string.remove(0,1);
+        tmp_string.remove(tmp_string.size()-1,1);
 
-//    }
+        array = tmp_string.split(',');
+        return array;
+    }
 
-//    QVector<QString> Database::get_all_messages_from_chat()
-//    {
+    QStringList Database::get_array_of_users_in_chat(int id)
+    {
+        QStringList array;
+        QString tmp_string;
+        QSqlQuery query(obj);
 
-//    }
+        query.exec("SELECT people FROM chats WHERE chat_id = '"+QString::number(id)+"'");
+        query.next();
 
-//    QVector<QString> Database::get_other_usernames_in_this_chat()
-//    {
+        tmp_string = query.value(0).toString();
+        tmp_string.remove(0,1);
+        tmp_string.remove(tmp_string.size()-1,1);
 
-//    }
+        array = tmp_string.split(',');
+        return array;
+    }
+
+    int Database::create_chat(QString name_or_private, QStringList people)
+    {
+        //return chat_id
+        QSqlQuery query(obj);
+        query.exec("INSERT INTO chats (chat_id,name_or_private,people) VALUES(DEFAULT,'"+
+                                  name_or_private+"','{"+ people.join(',')+"}') RETURNING chat_id");
+        query.next();
+        return query.value(0).toInt();
+    }
+
+    void Database::delete_chat(int id)
+    {
+        QSqlQuery query(obj);
+        //get users in this chat
+        QStringList tmp_list;
+        QStringList users = get_array_of_users_in_chat(id);
+        for (auto& item: users) {
+            tmp_list = get_array_of_chat_id_for_user(item);
+            tmp_list.removeOne(QString::number(id));
+            query.exec("UPDATE users SET chat_of_users = '{"
+                       +tmp_list.join(',')+"}' WHERE username = '"
+                       +item+"'");
+        }
+        //deleting messages in table messages
+        query.exec("DELETE FROM messages WHERE chat_id = "+QString::number(id));
+        //deleting chat
+        query.exec("DELETE FROM chats WHERE chat_id = "+QString::number(id));
+    }
+
+    void Database::delete_account(QString username)
+    {
+        QSqlQuery query(obj);
+
+        //rename author in messages with DELETED
+        query.exec("UPDATE messages SET author = 'DELETED' WHERE author = '"+username+"'");
+
+        //deleting account from chats
+        QStringList tmp_array;
+        QStringList array = get_array_of_chat_id_for_user(username);
+        for (auto& chat: array) {
+            tmp_array = get_array_of_users_in_chat(chat.toInt());
+            tmp_array.removeOne(username);
+            query.exec("UPDATE chats SET people = '{"
+                       +tmp_array.join(',')
+                       +"}' WHERE chat_id = "+chat);
+        }
+
+        //deleting account from user
+        query.exec("DELETE FROM users WHERE username = '"+username+"'");
+    }
+
+    QVector<msg> Database::get_all_msg_from_chat(int id)
+    {
+        QSqlQuery query(obj);
+        query.exec("SELECT author,time,text_message,media FROM messages WHERE number_chat = "+QString::number(id)+" ORDER BY time ASC");
+
+        QVector<msg> array(query.size());
+        for (int i = 0; i < static_cast<int>(query.size()); i++) {
+            query.next();
+            array[i] = msg(query.value(0).toString(),
+                           query.value(1).toString(),
+                           query.value(2).toString(),
+                           query.value(3).toBool());
+        }
+        return array;
+    }
+
+    void Database::insert_message(int number_chat, QString author, QString text_msg, bool media)
+    {
+        QSqlQuery query(obj);
+        query.exec("INSERT INTO messages (msg_id,number_chat,time,author,text_message,media) VALUES(DEFAULT,"
+                   +QString::number(number_chat)+",'"+get_time_db()
+                   +"','"+author+"','"+text_msg+"','"+QString::number(static_cast<int>(media)) +"')");
+    }
+
+    void Database::delete_message(int msg_id)
+    {
+        QSqlQuery query(obj);
+        query.exec("DELETE FROM messages WHERE msg_id = "+QString::number(msg_id));
+    }
+
+    void Database::edit_message(int msg_id, QString new_msg)
+    {
+        QSqlQuery query(obj);
+        query.exec("UPDATE messages SET text_message = '"
+                   +new_msg+"' WHERE msg_id = "+QString::number(msg_id));
+    }
+
+    QString Database::get_time_db()
+    {
+        QDateTime dt = QDateTime::currentDateTime();
+        QString format = QString::number(dt.date().year())+"-"
+                +QString::number(dt.date().month())+"-"
+                +QString::number(dt.date().day())+" "
+                +dt.time().currentTime().toString();
+        return format;
+    }
 
     bool Database::check_user_in_bd(QString username) {
         //true - user is already registered
@@ -165,4 +277,7 @@ namespace db_space {
         QString bd_pass = query.value(2).toString();
         return (bd_pass == pass);
     }
+
+    msg::msg(QString author_, QString time_, QString text_, bool media_): author(std::move(author_)),time(std::move(time_)),text_message(std::move(text_)),media(media_){}
+
 }
