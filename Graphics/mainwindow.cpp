@@ -1,7 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include <appstyle.h>
-#include <QDebug>
 #include <QMessageBox>
 #include <QString>
 #include <vector>
