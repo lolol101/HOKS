@@ -1,5 +1,5 @@
-#include "mainwindow.h"
-#include "ui_mainwindow.h"
+#include "appGraphic.h"
+#include "ui_appGraphic.h"
 #include <appstyle.h>
 #include <QMessageBox>
 #include <QString>
@@ -7,16 +7,16 @@
 #include <string>
 #include <algorithm>
 
-MainWindow::MainWindow(QWidget *parent)
+appGraphic::appGraphic(QWidget *parent)
     : QMainWindow(parent)
-    , ui(new Ui::MainWindow)
+    , ui(new Ui::appGraphic)
 {
-    show_main_window();
+    show_window_skillet();
     show_authorization();
     show_registration();
 }
 
-void MainWindow::recover_registration_window_view() {
+void appGraphic::recover_registration_window_view() {
     login_authorization_label->setStyleSheet(current_style.label_standard);
     password_authorization_label->setStyleSheet(current_style.label_standard);
     email_registration_label->setStyleSheet(current_style.label_standard);
@@ -28,10 +28,9 @@ void MainWindow::recover_registration_window_view() {
     email_registration_label->setText("E-mail");
     first_name_registration_label->setText("Имя");
     last_name_registration_label->setText("Фамилия");
-
 }
 
-void MainWindow::show_main_window() {
+void appGraphic::show_window_skillet() {
     this->move(400, 180);
     this->setFixedSize(500, 460);
     QString default_style = current_style.button_standard +
@@ -43,7 +42,14 @@ void MainWindow::show_main_window() {
     ui->setupUi(this);
 }
 
-void MainWindow::show_authorization() {
+void appGraphic::show_main_window() {
+    authorization_widget->hide();
+    registration_widget->hide();
+    this->move(170, 20);
+    this->setFixedSize(1000, 700);
+}
+
+void appGraphic::show_authorization() {
     authorization_widget = new QWidget(this);
     authorization_widget->setGeometry(0, 0, 500, 279);
     HOKS_authorization_label = new QLabel("Добро пожаловать в HOKS!", authorization_widget);
@@ -71,10 +77,10 @@ void MainWindow::show_authorization() {
     authorization_button->setGeometry(200, 330, 100, 40);
     authorization_button->setText("Войти");
 
-    connect(authorization_button, &QPushButton::clicked, this, &MainWindow::push_on_authorization_button);
+    connect(authorization_button, &QPushButton::clicked, this, & appGraphic::push_on_authorization_button);
 }
 
-void MainWindow::show_registration() {
+void appGraphic::show_registration() {
     registration_widget = new QWidget(this);
     registration_widget->setGeometry(0, 279, 500, 682);
     registration_widget->hide();
@@ -109,17 +115,15 @@ void MainWindow::show_registration() {
     registration_button->setGeometry(150, 264, 180, 40);
     registration_button->setText("Зарегистрироваться");
 
-    connect(registration_button, &QPushButton::clicked, this, &MainWindow::push_on_registration_button);
+    connect(registration_button, &QPushButton::clicked, this, & appGraphic::push_on_registration_button);
 }
 
-void MainWindow::push_on_authorization_button() {
-    QString user_name = login_authorization_line_edit->text();
+void appGraphic::push_on_authorization_button() {
+    QString user_login = login_authorization_line_edit->text();
     QString user_password = password_authorization_line_edit->text();
-    if (user_name == "ilia" && user_password == "123") { // Пользователь есть в БД
-        authorization_widget->hide();
-        authorization_button->hide();
-        this->move(170, 20);
-        this->setFixedSize(1000, 700);
+    emit user_authorization_signal(user_login, user_password);
+    if (user_login == "ilia" && user_password == "123") { // Пользователь есть в БД
+        show_main_window();
     } else { // Пользователя в БД нет
         QMessageBox::StandardButton registration_dialog_box;
         registration_dialog_box = QMessageBox::question(nullptr,
@@ -135,12 +139,13 @@ void MainWindow::push_on_authorization_button() {
     }
 }
 
-void MainWindow::push_on_registration_button() {
+void appGraphic::push_on_registration_button() {
     QString user_login = login_authorization_line_edit->text();
     QString user_password = password_authorization_line_edit->text();
     QString user_email = email_registration_line_edit->text();
     QString user_first_name = first_name_registration_line_edit->text();
     QString user_last_name = last_name_registration_line_edit->text();
+    emit user_registration_signal(user_login, user_password, user_email, user_first_name, user_last_name);
 
     recover_registration_window_view();
 
@@ -170,14 +175,11 @@ void MainWindow::push_on_registration_button() {
         last_name_registration_label->setStyleSheet(current_style.wrong_registration_data_label);
         is_user_data_correct = false;
     } if (is_user_data_correct) { // Пользователь успешно зарегистрировался
-        authorization_widget->hide();
-        registration_widget->hide();
-        this->move(170, 20);
-        this->setFixedSize(1000, 700);
+        show_main_window();
     }
 }
 
-MainWindow::~MainWindow() {
+appGraphic::~ appGraphic() {
     delete ui;
 }
 

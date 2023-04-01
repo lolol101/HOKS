@@ -1,5 +1,5 @@
-#ifndef MAINWINDOW_H
-#define MAINWINDOW_H
+#ifndef APPGRAPHIC_H
+#define APPGRAPHIC_H
 
 #include <QMainWindow>
 #include <QLabel>
@@ -9,16 +9,16 @@
 #include <appstyle.h>
 
 QT_BEGIN_NAMESPACE
-namespace Ui { class MainWindow; }
+namespace Ui { class appGraphic; }
 QT_END_NAMESPACE
 
-class MainWindow : public QMainWindow
+class appGraphic : public QMainWindow
 {
     Q_OBJECT
 
 public:
-    MainWindow(QWidget *parent = nullptr);
-    ~MainWindow();
+    appGraphic(QWidget *parent = nullptr);
+    ~appGraphic();
 
     QWidget *authorization_widget;
     QWidget *registration_widget;
@@ -43,16 +43,26 @@ public:
 
     style_table current_style{};
 
+    void show_window_skillet();
+    void show_main_window();
     void show_authorization();
     void show_registration();
-    void show_main_window();
     void recover_registration_window_view();
 
 private slots:
     void push_on_authorization_button();
     void push_on_registration_button();
 
+signals:
+    void user_authorization_signal(QString &user_login, QString &user_password);
+    void user_registration_signal(QString &user_login,
+                           QString &user_password,
+                           QString &user_email,
+                           QString &user_first_name,
+                           QString &user_last_name);
+
+
 private:
-    Ui::MainWindow *ui;
+    Ui::appGraphic *ui;
 };
-#endif // MAINWINDOW_H
+#endif // APPGRAPHIC_H
