@@ -31,6 +31,10 @@ void appGraphic::recover_registration_window_view() {
 }
 
 void appGraphic::show_window_skillet() {
+    show_authorization();
+    authorization_widget->hide();
+    show_registration();
+    registration_widget->hide();
     this->move(400, 180);
     this->setFixedSize(500, 460);
     QString default_style = current_style.button_standard +
@@ -45,6 +49,7 @@ void appGraphic::show_window_skillet() {
 void appGraphic::show_main_window() {
     authorization_widget->hide();
     registration_widget->hide();
+    authorization_button->hide();
     this->move(170, 20);
     this->setFixedSize(1000, 700);
 }
@@ -81,9 +86,12 @@ void appGraphic::show_authorization() {
 }
 
 void appGraphic::show_registration() {
+    this->move(400, 40);
+    this->setFixedSize(500, 682);
+    authorization_button->hide();
+
     registration_widget = new QWidget(this);
     registration_widget->setGeometry(0, 279, 500, 682);
-    registration_widget->hide();
 
     // E-mail
     email_registration_label = new QLabel("E-mail", registration_widget);
@@ -115,6 +123,8 @@ void appGraphic::show_registration() {
     registration_button->setGeometry(150, 264, 180, 40);
     registration_button->setText("Зарегистрироваться");
 
+    registration_widget->show();
+
     connect(registration_button, &QPushButton::clicked, this, & appGraphic::push_on_registration_button);
 }
 
@@ -122,7 +132,7 @@ void appGraphic::push_on_authorization_button() {
     QString user_login = login_authorization_line_edit->text();
     QString user_password = password_authorization_line_edit->text();
     emit user_authorization_signal(user_login, user_password);
-//    if (user_login == "ilia" && user_password == "123") { // Пользователь есть в БД
+//    if (user_login == "ilia" && user_password == "123") { // Пользователь есть в
 //        show_main_window();
 //    } else { // Пользователя в БД нет
 //        QMessageBox::StandardButton registration_dialog_box;
@@ -131,10 +141,7 @@ void appGraphic::push_on_authorization_button() {
 //        "Пользователь с введёнными данными не найден. \nХотите зарегистрироваться?",
 //        QMessageBox::Yes | QMessageBox::No);
 //            if (registration_dialog_box == QMessageBox::Yes) {
-//                this->move(400, 40);
-//                this->setFixedSize(500, 682);
-//                authorization_button->hide();
-//                registration_widget->show();
+//                show_registration();
 //            }
 //    }
 }
