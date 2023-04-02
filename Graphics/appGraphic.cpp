@@ -11,9 +11,9 @@ appGraphic::appGraphic(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::appGraphic)
 {
-    show_window_skillet();
-    show_authorization();
-    show_registration();
+//    show_window_skillet();
+//    show_authorization();
+//    show_registration();
 }
 
 void appGraphic::recover_registration_window_view() {
