@@ -49,17 +49,19 @@ public:
     void show_registration();
     void recover_registration_window_view();
 
+    void change_user_registration_label(QLabel *registration_label, const QString &new_text, const style_table &current_style);
+
 private slots:
     void push_on_authorization_button();
     void push_on_registration_button();
 
 signals:
-    void user_authorization_signal(QString &user_login, QString &user_password);
-    void user_registration_signal(QString &user_login,
-                           QString &user_password,
-                           QString &user_email,
-                           QString &user_first_name,
-                           QString &user_last_name);
+    void user_authorization_signal(const QString &user_login, const QString &user_password);
+    void user_registration_signal(const QString &user_login,
+                           const QString &user_password,
+                           const QString &user_email,
+                           const QString &user_first_name,
+                           const QString &user_last_name);
 
 
 private:
