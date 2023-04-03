@@ -58,8 +58,7 @@ void appGraphic::make_authorization_elements() {
     authorization_button->setGeometry(200, 330, 100, 40);
     authorization_button->setText("Войти");
 
-    authorization_widget->hide();
-    authorization_button->hide();
+    hide_authorization();
 
     connect(authorization_button, &QPushButton::clicked, this, & appGraphic::push_on_authorization_button);
 }
@@ -104,9 +103,7 @@ void appGraphic::make_registration_elements() {
     back_to_authorization_button->setGeometry(20, 20, 24, 24);
     back_to_authorization_button->setStyleSheet(current_style.back_to_authorization_button);
 
-    registration_widget->hide();
-    registration_button->hide();
-    back_to_authorization_button->hide();
+    hide_registration();
 
     connect(back_to_authorization_button, &QPushButton::clicked, this, &appGraphic::push_on_back_to_authorization_button);
     connect(registration_button, &QPushButton::clicked, this, &appGraphic::push_on_registration_button);
@@ -144,6 +141,17 @@ void appGraphic::show_registration() {
     registration_widget->show();
     registration_button->show();
     back_to_authorization_button->show();
+}
+
+void appGraphic::hide_authorization() {
+    authorization_widget->hide();
+    authorization_button->hide();
+}
+
+void appGraphic::hide_registration() {
+    registration_widget->hide();
+    registration_button->hide();
+    back_to_authorization_button->hide();
 }
 
 void appGraphic::recover_registration_window_view() {
@@ -190,35 +198,59 @@ void appGraphic::push_on_registration_button() {
     bool is_user_data_correct = true;
     // Такой пользователь уже существует
     if (std::find(all_users.begin(), all_users.end(), user_login) != all_users.end()) {
-        change_user_registration_label(login_authorization_label, "Логин затят", current_style);
+        show_login_input_error("Логин затят");
         is_user_data_correct = false;
     } if (user_password.size() < 3) { // Пароль не является безопасным
-        change_user_registration_label(password_authorization_label, "Пароль слишком короткий", current_style);
+        show_password_input_error("Пароль слишком короткий");
         is_user_data_correct = false;
     } if (user_email.indexOf("@") == -1) { // E-mail некорректен
-        change_user_registration_label(email_registration_label, "E-mail указан неверно", current_style);
+        show_email_input_error("E-mail указан неверно");
         is_user_data_correct = false;
     } if (user_first_name == "") { // Имя пустое
-        change_user_registration_label(first_name_registration_label, "Имя не может быть пустым", current_style);
+        show_first_name_input_error("Имя не может быть пустым");
         is_user_data_correct = false;
     } if (user_last_name == "") { // Фамилия пустая
-        change_user_registration_label(last_name_registration_label, "Фамилия не может быть пустой", current_style);
+        show_last_name_input_error("Фамилия не может быть пустой");
         is_user_data_correct = false;
     } if (is_user_data_correct) { // Пользователь успешно зарегистрировался
         show_main_window();
     }
 }
 
-void appGraphic::change_user_registration_label(QLabel *registration_label, const QString &new_text, const style_table &current_style) {
-    registration_label->setText(new_text);
-    registration_label->setStyleSheet(current_style.wrong_registration_data_label);
-}
+//void appGraphic::change_user_registration_label(QLabel *registration_label, const QString &new_text, const style_table &current_style) {
+//    registration_label->setText(new_text);
+//    registration_label->setStyleSheet(current_style.wrong_registration_data_label);
+//}
 
 void appGraphic::push_on_back_to_authorization_button() {
-    registration_widget->hide();
-    back_to_authorization_button->hide();
+    hide_registration();
     show_authorization();
     recover_registration_window_view();
+}
+
+void appGraphic::show_login_input_error(const QString &new_text) {
+    login_authorization_label->setText(new_text);
+    login_authorization_label->setStyleSheet(current_style.wrong_registration_data_label);
+}
+
+void appGraphic::show_password_input_error(const QString &new_text) {
+    password_authorization_label->setText(new_text);
+    password_authorization_label->setStyleSheet(current_style.wrong_registration_data_label);
+}
+
+void appGraphic::show_email_input_error(const QString &new_text) {
+    email_registration_label->setText(new_text);
+    email_registration_label->setStyleSheet(current_style.wrong_registration_data_label);
+}
+
+void appGraphic::show_first_name_input_error(const QString &new_text) {
+    first_name_registration_label->setText(new_text);
+    first_name_registration_label->setStyleSheet(current_style.wrong_registration_data_label);
+}
+
+void appGraphic::show_last_name_input_error(const QString &new_text) {
+    last_name_registration_label->setText(new_text);
+    last_name_registration_label->setStyleSheet(current_style.wrong_registration_data_label);
 }
 
 appGraphic::~ appGraphic() {

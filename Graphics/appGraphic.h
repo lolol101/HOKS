@@ -7,6 +7,7 @@
 #include <QPushButton>
 #include <QWidget>
 #include <appstyle.h>
+#include <QString>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class appGraphic; }
@@ -19,6 +20,13 @@ class appGraphic : public QMainWindow
 public:
     appGraphic(QWidget *parent = nullptr);
     ~appGraphic();
+
+    void show_authorization();
+    void show_registration();
+    void show_main_window();
+
+    void hide_authorization();
+    void hide_registration();
 
     QWidget *authorization_widget;
     QWidget *registration_widget;
@@ -42,15 +50,18 @@ public:
     QPushButton *registration_button;
     QPushButton *back_to_authorization_button;
 
-    style_table current_style{};
+    style_table current_style;
 
     void make_window_skillet();
     void make_authorization_elements();
     void make_registration_elements();
 
-    void show_main_window();
-    void show_authorization();
-    void show_registration();
+    void show_login_input_error(const QString &new_text);
+    void show_password_input_error(const QString &new_text);
+    void show_email_input_error(const QString &new_text);
+    void show_first_name_input_error(const QString &new_text);
+    void show_last_name_input_error(const QString &new_text);
+
     void recover_registration_window_view();
 
     void change_user_registration_label(QLabel *registration_label, const QString &new_text, const style_table &current_style);
