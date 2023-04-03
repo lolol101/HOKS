@@ -18,6 +18,9 @@ appGraphic::appGraphic(QWidget *parent)
 }
 
 void appGraphic::make_window_skillet() {
+    this->move(400, 180);
+    this->setFixedSize(500, 460);
+
     QString default_style = current_style.button_standard +
             current_style.main_window +
             current_style.line_edit_standard +
@@ -93,7 +96,7 @@ void appGraphic::make_registration_elements() {
 
     // Кнопка регистрации:
     registration_button = new QPushButton(registration_widget);
-    registration_button->setGeometry(150, 264, 180, 40);
+    registration_button->setGeometry(160, 264, 180, 40);
     registration_button->setText("Зарегистрироваться");
 
     // Кнорка "назад"
@@ -110,6 +113,8 @@ void appGraphic::make_registration_elements() {
 }
 
 void appGraphic::show_main_window() {
+    this->setWindowTitle("HOKS");
+
     this->move(170, 20);
     this->setFixedSize(1000, 700);
 
@@ -120,6 +125,8 @@ void appGraphic::show_main_window() {
 }
 
 void appGraphic::show_authorization() {
+    this->setWindowTitle("Вход в HOKS");
+
     this->move(400, 180);
     this->setFixedSize(500, 460);
 
@@ -128,6 +135,8 @@ void appGraphic::show_authorization() {
 }
 
 void appGraphic::show_registration() {
+    this->setWindowTitle("Регистрация в HOKS");
+
     this->move(400, 40);
     this->setFixedSize(500, 682);
 
