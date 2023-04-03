@@ -218,9 +218,9 @@ void appGraphic::push_on_back_to_authorization_button() {
     registration_widget->hide();
     back_to_authorization_button->hide();
     show_authorization();
+    recover_registration_window_view();
 }
 
 appGraphic::~ appGraphic() {
     delete ui;
 }
-
