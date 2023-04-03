@@ -29,7 +29,7 @@
    <bool>false</bool>
   </property>
   <property name="windowTitle">
-   <string>Вход в HOKS</string>
+   <string/>
   </property>
   <property name="windowIcon">
    <iconset theme="edit-find-replace">
@@ -38,11 +38,18 @@
   <property name="styleSheet">
    <string notr="true"/>
   </property>
-  <property name="animated">
+  <property name="animated" stdset="0">
    <bool>true</bool>
   </property>
-  <widget class="QWidget" name="centralwidget"/>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>appGraphic</class>
+   <extends>QWidget</extends>
+   <header>appgraphic.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

@@ -13,13 +13,13 @@ public:
             {"button_standard_color",                           "#ffffff;"},
             {"button_standard_border_color_hover",              "#777777;"},
             {"button_standard_background_color_pressed_hover",  "#777777;"},
-            {"button_standard_color_pressed_hover",             "#ffffff;"},
             {"line_edit_standard_color",                        "#a4a4a4;"},
             {"line_edit_standard_background_color",             "#333333;"},
             {"label_standard_color",                            "#a4a4a4;"},
             {"message_box_standard_background_color",           "#111111;"},
             {"authorization_label_color",                       "#ffffff;"},
             {"wrong_registration_data_label_color",             "#ff7373;"},
+            {"back_to_authorization_button_pressed_hover",      "#111111;"}
     };
 
     QString main_window =
@@ -40,7 +40,6 @@ public:
             "}"
             "QPushButton:pressed:hover {"
                 "background-color: " + colors["button_standard_background_color_pressed_hover"] +
-                "color: " + colors["button_standard_color_pressed_hover"] +
             "}";
     QString line_edit_standard =
             "QLineEdit {"
@@ -66,6 +65,22 @@ public:
             "qproperty-alignment: AlignLeft;";
     QString wrong_registration_data_label =
             "color: " + colors["wrong_registration_data_label_color"];
+    QString back_to_authorization_button =
+            "QPushButton {"
+                "border: 0px solid;"
+            "}"
+            "QPushButton:pressed:hover {"
+                "background-color: " + colors["back_to_authorization_button_pressed_hover"] +
+            "}"
+            "QPushButton {"
+                "background-image: url(:/icons/icons/back_button_default.png);"
+            "}"
+            "QPushButton:hover {"
+                "background-image: url(:/icons/icons/back_button_hovered.png);"
+            "}"
+            "QPushButton:pressed:hover {"
+                "background-image: url(:/icons/icons/back_button_hovered_pushed.png);"
+            "}";
 };
 
 #endif // APPSTYLE_H

@@ -40,10 +40,14 @@ public:
 
     QPushButton *authorization_button;
     QPushButton *registration_button;
+    QPushButton *back_to_authorization_button;
 
     style_table current_style{};
 
-    void show_window_skillet();
+    void make_window_skillet();
+    void make_authorization_elements();
+    void make_registration_elements();
+
     void show_main_window();
     void show_authorization();
     void show_registration();
@@ -54,6 +58,7 @@ public:
 private slots:
     void push_on_authorization_button();
     void push_on_registration_button();
+    void push_on_back_to_authorization_button();
 
 signals:
     void user_authorization_signal(const QString &user_login, const QString &user_password);
