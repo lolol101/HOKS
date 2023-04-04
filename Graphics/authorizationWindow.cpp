@@ -14,7 +14,6 @@ authorizationWindow::authorizationWindow(QWidget *parent)
     make_window_skillet();
     make_authorization_elements();
     make_registration_elements();
-    show_authorization();
 }
 
 void authorizationWindow::make_window_skillet() {
