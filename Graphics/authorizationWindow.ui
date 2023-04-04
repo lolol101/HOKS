@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>appGraphic</class>
- <widget class="appGraphic" name="appGraphic">
+ <class>authorizationWindow</class>
+ <widget class="authorizationWindow" name="authorizationWindow">
   <property name="enabled">
    <bool>true</bool>
   </property>
@@ -44,9 +44,9 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>appGraphic</class>
+   <class>authorizationWindow</class>
    <extends>QWidget</extends>
-   <header>appgraphic.h</header>
+   <header>authorizationWindow.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

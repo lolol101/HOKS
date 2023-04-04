@@ -1,5 +1,5 @@
-#ifndef APPGRAPHIC_H
-#define APPGRAPHIC_H
+#ifndef authorizationWindow_H
+#define authorizationWindow_H
 
 #include <QMainWindow>
 #include <QLabel>
@@ -10,23 +10,14 @@
 #include <QString>
 
 QT_BEGIN_NAMESPACE
-namespace Ui { class appGraphic; }
+namespace Ui { class authorizationWindow; }
 QT_END_NAMESPACE
 
-class appGraphic : public QMainWindow
+class authorizationWindow : public QMainWindow
 {
     Q_OBJECT
-
-public:
-    appGraphic(QWidget *parent = nullptr);
-    ~appGraphic();
-
-    void show_authorization();
-    void show_registration();
-    void show_main_window();
-
-    void hide_authorization();
-    void hide_registration();
+private:
+    Ui::authorizationWindow *ui;
 
     QWidget *authorization_widget;
     QWidget *registration_widget;
@@ -55,6 +46,16 @@ public:
     void make_window_skillet();
     void make_authorization_elements();
     void make_registration_elements();
+public:
+    authorizationWindow(QWidget *parent = nullptr);
+    ~authorizationWindow();
+
+    void show_authorization();
+    void show_registration();
+    void show_main_window();
+
+    void hide_authorization();
+    void hide_registration();
 
     void show_login_input_error(const QString &new_text);
     void show_password_input_error(const QString &new_text);
@@ -64,7 +65,11 @@ public:
 
     void recover_registration_window_view();
 
-    void change_user_registration_label(QLabel *registration_label, const QString &new_text, const style_table &current_style);
+    void clear_login_input();
+    void clear_password_input();
+    void clear_email_input();
+    void clear_first_name_input();
+    void clear_last_name_input();
 
 private slots:
     void push_on_authorization_button();
@@ -79,8 +84,5 @@ signals:
                            const QString &user_first_name,
                            const QString &user_last_name);
 
-
-private:
-    Ui::appGraphic *ui;
 };
-#endif // APPGRAPHIC_H
+#endif // authorizationWindow_H
