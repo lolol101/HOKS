@@ -6,7 +6,7 @@
 #include <vector>
 #include <string>
 #include <algorithm>
-//#include <mainwindow.h>
+#include <mainwindow.h>
 
 authorizationWindow::authorizationWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -113,9 +113,9 @@ void authorizationWindow::make_registration_elements() {
 void authorizationWindow::show_main_window() {
     this->setWindowTitle("HOKS");
 
-//    close();
-//    MainWindow m;
-//    m.show_main_window();
+    this->close();
+    MainWindow m;
+    m.show_main_window();
 }
 
 void authorizationWindow::show_authorization() {

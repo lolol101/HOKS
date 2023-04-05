@@ -9,14 +9,26 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    MainWindow.cpp \
+    Room.cpp \
+    RoomIconWidget.cpp \
+    RoomInsideWidget.cpp \
     authorizationWindow.cpp \
     main.cpp
 
 HEADERS += \
+    MainWindow.h \
+    Room.h \
+    RoomIconWidget.h \
+    RoomInsideWidget.h \
     authorizationWindow.h \
     appstyle.h
 
 FORMS += \
+    MainWindow.ui \
+    Room.ui \
+    RoomIconWidget.ui \
+    RoomInsideWidget.ui \
     authorizationWindow.ui
 
 # Default rules for deployment.
