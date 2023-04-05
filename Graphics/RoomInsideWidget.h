@@ -15,9 +15,7 @@ class RoomInsideWidget : public QWidget
 public:
     explicit RoomInsideWidget(QWidget *parent = nullptr);
 
-    RoomInsideWidget(const RoomIconWidget *room_icon) {
-        room_inside_ = new QWidget(this);
-    }
+    RoomInsideWidget(const RoomIconWidget *room_icon);
 
     QWidget *room_inside_;
 

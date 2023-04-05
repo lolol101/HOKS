@@ -8,6 +8,10 @@ RoomInsideWidget::RoomInsideWidget(QWidget *parent) :
     ui->setupUi(this);
 }
 
+RoomInsideWidget::RoomInsideWidget(const RoomIconWidget *room_icon) {
+    room_inside_ = new QWidget(this);
+}
+
 RoomInsideWidget::~RoomInsideWidget()
 {
     delete ui;

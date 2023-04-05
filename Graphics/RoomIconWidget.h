@@ -4,6 +4,7 @@
 #include <QWidget>
 #include <QString>
 #include <QPushButton>
+#include <appstyle.h>
 
 namespace Ui {
 class RoomIconWidget;
@@ -16,14 +17,11 @@ class RoomIconWidget : public QWidget
 public:
     explicit RoomIconWidget(QWidget *parent = nullptr);
 
-    RoomIconWidget(const QString &room_name) {
-        room_name_ = room_name;
-        room_icon_ = new QPushButton(this);
-        room_icon_->setText(room_name);
-    }
+    RoomIconWidget(const QString &room_name);
 
     QString room_name_;
     QPushButton *room_icon_;
+    style_table current_style;
 
     ~RoomIconWidget();
 

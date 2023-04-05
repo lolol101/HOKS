@@ -19,7 +19,11 @@ public:
             {"message_box_standard_background_color",           "#111111;"},
             {"authorization_label_color",                       "#ffffff;"},
             {"wrong_registration_data_label_color",             "#ff7373;"},
-            {"back_to_authorization_button_pressed_hover",      "#111111;"}
+            {"back_to_authorization_button_pressed_hover",      "#111111;"},
+            {"room_icon_background_color",                      "#161616;"},
+            {"room_icon_border_color",                          "#606060;"},
+            {"room_inside_background_color",                    "#111111;"},
+            {"rooms_space_widget_background_color",             "#111111;"}
     };
 
     QString main_window =
@@ -80,6 +84,22 @@ public:
             "}"
             "QPushButton:pressed:hover {"
                 "background-image: url(:/icons/icons/back_button_hovered_pushed.png);"
+            "}";
+    QString room_icon =
+            "QPushButton {"
+                "background-color: "  + colors["room_icon_background_color"] +
+                "border: 1px solid;"
+                "border-radius: 25px;"
+                "border-color: "  + colors["room_icon_border_color"] +
+             "}";
+    QString room_inside =
+            "QWidget {"
+                "background-color: " + colors["room_inside_background_color"] +
+            "}";
+    QString rooms_space_scroll_bar = "";
+    QString rooms_space_widget =
+            "QWidget {"
+                "background-color: " + colors["rooms_space_widget_background_color"] +
             "}";
 };
 
