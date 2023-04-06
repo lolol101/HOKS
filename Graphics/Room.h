@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include <QString>
+#include <QList>
 #include <RoomIconWidget.h>
 #include <RoomInsideWidget.h>
 
@@ -17,7 +18,7 @@ class Room : public QWidget
 public:
     explicit Room(QWidget *parent = nullptr);
 
-    explicit Room(const QString &room_name);
+    explicit Room(const QString &room_name, QList<QString> *room_messages);
 
     RoomIconWidget *room_icon;
     RoomInsideWidget *room_inside;

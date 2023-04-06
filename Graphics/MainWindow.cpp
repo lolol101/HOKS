@@ -9,8 +9,12 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     make_window_skillet();
+    QList<QString> *room_messages = new QList<QString>;
+    room_messages->append("Привет!");
+    room_messages->append("Как дела?");
+    room_messages->append("Что делаешь?)");
     for (int i = 0; i < 20; ++i) {
-        Room *r = new Room("Комната друзей");
+        Room *r = new Room("Комната друзей", room_messages);
         show_room_icon(*r, i);
         show_room_inside(*r);
         r->deleteLater();
@@ -63,6 +67,9 @@ void MainWindow::show_room_inside(const Room &room) {
     room.room_inside->room_inside_->move(width_rooms_area + delta, 0);
     room.room_inside->room_inside_->setFixedSize(this->width() - width_rooms_area - delta, this->height());
     room.room_inside->room_inside_->show();
+    room.room_inside->message_line->setFixedSize(743, 46);
+    room.room_inside->message_line->move(4, room.room_inside->room_inside_->height() - room.room_inside->message_line->height());
+    room.room_inside->message_line->setStyleSheet(current_style.message_line);
 }
 
 MainWindow::~MainWindow()
