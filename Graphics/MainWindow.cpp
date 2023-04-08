@@ -11,14 +11,6 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     make_window_skillet();
-        Room *r = new Room("Комната друзей");
-        show_room_icon(*r);
-        show_room_inside(*r);
-        MessageWidget& msg1 = r->room_inside->append_user_message("Hello, my friend!");
-        MessageWidget& msg2 = r->room_inside->append_other_message("Hi!");
-        r->room_inside->show_message(&msg1);
-        r->room_inside->show_message(&msg2);
-        r->deleteLater();
 }
 
 void MainWindow::show_main_window() {
