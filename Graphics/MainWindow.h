@@ -28,11 +28,13 @@ public:
     void make_window_skillet();
     void show_main_window();
 
-    void show_room_icon(const Room &room_icon, int y);
+    void show_room_icon(const Room &room_icon);
     void show_room_inside(const Room &room_inside);
 
     const int width_rooms_area = 250;
     const int delta = 2;
+
+    int index = 0;
 
     ~MainWindow();
 

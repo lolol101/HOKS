@@ -10,9 +10,9 @@ Room::Room(QWidget *parent) :
     ui->setupUi(this);
 }
 
-Room::Room(const QString &room_name, QList<QString> *room_messages) {
+Room::Room(const QString &room_name) {
     room_icon = new RoomIconWidget(room_name);
-    room_inside = new RoomInsideWidget(room_icon, room_messages);
+    room_inside = new RoomInsideWidget(room_icon);
     room_icon->room_icon_->hide();
     room_inside->room_inside_->hide();
 }

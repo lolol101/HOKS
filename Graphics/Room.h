@@ -18,7 +18,7 @@ class Room : public QWidget
 public:
     explicit Room(QWidget *parent = nullptr);
 
-    explicit Room(const QString &room_name, QList<QString> *room_messages);
+    explicit Room(const QString &room_name);
 
     RoomIconWidget *room_icon;
     RoomInsideWidget *room_inside;

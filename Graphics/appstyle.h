@@ -106,7 +106,7 @@ public:
             "QWidget {"
                 "background-color: " + colors["rooms_space_widget_background_color"] +
             "}";
-    QString message_line =
+    QString inside_message_line =
             "QTextEdit {"
                 "background-color: " + colors["message_line_background_color"] +
                 "color: " + colors["message_line_color"] +
@@ -114,6 +114,22 @@ public:
                 "border-radius: 15px;"
                 "border-color: " + colors["message_line_border_color"] +
                 "padding: 10px 10px;"
+            "}";
+    QString inside_messages_widget =
+                "background-color: #525252;";
+    QString inside_room_name_widget =
+            "QWidget {"
+                "background-color: #727272;"
+            "}";
+    QString messages_widget =
+            "background-color: #2c2c2c;"
+                "border-radius: 15px;";
+    QString messages_label =
+            "QLabel {"
+                "color: #ffffff;"
+                "font-family: Geneva;"
+                "font-size: 16px;"
+                "qproperty-alignment: AlignCenter;"
             "}";
 };
 
