@@ -26,7 +26,7 @@ MainWindow::MainWindow(QWidget *parent) :
 //        }
     NewRoomWidget& new_room = make_creation_new_room();
     show_creation_new_room(&new_room);
-//    new_room.select_people_widget->setFixedHeight(1000);
+    new_room.select_users_widget->setFixedHeight(1000);
     for (int i = 0; i < 100; ++i) {
         QWidget &chb1 = new_room.make_checkbox_for_person("Ilia");
         new_room.show_checkbox_for_person(&chb1);
@@ -118,30 +118,41 @@ NewRoomWidget& MainWindow::make_creation_new_room() {
 
 void MainWindow::show_creation_new_room(NewRoomWidget* new_room_widget) {
     new_room_widget->create_new_room_widget->setParent(this);
-    new_room_widget->select_people_scroll_area->setParent(new_room_widget->create_new_room_widget);
+    new_room_widget->select_users_scroll_area->setParent(new_room_widget->create_new_room_widget);
 
     new_room_widget->create_new_room_widget->setFixedSize(this->width() - width_rooms_area - delta, this->height());
     new_room_widget->create_new_room_widget->move(width_rooms_area + delta, 0);
-//    new_room_widget->create_new_room_widget->setStyleSheet(current_style.create_new_room_widget);
     new_room_widget->create_new_room_widget->show();
 
-    new_room_widget->new_room_name_line_edit->move(0, 0);
-    new_room_widget->new_room_name_line_edit->setFixedSize(this->width() - width_rooms_area - delta, 40);
+    new_room_widget->new_room_name_line_edit->move(270, 0);
+    new_room_widget->new_room_name_line_edit->setFixedSize(470, 38);
     new_room_widget->new_room_name_line_edit->setStyleSheet(current_style.line_edit_standard);
     new_room_widget->new_room_name_line_edit->show();
 
-    new_room_widget->select_people_widget->setFixedSize(748 - 2, 610);
-    new_room_widget->select_people_widget->setStyleSheet(current_style.select_people_widget);
+    new_room_widget->users_search_line_edit->move(0, 650);
+    new_room_widget->users_search_line_edit->setFixedSize(470, 38);
+    new_room_widget->users_search_line_edit->setStyleSheet(current_style.line_edit_standard);
+    new_room_widget->users_search_line_edit->show();
 
-    new_room_widget->select_people_scroll_area->setWidget(new_room_widget->select_people_widget);
-    new_room_widget->select_people_scroll_area->move(0, new_room_widget->new_room_name_line_edit->height());
-    new_room_widget->select_people_scroll_area->setFixedSize(748, 610);
-    new_room_widget->select_people_scroll_area->setStyleSheet("");
+    new_room_widget->room_name_label->move(60, 8);
+    new_room_widget->room_name_label->setStyleSheet("font-size: 20px;");
+    new_room_widget->room_name_label->show();
 
-//    new_room_name_line_edit = new QLineEdit();
-//    select_people_widget = new QWidget();
-//    create_new_room_button = new QPushButton();
-//    cancel_create_new_room_button = new QPushButton();
+    new_room_widget->select_users_widget->setFixedSize(746, 610);
+    new_room_widget->select_users_widget->setStyleSheet(current_style.select_people_widget);
+
+    new_room_widget->select_users_scroll_area->setWidget(new_room_widget->select_users_widget);
+    new_room_widget->select_users_scroll_area->move(0, new_room_widget->new_room_name_line_edit->height());
+    new_room_widget->select_users_scroll_area->setFixedSize(748, 610);
+    new_room_widget->select_users_scroll_area->setStyleSheet("");
+
+    new_room_widget->cancel_create_new_room_button->move(485, 650);
+    new_room_widget->cancel_create_new_room_button->setStyleSheet(current_style.button_standard);
+    new_room_widget->cancel_create_new_room_button->show();
+
+    new_room_widget->create_new_room_button->move(618, 650);
+    new_room_widget->create_new_room_button->setStyleSheet(current_style.button_standard);
+    new_room_widget->create_new_room_button->show();
 }
 
 MainWindow::~MainWindow()

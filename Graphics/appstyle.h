@@ -146,7 +146,7 @@ public:
 
     QString select_people_widget =
             "QWidget {"
-                "background-color: #666666;"
+                "background-color: #111111;"
             "}";
     QString person_checkbox =
             "border: 0px solid;";

@@ -7,6 +7,7 @@
 #include <QPushButton>
 #include <QScrollArea>
 #include <appstyle.h>
+#include <QLabel>
 
 namespace Ui {
 class NewRoomWidget;
@@ -25,9 +26,13 @@ public:
 
     QLineEdit *new_room_name_line_edit;
 
-    QWidget *select_people_widget;
+    QLineEdit *users_search_line_edit;
 
-    QScrollArea *select_people_scroll_area;
+    QLabel *room_name_label;
+
+    QWidget *select_users_widget;
+
+    QScrollArea *select_users_scroll_area;
 
     QWidget &make_checkbox_for_person(const QString &person_name);
 
