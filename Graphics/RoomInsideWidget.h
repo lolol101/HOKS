@@ -9,6 +9,7 @@
 #include <QList>
 #include <QScrollArea>
 #include <MessageWidget.h>
+#include <QPushButton>
 
 namespace Ui {
 class RoomInsideWidget;
@@ -19,9 +20,7 @@ class RoomInsideWidget : public QWidget
     Q_OBJECT
 
 public:
-    explicit RoomInsideWidget(QWidget *parent = nullptr);
-
-    RoomInsideWidget(const RoomIconWidget *room_icon);
+    RoomInsideWidget();
 
     style_table current_style;
 
@@ -33,6 +32,8 @@ public:
     QScrollArea *inside_messages_scroll_area;
 
     QWidget *inside_room_name;
+
+    QPushButton *send_message_button;
 
     MessageWidget& append_user_message(const QString &message_text);
     MessageWidget& append_other_message(const QString &message_text);

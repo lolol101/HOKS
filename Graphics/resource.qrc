@@ -3,5 +3,6 @@
         <file>icons/back_button_default.png</file>
         <file>icons/back_button_hovered_pushed.png</file>
         <file>icons/back_button_hovered.png</file>
+        <file>icons/send_message_button.png</file>
     </qresource>
 </RCC>

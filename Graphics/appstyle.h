@@ -19,7 +19,6 @@ public:
             {"message_box_standard_background_color",           "#111111;"},
             {"authorization_label_color",                       "#ffffff;"},
             {"wrong_registration_data_label_color",             "#ff7373;"},
-            {"back_to_authorization_button_pressed_hover",      "#111111;"},
             {"room_icon_background_color",                      "#161616;"},
             {"room_icon_border_color",                          "#606060;"},
             {"room_inside_background_color",                    "#111111;"},
@@ -77,7 +76,7 @@ public:
                 "border: 0px solid;"
             "}"
             "QPushButton:pressed:hover {"
-                "background-color: " + colors["back_to_authorization_button_pressed_hover"] +
+                "background-color: " + colors["main_window_background_color"] +
             "}"
             "QPushButton {"
                 "background-image: url(:/icons/icons/back_button_default.png);"
@@ -89,18 +88,14 @@ public:
                 "background-image: url(:/icons/icons/back_button_hovered_pushed.png);"
             "}";
     QString room_icon =
-            "QPushButton {"
-                "background-color: "  + colors["room_icon_background_color"] +
-                "border: 1px solid;"
-                "border-radius: 25px;"
-                "border-color: "  + colors["room_icon_border_color"] +
-             "}";
-    QString room_inside =
-            "QWidget {"
-                "background-color: " + colors["room_inside_background_color"] +
-                "border: 1px solid;"
-                "border-color: #606060;"
-            "}";
+            "background-color: "  + colors["room_icon_background_color"] +
+            "border: 0px solid;"
+            "border-radius: 0px;"
+            "border-top: 1px solid #606060;"
+            "border-bottom: 1px solid #606060;";
+    QString inside_messages_widget =
+            "background-color: " + colors["room_inside_background_color"] +
+            "border-left: 1px solid #606060;";
     QString rooms_space_scroll_bar = "";
     QString rooms_space_widget =
             "QWidget {"
@@ -111,25 +106,38 @@ public:
                 "background-color: " + colors["message_line_background_color"] +
                 "color: " + colors["message_line_color"] +
                 "border: 1px solid;"
-                "border-radius: 15px;"
                 "border-color: " + colors["message_line_border_color"] +
                 "padding: 10px 10px;"
             "}";
-    QString inside_messages_widget =
-                "background-color: #525252;";
     QString inside_room_name_widget =
-            "QWidget {"
-                "background-color: #727272;"
-            "}";
+                "border: 1px solid #606060;"
+                "background-color: #111111;";
     QString messages_widget =
-            "background-color: #2c2c2c;"
-                "border-radius: 15px;";
+                "background-color: #2c2c2c;"
+                "border-radius: 15px;"
+                "border: 0px solid;";
     QString messages_label =
             "QLabel {"
                 "color: #ffffff;"
                 "font-family: Geneva;"
                 "font-size: 16px;"
                 "qproperty-alignment: AlignCenter;"
+            "}";
+    QString send_message_button =
+            "QPushButton {"
+                "border: 0px solid;"
+            "}"
+            "QPushButton:pressed:hover {"
+                "background-color: " + colors["main_window_background_color"] +
+            "}"
+            "QPushButton {"
+                "background-image: url(:/icons/icons/send_message_button.png);"
+            "}"
+            "QPushButton:hover {"
+                "background-image: url(:/icons/icons/send_message_button.png);"
+            "}"
+            "QPushButton:pressed:hover {"
+                "background-image: url(:/icons/icons/send_message_button.png);"
             "}";
 };
 

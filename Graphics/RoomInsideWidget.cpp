@@ -4,14 +4,8 @@
 #include "MessageWidget.h"
 #include <QLabel>
 
-RoomInsideWidget::RoomInsideWidget(QWidget *parent) :
-    QWidget(parent),
-    ui(new Ui::RoomInsideWidget)
-{
-    ui->setupUi(this);
-}
 
-RoomInsideWidget::RoomInsideWidget(const RoomIconWidget *room_iconm) {
+RoomInsideWidget::RoomInsideWidget() {
     room_inside_ = new QWidget();
     message_line = new QTextEdit(room_inside_);
     inside_room_name = new QWidget(room_inside_);
@@ -20,6 +14,8 @@ RoomInsideWidget::RoomInsideWidget(const RoomIconWidget *room_iconm) {
     inside_messages_scroll_area = new QScrollArea(room_inside_);
     inside_messages_scroll_area->setWidget(inside_messages_widget);
     inside_messages_scroll_area->setFixedSize(room_inside_->width(), room_inside_->height() - 100);
+
+    send_message_button = new QPushButton(room_inside_);
 }
 
 MessageWidget& RoomInsideWidget::append_user_message(const QString &message_text) {
