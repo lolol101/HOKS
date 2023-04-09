@@ -6,6 +6,7 @@
 #include <vector>
 #include <string>
 #include <algorithm>
+#include <Graphics/MainWindow.h>
 
 authorizationWindow::authorizationWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -14,6 +15,7 @@ authorizationWindow::authorizationWindow(QWidget *parent)
     make_window_skillet();
     make_authorization_elements();
     make_registration_elements();
+    show_authorization();
 }
 
 void authorizationWindow::make_window_skillet() {
@@ -111,13 +113,9 @@ void authorizationWindow::make_registration_elements() {
 void authorizationWindow::show_main_window() {
     this->setWindowTitle("HOKS");
 
-    this->move(170, 20);
-    this->setFixedSize(1000, 700);
-
-    authorization_widget->hide();
-    registration_widget->hide();
-    authorization_button->hide();
-    back_to_authorization_button->hide();
+    this->close();
+    MainWindow m;
+    m.show_main_window();
 }
 
 void authorizationWindow::show_authorization() {
@@ -171,6 +169,19 @@ void authorizationWindow::push_on_authorization_button() {
     QString user_login = login_authorization_line_edit->text();
     QString user_password = password_authorization_line_edit->text();
     emit user_authorization_signal(user_login, user_password);
+
+//    if (user_login == "ilia" && user_password == "123") { // Пользователь есть в
+//            show_main_window();
+//        } else { // Пользователя в БД нет
+//            QMessageBox::StandardButton registration_dialog_box;
+//            registration_dialog_box = QMessageBox::question(nullptr,
+//            "Зарегистрироваться?",
+//            "Пользователь с введёнными данными не найден. \nХотите зарегистрироваться?",
+//            QMessageBox::Yes | QMessageBox::No);
+//                if (registration_dialog_box == QMessageBox::Yes) {
+//                    show_registration();
+//                }
+//        }
 }
 
 void authorizationWindow::push_on_registration_button() {
@@ -180,6 +191,29 @@ void authorizationWindow::push_on_registration_button() {
     QString user_first_name = first_name_registration_line_edit->text();
     QString user_last_name = last_name_registration_line_edit->text();
     emit user_registration_signal(user_login, user_password, user_email, user_first_name, user_last_name);
+
+//    std::vector<QString> all_users = {"ilia", "nikita", "igor"};
+//    bool is_user_data_correct = true;
+//    // Такой пользователь уже существует
+//    if (std::find(all_users.begin(), all_users.end(), user_login) != all_users.end()) {
+
+//        show_login_input_error("Логин затят");
+//        is_user_data_correct = false;
+//    } if (user_password.size() < 3) { // Пароль не является безопасным
+//        show_password_input_error("Пароль слишком короткий");
+//        is_user_data_correct = false;
+//    } if (user_email.indexOf("@") == -1) { // E-mail некорректен
+//        show_email_input_error("E-mail указан неверно");
+//        is_user_data_correct = false;
+//    } if (user_first_name == "") { // Имя пустое
+//        show_first_name_input_error("Имя не может быть пустым");
+//        is_user_data_correct = false;
+//    } if (user_last_name == "") { // Фамилия пустая
+//        show_last_name_input_error("Фамилия не может быть пустой");
+//        is_user_data_correct = false;
+//    } if (is_user_data_correct) { // Пользователь успешно зарегистрировался
+//        show_main_window();
+//    }
 }
 
 void authorizationWindow::push_on_back_to_authorization_button() {

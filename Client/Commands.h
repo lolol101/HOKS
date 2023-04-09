@@ -3,8 +3,12 @@
 
 enum Command {
         //DataBaseChecks
-        checkLogin,
-        checkPassword,
+        checkAuthoriziatonData,
+        checkRegistrationData,
+
+        // Client`s requests to Server
+        registrateUser,
+        getRooms,
 
         // Account profile commands
         accountRegisration, // Create a new user

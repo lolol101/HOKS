@@ -46,6 +46,7 @@ private:
     void make_window_skillet();
     void make_authorization_elements();
     void make_registration_elements();
+
 public:
     authorizationWindow(QWidget *parent = nullptr);
     ~authorizationWindow();
