@@ -68,6 +68,10 @@ void RoomInsideWidget::show_message(MessageWidget *message_widget) {
     message_widget->show();
 }
 
+QString RoomInsideWidget::get_message_line() {
+    return message_line->toPlainText();
+}
+
 RoomInsideWidget::~RoomInsideWidget()
 {
     delete ui;

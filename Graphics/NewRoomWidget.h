@@ -28,6 +28,10 @@ public:
 
     QLineEdit *users_search_line_edit;
 
+    QString get_new_room_name_line_edit();
+
+    QString get_users_search_line_edit();
+
     QLabel *room_name_label;
 
     QWidget *select_users_widget;

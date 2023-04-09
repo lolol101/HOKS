@@ -46,6 +46,8 @@ public:
 
     NewRoomWidget& make_creation_new_room();
 
+    QString get_search_line_edit();
+
     void show_creation_new_room(NewRoomWidget* new_room_widget);
 
     ~MainWindow();

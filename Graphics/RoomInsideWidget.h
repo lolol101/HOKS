@@ -28,6 +28,8 @@ public:
 
     QTextEdit *message_line;
 
+    QString get_message_line();
+
     QWidget *inside_messages_widget;
     QScrollArea *inside_messages_scroll_area;
 

@@ -152,6 +152,7 @@ public:
             "border: 0px solid;";
     QString person_checkbox_widget =
             "font-size: 19px;";
+    QString top_widget = "background-color: #111111;";
 };
 
 #endif // APPSTYLE_H

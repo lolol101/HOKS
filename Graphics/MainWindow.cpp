@@ -13,9 +13,9 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     make_window_skillet();
 
-//    for (int i = 0; i < 20; ++i) {
-//        Room *r = new Room("Комната друзей");
-//        show_room_icon(*r);
+    for (int i = 0; i < 20; ++i) {
+        Room *r = new Room("Комната друзей");
+        show_room_icon(*r);
 //        show_room_inside(*r);
 //        for (int j = 0; j < 10; j += 2) {
 //            MessageWidget& msg1 = r->room_inside->append_user_message("Hello, my friend!");
@@ -23,7 +23,7 @@ MainWindow::MainWindow(QWidget *parent) :
 //            r->room_inside->show_message(&msg1);
 //            r->room_inside->show_message(&msg2);
 //            }
-//        }
+        }
     NewRoomWidget& new_room = make_creation_new_room();
     show_creation_new_room(&new_room);
     new_room.select_users_widget->setFixedHeight(1000);
@@ -53,14 +53,31 @@ void MainWindow::make_window_skillet() {
     ui->setupUi(this);
 
     rooms_widget = new QWidget();
-    rooms_widget->setFixedSize(width_rooms_area, this->height());
+    rooms_widget->setFixedSize(width_rooms_area, this->height() - 45);
     scrollArea = new QScrollArea(this);
     scrollArea->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     scrollArea->setWidget(rooms_widget);
     scrollArea->setStyleSheet(current_style.rooms_space_scroll_bar);
     rooms_widget->setStyleSheet(current_style.rooms_space_widget);
-    scrollArea->setMinimumSize(width_rooms_area + delta, this->height());
+    scrollArea->setMinimumSize(width_rooms_area + delta, this->height() - 45);
+    top_widget = new QWidget(this);
+    top_widget->setFixedSize(rooms_widget->width(), 45);
+    top_widget->setStyleSheet(current_style.top_widget);
+
+    search_line_edit = new QLineEdit(top_widget);
+    search_line_edit->setFixedSize(200, 38);
+    search_line_edit->setStyleSheet(current_style.line_edit_standard);
+    search_line_edit->move(5, 4);
+    creating_new_room_button = new QPushButton(top_widget);
+    creating_new_room_button->setFixedSize(38, 38);
+    creating_new_room_button->setStyleSheet(current_style.button_standard);
+    creating_new_room_button->setText("+");
+    creating_new_room_button->move(210, 4);
+
+    top_widget->show();
+    scrollArea->move(0, 45);
     scrollArea->show();
+    search_line_edit->show();
 }
 
 void MainWindow::show_room_icon(const Room &room) {
@@ -153,6 +170,10 @@ void MainWindow::show_creation_new_room(NewRoomWidget* new_room_widget) {
     new_room_widget->create_new_room_button->move(618, 650);
     new_room_widget->create_new_room_button->setStyleSheet(current_style.button_standard);
     new_room_widget->create_new_room_button->show();
+}
+
+QString MainWindow::get_search_line_edit() {
+    return search_line_edit->text();
 }
 
 MainWindow::~MainWindow()

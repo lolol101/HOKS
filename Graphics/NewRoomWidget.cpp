@@ -46,6 +46,14 @@ void NewRoomWidget::person_checkbox_changed() {
     qDebug() << "Checked!";
 }
 
+QString NewRoomWidget::get_new_room_name_line_edit() {
+    return new_room_name_line_edit->text();
+}
+
+QString NewRoomWidget::get_users_search_line_edit() {
+    return users_search_line_edit->text();
+}
+
 NewRoomWidget::~NewRoomWidget()
 {
     delete ui;
