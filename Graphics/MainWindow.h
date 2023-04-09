@@ -46,7 +46,7 @@ public:
 
     NewRoomWidget& make_creation_new_room();
 
-    void show_creation_new_room(NewRoomWidget&);
+    void show_creation_new_room(NewRoomWidget* new_room_widget);
 
     ~MainWindow();
 

@@ -5,23 +5,33 @@
 #include <Room.h>
 #include <MessageWidget.h>
 #include <RoomInsideWidget.h>
+#include <QCheckBox>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
     make_window_skillet();
-    for (int i = 0; i < 20; ++i) {
-        Room *r = new Room("Комната друзей");
-        show_room_icon(*r);
-        show_room_inside(*r);
-        for (int j = 0; j < 10; j += 2) {
-            MessageWidget& msg1 = r->room_inside->append_user_message("Hello, my friend!");
-            MessageWidget& msg2 = r->room_inside->append_other_message("Hi!");
-            r->room_inside->show_message(&msg1);
-            r->room_inside->show_message(&msg2);
-            }
-        }
+
+//    for (int i = 0; i < 20; ++i) {
+//        Room *r = new Room("Комната друзей");
+//        show_room_icon(*r);
+//        show_room_inside(*r);
+//        for (int j = 0; j < 10; j += 2) {
+//            MessageWidget& msg1 = r->room_inside->append_user_message("Hello, my friend!");
+//            MessageWidget& msg2 = r->room_inside->append_other_message("Hi!");
+//            r->room_inside->show_message(&msg1);
+//            r->room_inside->show_message(&msg2);
+//            }
+//        }
+    NewRoomWidget& new_room = make_creation_new_room();
+    show_creation_new_room(&new_room);
+//    new_room.select_people_widget->setFixedHeight(1000);
+    for (int i = 0; i < 100; ++i) {
+        QWidget &chb1 = new_room.make_checkbox_for_person("Ilia");
+        new_room.show_checkbox_for_person(&chb1);
+    }
+    new_room.deleteLater();
 }
 
 void MainWindow::show_main_window() {
@@ -102,11 +112,36 @@ void MainWindow::show_room_inside(const Room &room) {
 }
 
 NewRoomWidget& MainWindow::make_creation_new_room() {
-
+    NewRoomWidget *new_room_widget = new NewRoomWidget();
+    return *new_room_widget;
 }
 
-void MainWindow::show_creation_new_room(NewRoomWidget&) {
+void MainWindow::show_creation_new_room(NewRoomWidget* new_room_widget) {
+    new_room_widget->create_new_room_widget->setParent(this);
+    new_room_widget->select_people_scroll_area->setParent(new_room_widget->create_new_room_widget);
 
+    new_room_widget->create_new_room_widget->setFixedSize(this->width() - width_rooms_area - delta, this->height());
+    new_room_widget->create_new_room_widget->move(width_rooms_area + delta, 0);
+//    new_room_widget->create_new_room_widget->setStyleSheet(current_style.create_new_room_widget);
+    new_room_widget->create_new_room_widget->show();
+
+    new_room_widget->new_room_name_line_edit->move(0, 0);
+    new_room_widget->new_room_name_line_edit->setFixedSize(this->width() - width_rooms_area - delta, 40);
+    new_room_widget->new_room_name_line_edit->setStyleSheet(current_style.line_edit_standard);
+    new_room_widget->new_room_name_line_edit->show();
+
+    new_room_widget->select_people_widget->setFixedSize(748 - 2, 610);
+    new_room_widget->select_people_widget->setStyleSheet(current_style.select_people_widget);
+
+    new_room_widget->select_people_scroll_area->setWidget(new_room_widget->select_people_widget);
+    new_room_widget->select_people_scroll_area->move(0, new_room_widget->new_room_name_line_edit->height());
+    new_room_widget->select_people_scroll_area->setFixedSize(748, 610);
+    new_room_widget->select_people_scroll_area->setStyleSheet("");
+
+//    new_room_name_line_edit = new QLineEdit();
+//    select_people_widget = new QWidget();
+//    create_new_room_button = new QPushButton();
+//    cancel_create_new_room_button = new QPushButton();
 }
 
 MainWindow::~MainWindow()

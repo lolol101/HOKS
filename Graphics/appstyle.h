@@ -139,6 +139,19 @@ public:
             "QPushButton:pressed:hover {"
                 "background-image: url(:/icons/icons/send_message_button.png);"
             "}";
+    QString create_new_room_widget =
+            "QWidget {"
+                "background-color: #555555;"
+            "}";
+
+    QString select_people_widget =
+            "QWidget {"
+                "background-color: #666666;"
+            "}";
+    QString person_checkbox =
+            "border: 0px solid;";
+    QString person_checkbox_widget =
+            "font-size: 19px;";
 };
 
 #endif // APPSTYLE_H
