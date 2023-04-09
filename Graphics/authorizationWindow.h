@@ -47,6 +47,9 @@ private:
     void make_authorization_elements();
     void make_registration_elements();
 
+    void hide_authorization();
+    void hide_registration();
+
 public:
     authorizationWindow(QWidget *parent = nullptr);
     ~authorizationWindow();
@@ -54,9 +57,6 @@ public:
     void show_authorization();
     void show_registration();
     void show_main_window();
-
-    void hide_authorization();
-    void hide_registration();
 
     void show_login_input_error(const QString &new_text);
     void show_password_input_error(const QString &new_text);

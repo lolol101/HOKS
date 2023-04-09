@@ -46,6 +46,12 @@ public:
 
     ~RoomInsideWidget();
 
+signals:
+    void clicked_send_button(const QString& text_message);
+
+private slots:
+    void slot_clicked_send_button(const QString& text_message);
+
 private:
     Ui::RoomInsideWidget *ui;
 };

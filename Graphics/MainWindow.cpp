@@ -13,25 +13,25 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     make_window_skillet();
 
-    for (int i = 0; i < 20; ++i) {
-        Room *r = new Room("Комната друзей");
-        show_room_icon(*r);
+//    for (int i = 0; i < 20; ++i) {
+//        Room *r = new Room("Комната друзей", 123);
+//        show_room_icon(*r);
 //        show_room_inside(*r);
 //        for (int j = 0; j < 10; j += 2) {
 //            MessageWidget& msg1 = r->room_inside->append_user_message("Hello, my friend!");
 //            MessageWidget& msg2 = r->room_inside->append_other_message("Hi!");
 //            r->room_inside->show_message(&msg1);
 //            r->room_inside->show_message(&msg2);
-//            }
-        }
-    NewRoomWidget& new_room = make_creation_new_room();
-    show_creation_new_room(&new_room);
-    new_room.select_users_widget->setFixedHeight(1000);
-    for (int i = 0; i < 100; ++i) {
-        QWidget &chb1 = new_room.make_checkbox_for_person("Ilia");
-        new_room.show_checkbox_for_person(&chb1);
-    }
-    new_room.deleteLater();
+//        }
+//    }
+//    NewRoomWidget& new_room = make_creation_new_room();
+//    show_creation_new_room(&new_room);
+//    new_room.select_users_widget->setFixedHeight(1000);
+//    for (int i = 0; i < 100; ++i) {
+//        QWidget &chb1 = new_room.make_checkbox_for_person("Ilia");
+//        new_room.show_checkbox_for_person(&chb1);
+//    }
+//    new_room.deleteLater();
 }
 
 void MainWindow::show_main_window() {
@@ -52,44 +52,50 @@ void MainWindow::make_window_skillet() {
     qApp->setStyleSheet(default_style);
     ui->setupUi(this);
 
-    rooms_widget = new QWidget();
-    rooms_widget->setFixedSize(width_rooms_area, this->height() - 45);
-    scrollArea = new QScrollArea(this);
-    scrollArea->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-    scrollArea->setWidget(rooms_widget);
-    scrollArea->setStyleSheet(current_style.rooms_space_scroll_bar);
-    rooms_widget->setStyleSheet(current_style.rooms_space_widget);
-    scrollArea->setMinimumSize(width_rooms_area + delta, this->height() - 45);
+    rooms_widget = new QWidget(this);
+    scroll_rooms_widget = new QScrollArea(this);
     top_widget = new QWidget(this);
+    search_line_edit = new QLineEdit(top_widget);
+    creating_new_room_button = new QPushButton(top_widget);
+
+    scroll_rooms_widget->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    scroll_rooms_widget->setWidget(rooms_widget);
+    scroll_rooms_widget->setStyleSheet(current_style.rooms_space_scroll_bar);
+    scroll_rooms_widget->setMinimumSize(width_rooms_area + delta, this->height() - 45);
+    scroll_rooms_widget->move(0, 45);
+    scroll_rooms_widget->show();
+
+    rooms_widget->setFixedSize(width_rooms_area, this->height() - 45);
+    rooms_widget->setStyleSheet(current_style.rooms_space_widget);
+
     top_widget->setFixedSize(rooms_widget->width(), 45);
     top_widget->setStyleSheet(current_style.top_widget);
+    top_widget->show();
 
-    search_line_edit = new QLineEdit(top_widget);
     search_line_edit->setFixedSize(200, 38);
     search_line_edit->setStyleSheet(current_style.line_edit_standard);
     search_line_edit->move(5, 4);
-    creating_new_room_button = new QPushButton(top_widget);
+    search_line_edit->show();
+
     creating_new_room_button->setFixedSize(38, 38);
     creating_new_room_button->setStyleSheet(current_style.button_standard);
     creating_new_room_button->setText("+");
     creating_new_room_button->move(210, 4);
-
-    top_widget->show();
-    scrollArea->move(0, 45);
-    scrollArea->show();
-    search_line_edit->show();
 }
 
 void MainWindow::show_room_icon(const Room &room) {
+    room.room_icon->room_icon_->setParent(rooms_widget);
+
     int room_icon_height = room.room_icon->room_icon_->height();
     int height = index * room_icon_height + delta;
     ++index;
-    room.room_icon->room_icon_->setParent(rooms_widget);
-    room.room_icon->room_icon_->move(delta, height);
-    room.room_icon->room_icon_->show();
+
     if (height >= this->height()) {
         rooms_widget->setFixedHeight(height + room_icon_height + delta);
     }
+
+    room.room_icon->room_icon_->move(delta, height);
+    room.room_icon->room_icon_->show();
 }
 
 void MainWindow::show_room_inside(const Room &room) {
@@ -108,7 +114,6 @@ void MainWindow::show_room_inside(const Room &room) {
     room.room_inside->message_line->setStyleSheet(current_style.inside_message_line);
 
     room.room_inside->inside_messages_widget->setStyleSheet(current_style.inside_messages_widget);
-
     room.room_inside->inside_messages_widget->setFixedSize(room.room_inside->room_inside_->width() - 2,
                                                            room.room_inside->room_inside_->height() -
                                                            room.room_inside->message_line->height() -

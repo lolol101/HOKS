@@ -23,7 +23,7 @@ public:
     explicit MainWindow(QWidget *parent = nullptr);
 
     QWidget *rooms_widget;
-    QScrollArea *scrollArea;
+    QScrollArea *scroll_rooms_widget;
 
     style_table current_style;
 

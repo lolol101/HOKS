@@ -72,7 +72,10 @@ QString RoomInsideWidget::get_message_line() {
     return message_line->toPlainText();
 }
 
-RoomInsideWidget::~RoomInsideWidget()
-{
+RoomInsideWidget::~RoomInsideWidget() {
     delete ui;
+}
+
+void RoomInsideWidget::slot_clicked_send_button(const QString& text_message) {
+    emit clicked_send_button(text_message);
 }
