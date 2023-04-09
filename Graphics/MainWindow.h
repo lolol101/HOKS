@@ -8,6 +8,8 @@
 #include <RoomInsideWidget.h>
 #include <Room.h>
 #include <appstyle.h>
+#include <QLineEdit>
+#include <NewRoomWidget.h>
 
 namespace Ui {
 class MainWindow;
@@ -35,6 +37,16 @@ public:
     const int delta = 2;
 
     int index = 0;
+
+    QWidget *top_widget;
+
+    QLineEdit *search_line_edit;
+
+    QPushButton *creating_new_room_button;
+
+    NewRoomWidget& make_creation_new_room();
+
+    void show_creation_new_room(NewRoomWidget&);
 
     ~MainWindow();
 

@@ -11,6 +11,17 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     make_window_skillet();
+    for (int i = 0; i < 20; ++i) {
+        Room *r = new Room("Комната друзей");
+        show_room_icon(*r);
+        show_room_inside(*r);
+        for (int j = 0; j < 10; j += 2) {
+            MessageWidget& msg1 = r->room_inside->append_user_message("Hello, my friend!");
+            MessageWidget& msg2 = r->room_inside->append_other_message("Hi!");
+            r->room_inside->show_message(&msg1);
+            r->room_inside->show_message(&msg2);
+            }
+        }
 }
 
 void MainWindow::show_main_window() {
@@ -88,6 +99,13 @@ void MainWindow::show_room_inside(const Room &room) {
     room.room_inside->send_message_button->setStyleSheet(current_style.send_message_button);
 
     room.room_inside->inside_messages_scroll_area->setStyleSheet("");
+}
+
+NewRoomWidget& MainWindow::make_creation_new_room() {
+
+}
+
+void MainWindow::show_creation_new_room(NewRoomWidget&) {
 
 }
 

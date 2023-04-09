@@ -11,6 +11,7 @@ CONFIG += c++17
 SOURCES += \
     MainWindow.cpp \
     MessageWidget.cpp \
+    NewRoomWidget.cpp \
     Room.cpp \
     RoomIconWidget.cpp \
     RoomInsideWidget.cpp \
@@ -20,6 +21,7 @@ SOURCES += \
 HEADERS += \
     MainWindow.h \
     MessageWidget.h \
+    NewRoomWidget.h \
     Room.h \
     RoomIconWidget.h \
     RoomInsideWidget.h \
@@ -29,6 +31,7 @@ HEADERS += \
 FORMS += \
     MainWindow.ui \
     MessageWidget.ui \
+    NewRoomWidget.ui \
     Room.ui \
     RoomIconWidget.ui \
     RoomInsideWidget.ui \
