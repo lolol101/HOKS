@@ -1,7 +1,7 @@
 #ifndef SERVER_H
 #define SERVER_H
 
-#include <iostream>
+#include <vector>
 #include <QTcpServer>
 #include <QTcpSocket>
 #include <QDataStream>
@@ -14,9 +14,11 @@ class Server : public QTcpServer {
 
 private:
     db_space::Database data_base;
-    std::vector<QTcpSocket*> clients;
+
     std::unordered_map<QTcpSocket*, quint16> clients_msg_size;
-    QByteArray make_byte_message(const Command& command, const QString& message);
+
+    template<class T>
+    QByteArray make_byte_message(const Command &command, const std::vector<T>& arguments);
 
 public:
     Server();
