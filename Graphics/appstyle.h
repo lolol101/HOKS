@@ -19,7 +19,7 @@ public:
             {"message_box_standard_background_color",           "#111111;"},
             {"authorization_label_color",                       "#ffffff;"},
             {"wrong_registration_data_label_color",             "#ff7373;"},
-            {"room_icon_background_color",                      "#161616;"},
+            {"room_icon_background_color",                      "#111111;"},
             {"room_icon_border_color",                          "#606060;"},
             {"room_inside_background_color",                    "#111111;"},
             {"rooms_space_widget_background_color",             "#111111;"},
@@ -93,7 +93,6 @@ public:
             "background-color: "  + colors["room_icon_background_color"] +
             "border: 0px solid;"
             "border-radius: 0px;"
-            "border-top: 1px solid #606060;"
             "border-bottom: 1px solid #606060;";
     QString inside_messages_widget =
             "background-color: " + colors["room_inside_background_color"];
@@ -112,8 +111,9 @@ public:
                 "padding: 10px 10px;"
             "}";
     QString inside_room_name_widget =
-                "border: 1px solid #606060;"
-                "background-color: #111111;";
+                "border: 0px solid #606060;"
+                "background-color: #111111;"
+                "border-bottom: 1px solid #606060;";
     QString messages_widget =
                 "background-color: #2c2c2c;"
                 "border-radius: 15px;"
@@ -180,6 +180,9 @@ public:
             "border-top: 1px solid #606060;";
     QString create_new_room_top_widget =
             "border-bottom: 1px solid #606060;";
+    QString inside_room_name_label =
+            "border: 0px;"
+            "font-size: 20px;";
 };
 
 #endif // APPSTYLE_H

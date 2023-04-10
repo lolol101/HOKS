@@ -26,7 +26,8 @@ void Room::show_other_message(const QString& text_message) {
     room_inside->show_message(&room_inside->append_other_message(text_message));
 }
 
-Room::Room(const QString &room_name, const int& id) : m_id(id)  {
+Room::Room(const QString &room_name, const int id)  {
+    m_id = id;
     room_icon = new RoomIconWidget(room_name);
     room_inside = new RoomInsideWidget();
     room_icon->room_icon_->hide();
@@ -36,6 +37,10 @@ Room::Room(const QString &room_name, const int& id) : m_id(id)  {
 
 void Room::slot_clicked_send_button(const QString &text_message) {
     emit clicked_send_button(text_message);
+}
+
+void Room::set_room_name_at_top(const QString &room_name) {
+    this->room_inside->set_room_name(room_name);
 }
 
 Room::~Room()

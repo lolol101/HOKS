@@ -31,7 +31,7 @@ public:
     void show_main_window();
 
     void show_room_icon(const Room &room_icon);
-    void show_room_inside(const Room &room_inside);
+    void show_room_inside(Room &room_inside);
 
     const int width_rooms_area = 250;
     const int delta = 2;

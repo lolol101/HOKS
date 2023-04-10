@@ -10,6 +10,7 @@
 #include <QScrollArea>
 #include <MessageWidget.h>
 #include <QPushButton>
+#include <QLabel>
 
 namespace Ui {
 class RoomInsideWidget;
@@ -35,12 +36,16 @@ public:
 
     QWidget *inside_room_name;
 
+    QLabel *inside_room_name_label;
+
     QPushButton *send_message_button;
 
     MessageWidget& append_user_message(const QString &message_text);
     MessageWidget& append_other_message(const QString &message_text);
 
     void show_message(MessageWidget *message_widget);
+
+    void set_room_name(const QString &room_name);
 
     int index = 0;
 

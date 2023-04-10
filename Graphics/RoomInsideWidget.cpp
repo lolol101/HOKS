@@ -9,6 +9,7 @@ RoomInsideWidget::RoomInsideWidget() {
     room_inside_ = new QWidget();
     message_line = new QTextEdit(room_inside_);
     inside_room_name = new QWidget(room_inside_);
+    inside_room_name_label = new QLabel(inside_room_name);
 
     inside_messages_widget = new QWidget(room_inside_);
     inside_messages_scroll_area = new QScrollArea(room_inside_);
@@ -70,6 +71,10 @@ void RoomInsideWidget::show_message(MessageWidget *message_widget) {
 
 QString RoomInsideWidget::get_message_line() {
     return message_line->toPlainText();
+}
+
+void RoomInsideWidget::set_room_name(const QString &room_name) {
+    this->inside_room_name_label->setText(room_name);
 }
 
 RoomInsideWidget::~RoomInsideWidget() {

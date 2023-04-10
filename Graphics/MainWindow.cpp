@@ -6,6 +6,7 @@
 #include <MessageWidget.h>
 #include <RoomInsideWidget.h>
 #include <QCheckBox>
+#include <QSize>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -13,24 +14,24 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     make_window_skillet();
 
-//    for (int i = 0; i < 20; ++i) {
-//        Room *r = new Room("Комната друзей", 123);
-//        show_room_icon(*r);
-//        show_room_inside(*r);
-//        for (int j = 0; j < 10; j += 2) {
-//            MessageWidget& msg1 = r->room_inside->append_user_message("Hello, my friend!");
-//            MessageWidget& msg2 = r->room_inside->append_other_message("Hi!");
-//            r->room_inside->show_message(&msg1);
-//            r->room_inside->show_message(&msg2);
-//        }
-//    }
-    NewRoomWidget& new_room = make_creation_new_room();
-    show_creation_new_room(&new_room);
-    for (int i = 0; i < 100; ++i) {
-        QWidget &chb1 = new_room.make_checkbox_for_person("Ilia");
-        new_room.show_checkbox_for_person(&chb1);
+    for (int i = 0; i < 20; ++i) {
+        Room *r = new Room("Комната друзей", 123);
+        show_room_icon(*r);
+        show_room_inside(*r);
+        for (int j = 0; j < 10; j += 2) {
+            MessageWidget& msg1 = r->room_inside->append_user_message("Hello, my friend!");
+            MessageWidget& msg2 = r->room_inside->append_other_message("Hi!");
+            r->room_inside->show_message(&msg1);
+            r->room_inside->show_message(&msg2);
+        }
     }
-    new_room.deleteLater();
+//    NewRoomWidget& new_room = make_creation_new_room();
+//    show_creation_new_room(&new_room);
+//    for (int i = 0; i < 100; ++i) {
+//        QWidget &chb1 = new_room.make_checkbox_for_person("Ilia");
+//        new_room.show_checkbox_for_person(&chb1);
+//    }
+//    new_room.deleteLater();
 }
 
 void MainWindow::show_main_window() {
@@ -62,7 +63,7 @@ void MainWindow::make_window_skillet() {
     scroll_rooms_widget->setWidget(rooms_widget);
     scroll_rooms_widget->setStyleSheet(current_style.rooms_space_scroll_bar);
     scroll_rooms_widget->setMinimumSize(width_rooms_area + delta, this->height() - 50);
-    scroll_rooms_widget->move(0, 50);
+    scroll_rooms_widget->move(0, 49);
     scroll_rooms_widget->show();
 
     rooms_widget->setFixedSize(width_rooms_area, this->height() - 50);
@@ -91,20 +92,35 @@ void MainWindow::show_room_icon(const Room &room) {
     ++index;
 
     if (height >= this->height()) {
-        rooms_widget->setFixedHeight(height + room_icon_height + delta);
+        rooms_widget->setFixedHeight(height + room_icon_height - 1);
     }
 
     room.room_icon->room_icon_->move(delta, height);
     room.room_icon->room_icon_->show();
 }
 
-void MainWindow::show_room_inside(const Room &room) {
+void MainWindow::show_room_inside(Room &room) {
     room.room_inside->room_inside_->setParent(this);
     room.room_inside->room_inside_->move(width_rooms_area + delta, 0);
     room.room_inside->room_inside_->setFixedSize(this->width() - width_rooms_area - delta, this->height());
     room.room_inside->room_inside_->show();
 
-    room.room_inside->inside_room_name->move(1, 0);
+    room.set_room_name_at_top(room.get_room_name());
+    room.room_inside->inside_room_name_label->setStyleSheet(current_style.inside_room_name_label);
+    QSize inside_room_name_label_size_base = room.room_inside->inside_room_name_label->sizeHint();
+    int inside_room_name_label_width = 0;
+    if (inside_room_name_label_size_base.width() % 2 == 0) {
+        inside_room_name_label_width = inside_room_name_label_size_base.width();
+    }
+    else {
+        inside_room_name_label_width = inside_room_name_label_size_base.width() + 1;
+    }
+    room.room_inside->inside_room_name_label->setFixedSize(inside_room_name_label_width, 30);
+    room.room_inside->inside_room_name_label->setAlignment(Qt::AlignCenter);
+    room.room_inside->inside_room_name_label->move((room.room_inside->room_inside_->width() - room.room_inside->inside_room_name_label->width()) / 2, 10);
+    room.room_inside->inside_room_name_label->show();
+
+    room.room_inside->inside_room_name->move(0, 0);
     room.room_inside->inside_room_name->setFixedSize(room.room_inside->room_inside_->width(), 50);
     room.room_inside->inside_room_name->setStyleSheet(current_style.inside_room_name_widget);
     room.room_inside->inside_room_name->show();
@@ -120,10 +136,8 @@ void MainWindow::show_room_inside(const Room &room) {
                                                            room.room_inside->inside_room_name->height() - 2);
 
     room.room_inside->inside_messages_scroll_area->move(0, room.room_inside->inside_room_name->height());
-    room.room_inside->inside_messages_scroll_area->setFixedSize(room.room_inside->room_inside_->width(),
-                                                                room.room_inside->room_inside_->height() -
-                                                                room.room_inside->message_line->height() -
-                                                                room.room_inside->inside_room_name->height());
+    room.room_inside->inside_messages_scroll_area->setFixedSize(room.room_inside->inside_messages_widget->width() + 2,
+                                                                room.room_inside->inside_messages_widget->height() + 2);
     room.room_inside->inside_messages_scroll_area->setWidget(room.room_inside->inside_messages_widget);
     room.room_inside->inside_messages_scroll_area->setStyleSheet(current_style.inside_messages_widget);
 
