@@ -32,9 +32,11 @@ public:
 
     QString get_users_search_line_edit();
 
-    QLabel *room_name_label;
-
     QWidget *select_users_widget;
+
+    QWidget *create_new_room_top_widget;
+
+    QWidget *create_new_room_bottom_widget;
 
     QScrollArea *select_users_scroll_area;
 

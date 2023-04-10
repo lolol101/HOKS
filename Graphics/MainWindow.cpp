@@ -24,14 +24,13 @@ MainWindow::MainWindow(QWidget *parent) :
 //            r->room_inside->show_message(&msg2);
 //        }
 //    }
-//    NewRoomWidget& new_room = make_creation_new_room();
-//    show_creation_new_room(&new_room);
-//    new_room.select_users_widget->setFixedHeight(1000);
-//    for (int i = 0; i < 100; ++i) {
-//        QWidget &chb1 = new_room.make_checkbox_for_person("Ilia");
-//        new_room.show_checkbox_for_person(&chb1);
-//    }
-//    new_room.deleteLater();
+    NewRoomWidget& new_room = make_creation_new_room();
+    show_creation_new_room(&new_room);
+    for (int i = 0; i < 100; ++i) {
+        QWidget &chb1 = new_room.make_checkbox_for_person("Ilia");
+        new_room.show_checkbox_for_person(&chb1);
+    }
+    new_room.deleteLater();
 }
 
 void MainWindow::show_main_window() {
@@ -56,31 +55,32 @@ void MainWindow::make_window_skillet() {
     scroll_rooms_widget = new QScrollArea(this);
     top_widget = new QWidget(this);
     search_line_edit = new QLineEdit(top_widget);
+    search_line_edit->setPlaceholderText("Поиск...");
     creating_new_room_button = new QPushButton(top_widget);
 
     scroll_rooms_widget->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     scroll_rooms_widget->setWidget(rooms_widget);
     scroll_rooms_widget->setStyleSheet(current_style.rooms_space_scroll_bar);
-    scroll_rooms_widget->setMinimumSize(width_rooms_area + delta, this->height() - 45);
-    scroll_rooms_widget->move(0, 45);
+    scroll_rooms_widget->setMinimumSize(width_rooms_area + delta, this->height() - 50);
+    scroll_rooms_widget->move(0, 50);
     scroll_rooms_widget->show();
 
-    rooms_widget->setFixedSize(width_rooms_area, this->height() - 45);
+    rooms_widget->setFixedSize(width_rooms_area, this->height() - 50);
     rooms_widget->setStyleSheet(current_style.rooms_space_widget);
 
-    top_widget->setFixedSize(rooms_widget->width(), 45);
+    top_widget->setFixedSize(rooms_widget->width() + 1, 50);
     top_widget->setStyleSheet(current_style.top_widget);
     top_widget->show();
 
-    search_line_edit->setFixedSize(200, 38);
+    search_line_edit->setFixedSize(196, 30);
     search_line_edit->setStyleSheet(current_style.line_edit_standard);
-    search_line_edit->move(5, 4);
+    search_line_edit->move(10, 10);
     search_line_edit->show();
 
-    creating_new_room_button->setFixedSize(38, 38);
-    creating_new_room_button->setStyleSheet(current_style.button_standard);
+    creating_new_room_button->setFixedSize(30, 30);
     creating_new_room_button->setText("+");
-    creating_new_room_button->move(210, 4);
+    creating_new_room_button->setStyleSheet(current_style.button_create_new_room);
+    creating_new_room_button->move(213, 10);
 }
 
 void MainWindow::show_room_icon(const Room &room) {
@@ -144,36 +144,44 @@ void MainWindow::show_creation_new_room(NewRoomWidget* new_room_widget) {
 
     new_room_widget->create_new_room_widget->setFixedSize(this->width() - width_rooms_area - delta, this->height());
     new_room_widget->create_new_room_widget->move(width_rooms_area + delta, 0);
-    new_room_widget->create_new_room_widget->show();
 
-    new_room_widget->new_room_name_line_edit->move(270, 0);
-    new_room_widget->new_room_name_line_edit->setFixedSize(470, 38);
+    new_room_widget->create_new_room_top_widget->move(0, 0);
+    new_room_widget->create_new_room_top_widget->setFixedSize(new_room_widget->create_new_room_widget->width(), 51);
+    new_room_widget->create_new_room_top_widget->setStyleSheet(current_style.create_new_room_top_widget);
+    new_room_widget->create_new_room_top_widget->show();
+
+    new_room_widget->create_new_room_bottom_widget->move(0, 602);
+    new_room_widget->create_new_room_bottom_widget->setFixedSize(new_room_widget->create_new_room_widget->width(), 98);
+    new_room_widget->create_new_room_bottom_widget->setStyleSheet(current_style.create_new_room_bottom_widget);
+    new_room_widget->create_new_room_bottom_widget->show();
+
+    new_room_widget->new_room_name_line_edit->move(99, 10);
+    new_room_widget->new_room_name_line_edit->setFixedSize(550, 30);
     new_room_widget->new_room_name_line_edit->setStyleSheet(current_style.line_edit_standard);
     new_room_widget->new_room_name_line_edit->show();
 
-    new_room_widget->users_search_line_edit->move(0, 650);
-    new_room_widget->users_search_line_edit->setFixedSize(470, 38);
+    new_room_widget->users_search_line_edit->move(48, 10);
+    new_room_widget->users_search_line_edit->setFixedSize(700 - 12, 30);
     new_room_widget->users_search_line_edit->setStyleSheet(current_style.line_edit_standard);
     new_room_widget->users_search_line_edit->show();
 
-    new_room_widget->room_name_label->move(60, 8);
-    new_room_widget->room_name_label->setStyleSheet("font-size: 20px;");
-    new_room_widget->room_name_label->show();
-
-    new_room_widget->select_users_widget->setFixedSize(746, 610);
+    new_room_widget->select_users_widget->setFixedSize(new_room_widget->create_new_room_widget->width() - 2,
+                                                       new_room_widget->create_new_room_widget->height() -
+                                                       new_room_widget->create_new_room_top_widget->height() -
+                                                       new_room_widget->create_new_room_bottom_widget->height() - 2);
     new_room_widget->select_users_widget->setStyleSheet(current_style.select_people_widget);
 
     new_room_widget->select_users_scroll_area->setWidget(new_room_widget->select_users_widget);
-    new_room_widget->select_users_scroll_area->move(0, new_room_widget->new_room_name_line_edit->height());
-    new_room_widget->select_users_scroll_area->setFixedSize(748, 610);
+    new_room_widget->select_users_scroll_area->move(0, new_room_widget->new_room_name_line_edit->height() + 20);
+    new_room_widget->select_users_scroll_area->setFixedSize(new_room_widget->select_users_widget->width() + 2, new_room_widget->select_users_widget->height() + 2);
     new_room_widget->select_users_scroll_area->setStyleSheet("");
 
-    new_room_widget->cancel_create_new_room_button->move(485, 650);
-    new_room_widget->cancel_create_new_room_button->setStyleSheet(current_style.button_standard);
+    new_room_widget->cancel_create_new_room_button->move(12, 13);
+    new_room_widget->cancel_create_new_room_button->setStyleSheet(current_style.back_to_authorization_button);
     new_room_widget->cancel_create_new_room_button->show();
 
-    new_room_widget->create_new_room_button->move(618, 650);
     new_room_widget->create_new_room_button->setStyleSheet(current_style.button_standard);
+    new_room_widget->create_new_room_button->move(314, 50);
     new_room_widget->create_new_room_button->show();
 }
 

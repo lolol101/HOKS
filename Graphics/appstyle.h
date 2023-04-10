@@ -49,10 +49,12 @@ public:
             "}";
     QString line_edit_standard =
             "QLineEdit {"
+                "border: 0px solid;"
                 "color: " + colors["line_edit_standard_color"] +
                 "background-color: " + colors["line_edit_standard_background_color"] +
                 "border-radius: 12px;"
                 "padding: 6px;"
+                "font-size: 15px;"
             "}";
     QString label_standard =
             "QLabel {"
@@ -94,12 +96,12 @@ public:
             "border-top: 1px solid #606060;"
             "border-bottom: 1px solid #606060;";
     QString inside_messages_widget =
-            "background-color: " + colors["room_inside_background_color"] +
-            "border-left: 1px solid #606060;";
+            "background-color: " + colors["room_inside_background_color"];
     QString rooms_space_scroll_bar = "";
     QString rooms_space_widget =
             "QWidget {"
                 "background-color: " + colors["rooms_space_widget_background_color"] +
+                 "border-right: 1px solid #606060;"
             "}";
     QString inside_message_line =
             "QTextEdit {"
@@ -141,6 +143,7 @@ public:
             "}";
     QString create_new_room_widget =
             "QWidget {"
+                "border-top: 1px solid #606060;"
                 "background-color: #555555;"
             "}";
 
@@ -149,10 +152,34 @@ public:
                 "background-color: #111111;"
             "}";
     QString person_checkbox =
-            "border: 0px solid;";
+            "border: 0px solid;"
+            "background-color: transparent;";
     QString person_checkbox_widget =
-            "font-size: 19px;";
-    QString top_widget = "background-color: #111111;";
+            "font-size: 19px;"
+            "border-bottom: 1px solid #606060;";
+    QString top_widget =
+            "background-color: #111111;"
+            "border-right: 1px solid #606060;";
+
+    QString button_create_new_room =
+            "QPushButton {"
+                "font-size: 17px;"
+                "border-radius: 15px;"
+                "padding-top: 3px;"
+                "padding-bottom: 5px;"
+                "padding-left: 3px;"
+                "padding-right: 3px;"
+            "}"
+             "QPushButton:hover {"
+                "border-color: #777777;"
+            "}"
+            "QPushButton:pressed:hover {"
+                "background-color: #777777;"
+            "}";
+    QString create_new_room_bottom_widget =
+            "border-top: 1px solid #606060;";
+    QString create_new_room_top_widget =
+            "border-bottom: 1px solid #606060;";
 };
 
 #endif // APPSTYLE_H
