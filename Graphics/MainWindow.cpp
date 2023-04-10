@@ -115,33 +115,41 @@ void MainWindow::show_room_inside(Room &room) {
     else {
         inside_room_name_label_width = inside_room_name_label_size_base.width() + 1;
     }
+
+    room.room_inside->message_line_area_widget->setFixedSize(room.room_inside->room_inside_->width(), 48);
+    room.room_inside->message_line_area_widget->move(0, this->height() - room.room_inside->message_line_area_widget->height());
+    room.room_inside->message_line_area_widget->setStyleSheet(current_style.message_line_area_widget);
+    room.room_inside->message_line_area_widget->show();
+
     room.room_inside->inside_room_name_label->setFixedSize(inside_room_name_label_width, 30);
     room.room_inside->inside_room_name_label->setAlignment(Qt::AlignCenter);
     room.room_inside->inside_room_name_label->move((room.room_inside->room_inside_->width() - room.room_inside->inside_room_name_label->width()) / 2, 10);
     room.room_inside->inside_room_name_label->show();
 
-    room.room_inside->inside_room_name->move(0, 0);
-    room.room_inside->inside_room_name->setFixedSize(room.room_inside->room_inside_->width(), 50);
-    room.room_inside->inside_room_name->setStyleSheet(current_style.inside_room_name_widget);
-    room.room_inside->inside_room_name->show();
+    room.room_inside->inside_room_name_widget->move(0, 0);
+    room.room_inside->inside_room_name_widget->setFixedSize(room.room_inside->room_inside_->width(), 50);
+    room.room_inside->inside_room_name_widget->setStyleSheet(current_style.inside_room_name_widget);
+    room.room_inside->inside_room_name_widget->show();
 
-    room.room_inside->message_line->setFixedSize(700, 46);
-    room.room_inside->message_line->move(1, room.room_inside->room_inside_->height() - room.room_inside->message_line->height());
+    room.room_inside->message_line->setFixedSize(700, 47);
+    room.room_inside->message_line->move(0, 1);
     room.room_inside->message_line->setStyleSheet(current_style.inside_message_line);
+    room.room_inside->message_line->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+
 
     room.room_inside->inside_messages_widget->setStyleSheet(current_style.inside_messages_widget);
     room.room_inside->inside_messages_widget->setFixedSize(room.room_inside->room_inside_->width() - 2,
                                                            room.room_inside->room_inside_->height() -
-                                                           room.room_inside->message_line->height() -
-                                                           room.room_inside->inside_room_name->height() - 2);
+                                                           room.room_inside->message_line_area_widget->height() -
+                                                           room.room_inside->inside_room_name_widget->height() - 2);
 
-    room.room_inside->inside_messages_scroll_area->move(0, room.room_inside->inside_room_name->height());
+    room.room_inside->inside_messages_scroll_area->move(0, room.room_inside->inside_room_name_widget->height());
     room.room_inside->inside_messages_scroll_area->setFixedSize(room.room_inside->inside_messages_widget->width() + 2,
                                                                 room.room_inside->inside_messages_widget->height() + 2);
     room.room_inside->inside_messages_scroll_area->setWidget(room.room_inside->inside_messages_widget);
     room.room_inside->inside_messages_scroll_area->setStyleSheet(current_style.inside_messages_widget);
 
-    room.room_inside->send_message_button->setGeometry(room.room_inside->room_inside_->width() - 39, room.room_inside->room_inside_->height() - 39, 32, 32);
+    room.room_inside->send_message_button->setGeometry(room.room_inside->message_line->width() + 5, 8, 32, 32);
     room.room_inside->send_message_button->setStyleSheet(current_style.send_message_button);
 
     room.room_inside->inside_messages_scroll_area->setStyleSheet("");

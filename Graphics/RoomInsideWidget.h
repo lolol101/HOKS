@@ -29,14 +29,17 @@ public:
 
     QTextEdit *message_line;
 
-    QString get_message_line();
+    QWidget *message_line_area_widget;
 
     QWidget *inside_messages_widget;
+
     QScrollArea *inside_messages_scroll_area;
 
-    QWidget *inside_room_name;
+    QWidget *inside_room_name_widget;
 
     QLabel *inside_room_name_label;
+
+    QString get_message_line();
 
     QPushButton *send_message_button;
 

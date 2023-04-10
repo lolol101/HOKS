@@ -103,13 +103,11 @@ public:
                  "border-right: 1px solid #606060;"
             "}";
     QString inside_message_line =
-            "QTextEdit {"
                 "background-color: " + colors["message_line_background_color"] +
                 "color: " + colors["message_line_color"] +
-                "border: 1px solid;"
-                "border-color: " + colors["message_line_border_color"] +
-                "padding: 10px 10px;"
-            "}";
+                "border: 0px solid;"
+                "padding: 11px 15px;"
+                "font-size: 15px;";
     QString inside_room_name_widget =
                 "border: 0px solid #606060;"
                 "background-color: #111111;"
@@ -136,10 +134,10 @@ public:
                 "background-image: url(:/icons/icons/send_message_button.png);"
             "}"
             "QPushButton:hover {"
-                "background-image: url(:/icons/icons/send_message_button.png);"
+                "background-image: url(:/icons/icons/send_message_button_pushed.png);"
             "}"
             "QPushButton:pressed:hover {"
-                "background-image: url(:/icons/icons/send_message_button.png);"
+                "background-image: url(:/icons/icons/send_message_button_pushed.png);"
             "}";
     QString create_new_room_widget =
             "QWidget {"
@@ -183,6 +181,9 @@ public:
     QString inside_room_name_label =
             "border: 0px;"
             "font-size: 20px;";
+    QString message_line_area_widget =
+            "border: 0px;"
+            "border-top: 1px solid #606060;";
 };
 
 #endif // APPSTYLE_H

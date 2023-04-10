@@ -7,16 +7,18 @@
 
 RoomInsideWidget::RoomInsideWidget() {
     room_inside_ = new QWidget();
-    message_line = new QTextEdit(room_inside_);
-    inside_room_name = new QWidget(room_inside_);
-    inside_room_name_label = new QLabel(inside_room_name);
+    message_line_area_widget = new QWidget(room_inside_);
+    message_line = new QTextEdit(message_line_area_widget);
+    message_line->setPlaceholderText("Сообщение...");
+    inside_room_name_widget = new QWidget(room_inside_);
+    inside_room_name_label = new QLabel(inside_room_name_widget);
 
     inside_messages_widget = new QWidget(room_inside_);
     inside_messages_scroll_area = new QScrollArea(room_inside_);
     inside_messages_scroll_area->setWidget(inside_messages_widget);
     inside_messages_scroll_area->setFixedSize(room_inside_->width(), room_inside_->height() - 100);
 
-    send_message_button = new QPushButton(room_inside_);
+    send_message_button = new QPushButton(message_line_area_widget);
 }
 
 MessageWidget& RoomInsideWidget::append_user_message(const QString &message_text) {
