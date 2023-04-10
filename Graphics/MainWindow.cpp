@@ -14,17 +14,17 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     make_window_skillet();
 
-    for (int i = 0; i < 20; ++i) {
-        Room *r = new Room("Комната друзей", 123);
-        show_room_icon(*r);
-        show_room_inside(*r);
-        for (int j = 0; j < 10; j += 2) {
-            MessageWidget& msg1 = r->room_inside->append_user_message("Hello, my friend!");
-            MessageWidget& msg2 = r->room_inside->append_other_message("Hi!");
-            r->room_inside->show_message(&msg1);
-            r->room_inside->show_message(&msg2);
-        }
-    }
+//    for (int i = 0; i < 20; ++i) {
+//        Room *r = new Room("Комната друзей", 123);
+//        show_room_icon(*r);
+//        show_room_inside(*r);
+//        for (int j = 0; j < 10; j += 2) {
+//            MessageWidget& msg1 = r->room_inside->append_user_message("Hello, my friend!");
+//            MessageWidget& msg2 = r->room_inside->append_other_message("Hi!");
+//            r->room_inside->show_message(&msg1);
+//            r->room_inside->show_message(&msg2);
+//        }
+//    }
 //    NewRoomWidget& new_room = make_creation_new_room();
 //    show_creation_new_room(&new_room);
 //    for (int i = 0; i < 100; ++i) {

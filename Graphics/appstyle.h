@@ -180,7 +180,7 @@ public:
             "border-bottom: 1px solid #606060;";
     QString inside_room_name_label =
             "border: 0px;"
-            "font-size: 20px;";
+            "font-size: 18px;";
     QString message_line_area_widget =
             "border: 0px;"
             "border-top: 1px solid #606060;";
