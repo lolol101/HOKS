@@ -48,16 +48,22 @@ public:
 
     QString get_search_line_edit();
 
-    void show_creation_new_room(NewRoomWidget* new_room_widget);
+    void draw_creation_new_room(NewRoomWidget* new_room_widget);
+
+    void show_creation_new_room();
+
+    NewRoomWidget *new_room;
 
     ~MainWindow();
 
 public slots:
     void slot_open_main_window();
     void push_on_creating_new_room_slot();
+    void show_checkbox(const QString &chechbox_name);
 
 signals:
     void push_on_creating_new_room_signal();
+    void show_checkbox_signal(const QString &chechbox_name);
 
 private:
     Ui::MainWindow *ui;

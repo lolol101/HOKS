@@ -151,7 +151,8 @@ public:
             "}";
     QString person_checkbox =
             "border: 0px solid;"
-            "background-color: transparent;";
+            "background-color: transparent;"
+            "color: #a4a4a4;";
     QString person_checkbox_widget =
             "font-size: 19px;"
             "border-bottom: 1px solid #606060;";

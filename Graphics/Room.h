@@ -43,6 +43,7 @@ private slots:
 signals:
     void clicked_send_button(const QString& text_message);
     void room_icon_pressed();
+    void clicked_send_button_signal();
 };
 
 #endif // ROOM_H

@@ -16,7 +16,9 @@ MainWindow::MainWindow(QWidget *parent) :
 }
 
 void MainWindow::show_main_window() {
+    new_room = &make_creation_new_room();
     make_window_skillet();
+    this->setWindowTitle("HOKS");
 
 //    for (int i = 0; i < 20; ++i) {
 //        Room *r = new Room("Комната друзей", 123);
@@ -29,19 +31,15 @@ void MainWindow::show_main_window() {
 //            r->room_inside->show_message(&msg2);
 //        }
 //    }
+    connect(this, &MainWindow::show_checkbox_signal, new_room, &NewRoomWidget::show_checkox);
+
+//    show_creation_new_room();
+//    show_checkbox("Ilia");
 
 //    NewRoomWidget& new_room = make_creation_new_room();
 //    show_creation_new_room(&new_room);
-//    for (int i = 0; i < 20; ++i) {
+//    for (int i = 0; i < 10; ++i) {
 //        QWidget &chb1 = new_room.make_checkbox_for_person("Ilia");
-//        new_room.show_checkbox_for_person(&chb1);
-//    }
-//    for (int i = 0; i < 1; ++i) {
-//        QWidget &chb1 = new_room.make_checkbox_for_person("Vasiliy");
-//        new_room.show_checkbox_for_person(&chb1);
-//    }
-//    for (int i = 0; i < 1; ++i) {
-//        QWidget &chb1 = new_room.make_checkbox_for_person("Igor");
 //        new_room.show_checkbox_for_person(&chb1);
 //    }
 
@@ -166,17 +164,14 @@ void MainWindow::show_room_inside(Room &room) {
     room.room_inside->inside_messages_scroll_area->setStyleSheet("");
 }
 
-NewRoomWidget& MainWindow::make_creation_new_room() {
-    NewRoomWidget *new_room_widget = new NewRoomWidget();
-    return *new_room_widget;
-}
-
-void MainWindow::show_creation_new_room(NewRoomWidget* new_room_widget) {
+void MainWindow::draw_creation_new_room(NewRoomWidget* new_room_widget) {
     new_room_widget->create_new_room_widget->setParent(this);
+    new_room_widget->create_new_room_widget->show();
     new_room_widget->select_users_scroll_area->setParent(new_room_widget->create_new_room_widget);
 
     new_room_widget->create_new_room_widget->setFixedSize(this->width() - width_rooms_area - delta, this->height());
     new_room_widget->create_new_room_widget->move(width_rooms_area + delta, 0);
+
 
     new_room_widget->create_new_room_top_widget->move(0, 0);
     new_room_widget->create_new_room_top_widget->setFixedSize(new_room_widget->create_new_room_widget->width(), 51);
@@ -202,7 +197,10 @@ void MainWindow::show_creation_new_room(NewRoomWidget* new_room_widget) {
                                                        new_room_widget->create_new_room_widget->height() -
                                                        new_room_widget->create_new_room_top_widget->height() -
                                                        new_room_widget->create_new_room_bottom_widget->height() - 2);
-    new_room_widget->select_users_widget->setStyleSheet(current_style.select_people_widget);
+    new_room_widget->select_users_widget->setStyleSheet(current_style   .select_people_widget);
+
+    new_room_widget->create_new_room_widget->setParent(this);
+    new_room_widget->select_users_widget->show();
 
     new_room_widget->select_users_scroll_area->setWidget(new_room_widget->select_users_widget);
     new_room_widget->select_users_scroll_area->move(0, new_room_widget->new_room_name_line_edit->height() + 20);
@@ -216,6 +214,8 @@ void MainWindow::show_creation_new_room(NewRoomWidget* new_room_widget) {
     new_room_widget->create_new_room_button->setStyleSheet(current_style.button_standard);
     new_room_widget->create_new_room_button->move(314, 50);
     new_room_widget->create_new_room_button->show();
+    new_room_widget->select_users_widget->show();
+    new_room_widget->select_users_scroll_area->show();
 }
 
 QString MainWindow::get_search_line_edit() {
@@ -229,6 +229,21 @@ void MainWindow::slot_open_main_window() {
 void MainWindow::push_on_creating_new_room_slot() {
     emit push_on_creating_new_room_signal();
 }
+
+void MainWindow::show_checkbox(const QString &chechbox_name) {
+    emit show_checkbox_signal(chechbox_name);
+}
+
+void MainWindow::show_creation_new_room() {
+    draw_creation_new_room(new_room);
+}
+
+NewRoomWidget& MainWindow::make_creation_new_room() {
+    NewRoomWidget *new_room_widget = new NewRoomWidget();
+    new_room_widget->setParent(this);
+    return *new_room_widget;
+}
+
 
 MainWindow::~MainWindow()
 {
