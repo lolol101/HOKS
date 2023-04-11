@@ -51,7 +51,7 @@ void NewRoomWidget::person_checkbox_changed_slot(int state) {
         clicked_users.append(new_user_name);
     }
     else {
-        clicked_users.remove(clicked_users.indexOf(new_user_name));
+        clicked_users.removeAt(clicked_users.indexOf(new_user_name));
     }
 }
 
