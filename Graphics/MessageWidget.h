@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include <QMouseEvent>
+#include <QDebug>
 
 namespace Ui {
 class MessageWidget;

@@ -3,6 +3,8 @@
 #include "ui_RoomInsideWidget.h"
 #include "MessageWidget.h"
 #include <QLabel>
+#include <QTextEdit>
+#include <QFontMetrics>
 
 
 RoomInsideWidget::RoomInsideWidget() {
@@ -24,7 +26,6 @@ RoomInsideWidget::RoomInsideWidget() {
 MessageWidget& RoomInsideWidget::append_user_message(const QString &message_text) {
     MessageWidget *message_widget = new MessageWidget(inside_messages_widget);
     QLabel *message_text_label = new QLabel(message_widget);
-    message_widget->setFixedSize(400, 100);
     int message_widget_height = message_widget->height();
     int message_coordinate = index * message_widget_height + 2 + index * 4;
     ++index;
@@ -37,8 +38,16 @@ MessageWidget& RoomInsideWidget::append_user_message(const QString &message_text
     message_widget->move(320, message_coordinate);
 
     message_text_label->setText(message_text);
-    message_text_label->setFixedSize(message_widget->width(), message_widget->height());
     message_text_label->setStyleSheet(current_style.messages_label);
+    QSize message_text_label_size = message_text_label->sizeHint();
+
+    message_text_label->setFixedSize(message_text_label_size.width(), message_text_label_size.height());
+    message_text_label->move(10, 10);
+    message_text_label->setAlignment(Qt::AlignLeft);
+
+    message_widget->setFixedSize(message_text_label->width() + 20, message_text_label->height() + 20);
+    qDebug() << message_widget->width() << message_widget->height();
+
 
     message_widget->hide();
     return *message_widget;

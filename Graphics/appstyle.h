@@ -120,7 +120,7 @@ public:
             "QLabel {"
                 "color: #ffffff;"
                 "font-family: Geneva;"
-                "font-size: 16px;"
+                "font-size: 14px;"
                 "qproperty-alignment: AlignCenter;"
             "}";
     QString send_message_button =

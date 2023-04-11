@@ -18,17 +18,26 @@ MainWindow::MainWindow(QWidget *parent) :
 //        Room *r = new Room("Комната друзей", 123);
 //        show_room_icon(*r);
 //        show_room_inside(*r);
-//        for (int j = 0; j < 10; j += 2) {
-//            MessageWidget& msg1 = r->room_inside->append_user_message("Hello, my friend!");
+//        for (int j = 0; j < 1; ++j) {
+//            MessageWidget& msg1 = r->room_inside->append_user_message("Привет! Привет! ");
 //            MessageWidget& msg2 = r->room_inside->append_other_message("Hi!");
 //            r->room_inside->show_message(&msg1);
 //            r->room_inside->show_message(&msg2);
 //        }
 //    }
+
 //    NewRoomWidget& new_room = make_creation_new_room();
 //    show_creation_new_room(&new_room);
-//    for (int i = 0; i < 100; ++i) {
+//    for (int i = 0; i < 1; ++i) {
 //        QWidget &chb1 = new_room.make_checkbox_for_person("Ilia");
+//        new_room.show_checkbox_for_person(&chb1);
+//    }
+//    for (int i = 0; i < 1; ++i) {
+//        QWidget &chb1 = new_room.make_checkbox_for_person("Vasiliy");
+//        new_room.show_checkbox_for_person(&chb1);
+//    }
+//    for (int i = 0; i < 1; ++i) {
+//        QWidget &chb1 = new_room.make_checkbox_for_person("Igor");
 //        new_room.show_checkbox_for_person(&chb1);
 //    }
 //    new_room.deleteLater();

@@ -8,6 +8,8 @@
 #include <QScrollArea>
 #include <appstyle.h>
 #include <QLabel>
+#include <QVector>
+#include <QString>
 
 namespace Ui {
 class NewRoomWidget;
@@ -44,13 +46,13 @@ public:
 
     void show_checkbox_for_person(QWidget *person_checkbox);
 
-    bool is_checkbox_checked(QCheckBox *person_checkbox);
-
     QPushButton *create_new_room_button;
 
     QPushButton *cancel_create_new_room_button;
 
     int index = 0;
+
+    QList<QString> clicked_users;
 
     ~NewRoomWidget();
 
@@ -58,7 +60,11 @@ private:
     Ui::NewRoomWidget *ui;
 
 public slots:
-    void person_checkbox_changed();
+    void person_checkbox_changed_slot(int state);
+    void push_on_creating_new_room_button();
+
+signals:
+    void creating_new_room_signal(QList<QString> &clicked_users);
 };
 
 #endif // NEWROOMWIDGET_H

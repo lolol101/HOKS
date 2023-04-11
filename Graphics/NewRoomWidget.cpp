@@ -1,5 +1,6 @@
 #include "NewRoomWidget.h"
 #include "ui_NewRoomWidget.h"
+#include <QDebug>
 
 NewRoomWidget::NewRoomWidget()
 {
@@ -18,6 +19,7 @@ NewRoomWidget::NewRoomWidget()
     create_new_room_button->setFixedSize(120, 38);
     cancel_create_new_room_button = new QPushButton(create_new_room_top_widget);
     cancel_create_new_room_button->setFixedSize(24, 24);
+    connect(create_new_room_button, &QPushButton::clicked, this, &NewRoomWidget::push_on_creating_new_room_button);
 }
 
 QWidget &NewRoomWidget::make_checkbox_for_person(const QString &person_name) {
@@ -30,6 +32,8 @@ QWidget &NewRoomWidget::make_checkbox_for_person(const QString &person_name) {
     checkbox_for_person->setStyleSheet(current_style.person_checkbox);
     checkbox_for_person->move(15, 9);
 
+    connect(checkbox_for_person, &QCheckBox::stateChanged, this, &NewRoomWidget::person_checkbox_changed_slot);
+
     if ((index + 1) * 40 >= select_users_widget->height()) {
         select_users_widget->setFixedHeight((index + 1) * 40 - 2);
     }
@@ -39,17 +43,26 @@ QWidget &NewRoomWidget::make_checkbox_for_person(const QString &person_name) {
     return *widget_for_checkbox;
 }
 
-bool NewRoomWidget::is_checkbox_checked(QCheckBox *person_checkbox) {
-    return person_checkbox->checkState() == Qt::Checked;
+
+void NewRoomWidget::person_checkbox_changed_slot(int state) {
+    QCheckBox *now_sender = static_cast<QCheckBox*>(sender());
+    QString new_user_name = now_sender->text();
+    if (state == Qt::Checked) {
+        clicked_users.append(new_user_name);
+    }
+    else {
+        clicked_users.remove(clicked_users.indexOf(new_user_name));
+    }
+}
+
+void NewRoomWidget::push_on_creating_new_room_button() {
+    emit creating_new_room_signal(clicked_users);
 }
 
 void NewRoomWidget::show_checkbox_for_person(QWidget *person_checkbox) {
     person_checkbox->show();
 }
 
-void NewRoomWidget::person_checkbox_changed() {
-    qDebug() << "Checked!";
-}
 
 QString NewRoomWidget::get_new_room_name_line_edit() {
     return new_room_name_line_edit->text();
