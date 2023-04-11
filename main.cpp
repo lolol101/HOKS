@@ -4,6 +4,7 @@
 #include <QDate>
 #include <QTime>
 #include <QDebug>
+#include <QProcess>
 
 
 int main()
@@ -19,9 +20,12 @@ int main()
         std::cout << "Error\n";
     }
 
-//    QString res = tmp.get_data_from_chats(1,db_space::CHATS::ARRAY_PEOPLE);
-    bool result = tmp.change_data_in_chats(1,db_space::CHATS::NAME, "telegram");
-    qDebug() << result << '\n';
+//    QProcess *proc = new QProcess();
+//    proc->start("/home/crytek/Study/HOKS/script.sh");
 
+    QVector<QString> arr = tmp.get_username_of_users();
+    for (auto &item: arr) {
+        qDebug() << item;
+    }
     return 0;
 }

@@ -216,6 +216,19 @@ namespace db_space {
         return array;
     }
 
+    QVector<QString> Database::get_username_of_users()
+    {
+        QSqlQuery query(obj);
+        query.exec("SELECT username FROM users");
+
+        QVector<QString> array(query.size());
+        for (int i = 0; i < static_cast<int>(query.size()); i++) {
+            query.next();
+            array[i] = QString(query.value(0).toString());
+        }
+        return array;
+    }
+
     void Database::insert_message(int number_chat, QString author, QString text_msg, bool media)
     {
         QSqlQuery query(obj);

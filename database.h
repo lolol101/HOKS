@@ -87,6 +87,7 @@ namespace db_space {
 
         void delete_account(QString username);
         QVector<msg> get_all_msg_from_chat(int id);
+        QVector<QString> get_username_of_users();
 
         void insert_message(int number_chat, QString author, QString text_msg, bool media);
         void delete_message(int msg_id);
