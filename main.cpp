@@ -20,6 +20,6 @@ int main()
         std::cout << "Error\n";
     }
 
-    tmp.change_array_chats_for_user("kola","2555");
+    tmp.change_array_chats_for_user("igor","258");
     return 0;
 }

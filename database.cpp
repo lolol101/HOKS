@@ -96,9 +96,16 @@ namespace db_space {
     {
         QSqlQuery query(obj);
         QStringList tmp = get_array_of_chat_id_for_user(username);
-        tmp.append(new_data);
-        query.exec("UPDATE users SET chat_of_users = '{"+tmp.join(',')
-                   +"}' WHERE username = '"+username+"'");
+
+        if (tmp[0] == "") {
+
+            query.exec("UPDATE users SET chat_of_users = '{"+new_data
+                       +"}' WHERE username = '"+username+"'");
+        } else {
+            tmp.append(new_data);
+            query.exec("UPDATE users SET chat_of_users = '{"+tmp.join(",")
+                       +"}' WHERE username = '"+username+"'");
+        }
     }
 
     QString Database::get_data_from_chats(int chat_id, CHATS column)
