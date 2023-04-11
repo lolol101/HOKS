@@ -76,6 +76,7 @@ namespace db_space {
                            QString password);
         QString get_data_from_users(QString username, USER column);
         bool change_data_in_users(QString username, USER column, QString new_data);
+        void change_array_chats_for_user(QString username, QString new_data);
         QString get_data_from_chats(int chat_id, CHATS column);
         bool change_data_in_chats(int chat_id, CHATS column, QString new_data);
 

@@ -83,13 +83,22 @@ namespace db_space {
     {
         QSqlQuery query(obj);
         bool status_transaction = query.exec("UPDATE users SET " + enum_commands_to_string.value(column)
-                                             + " = '" + new_data + "'");
+                                             + " = '" + new_data + "' WHERE username ='"+username+"'");
 
         if (!status_transaction) {
             return false;
         } else {
             return true;
         }
+    }
+
+    void Database::change_array_chats_for_user(QString username, QString new_data)
+    {
+        QSqlQuery query(obj);
+        QStringList tmp = get_array_of_chat_id_for_user(username);
+        tmp.append(new_data);
+        query.exec("UPDATE users SET chat_of_users = '{"+tmp.join(',')
+                   +"}' WHERE username = '"+username+"'");
     }
 
     QString Database::get_data_from_chats(int chat_id, CHATS column)
