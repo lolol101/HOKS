@@ -62,9 +62,10 @@ private:
 public slots:
     void person_checkbox_changed_slot(int state);
     void push_on_creating_new_room_button();
+    void push_on_cancel_button_slot();
 
 signals:
-    void creating_new_room_signal(QList<QString> &clicked_users);
+    void creating_new_room_signal(QList<QString> &clicked_users, const QString &room_name);
 };
 
 #endif // NEWROOMWIDGET_H

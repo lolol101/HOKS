@@ -84,6 +84,7 @@ signals:
                            const QString &user_email,
                            const QString &user_first_name,
                            const QString &user_last_name);
+    void open_main_window();
 
 };
 #endif // authorizationWindow_H

@@ -52,6 +52,13 @@ public:
 
     ~MainWindow();
 
+public slots:
+    void slot_open_main_window();
+    void push_on_creating_new_room_slot();
+
+signals:
+    void push_on_creating_new_room_signal();
+
 private:
     Ui::MainWindow *ui;
 };

@@ -20,6 +20,7 @@ NewRoomWidget::NewRoomWidget()
     cancel_create_new_room_button = new QPushButton(create_new_room_top_widget);
     cancel_create_new_room_button->setFixedSize(24, 24);
     connect(create_new_room_button, &QPushButton::clicked, this, &NewRoomWidget::push_on_creating_new_room_button);
+    connect(cancel_create_new_room_button, &QPushButton::clicked, this, &NewRoomWidget::push_on_cancel_button_slot);
 }
 
 QWidget &NewRoomWidget::make_checkbox_for_person(const QString &person_name) {
@@ -32,7 +33,7 @@ QWidget &NewRoomWidget::make_checkbox_for_person(const QString &person_name) {
     checkbox_for_person->setStyleSheet(current_style.person_checkbox);
     checkbox_for_person->move(15, 9);
 
-    connect(checkbox_for_person, &QCheckBox::stateChanged, this, &NewRoomWidget::person_checkbox_changed_slot);
+    connect(checkbox_for_person, &QCheckBox::stateChanged, this, &NewRoomWidget::push_on_cancel_button_slot);
 
     if ((index + 1) * 40 >= select_users_widget->height()) {
         select_users_widget->setFixedHeight((index + 1) * 40 - 2);
@@ -56,7 +57,7 @@ void NewRoomWidget::person_checkbox_changed_slot(int state) {
 }
 
 void NewRoomWidget::push_on_creating_new_room_button() {
-    emit creating_new_room_signal(clicked_users);
+    emit creating_new_room_signal(clicked_users, new_room_name_line_edit->text());
 }
 
 void NewRoomWidget::show_checkbox_for_person(QWidget *person_checkbox) {
@@ -70,6 +71,10 @@ QString NewRoomWidget::get_new_room_name_line_edit() {
 
 QString NewRoomWidget::get_users_search_line_edit() {
     return users_search_line_edit->text();
+}
+
+void NewRoomWidget::push_on_cancel_button_slot() {
+    create_new_room_widget->hide();
 }
 
 NewRoomWidget::~NewRoomWidget()

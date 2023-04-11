@@ -13,6 +13,10 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     make_window_skillet();
+}
+
+void MainWindow::show_main_window() {
+    make_window_skillet();
 
 //    for (int i = 0; i < 20; ++i) {
 //        Room *r = new Room("Комната друзей", 123);
@@ -28,7 +32,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
 //    NewRoomWidget& new_room = make_creation_new_room();
 //    show_creation_new_room(&new_room);
-//    for (int i = 0; i < 1; ++i) {
+//    for (int i = 0; i < 20; ++i) {
 //        QWidget &chb1 = new_room.make_checkbox_for_person("Ilia");
 //        new_room.show_checkbox_for_person(&chb1);
 //    }
@@ -40,13 +44,11 @@ MainWindow::MainWindow(QWidget *parent) :
 //        QWidget &chb1 = new_room.make_checkbox_for_person("Igor");
 //        new_room.show_checkbox_for_person(&chb1);
 //    }
-//    new_room.deleteLater();
-}
 
-void MainWindow::show_main_window() {
-    MainWindow* m;
-    m = new MainWindow();
-    m->show();
+//    new_room.deleteLater();
+
+    show();
+    connect(creating_new_room_button, &QPushButton::clicked, this, &MainWindow::push_on_creating_new_room_slot);
 }
 
 void MainWindow::make_window_skillet() {
@@ -218,6 +220,14 @@ void MainWindow::show_creation_new_room(NewRoomWidget* new_room_widget) {
 
 QString MainWindow::get_search_line_edit() {
     return search_line_edit->text();
+}
+
+void MainWindow::slot_open_main_window() {
+    show_main_window();
+}
+
+void MainWindow::push_on_creating_new_room_slot() {
+    emit push_on_creating_new_room_signal();
 }
 
 MainWindow::~MainWindow()
