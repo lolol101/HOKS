@@ -207,6 +207,18 @@ void MainWindow::draw_creation_new_room(NewRoomWidget* new_room_widget) {
     new_room_widget->create_new_room_button->show();
     new_room_widget->select_users_widget->show();
     new_room_widget->select_users_scroll_area->show();
+
+    new_room_widget->users_search_line_edit->setText("");
+    new_room_widget->new_room_name_line_edit->setText("");
+
+    new_room_widget->index = 0;
+    QList<QObject*> checkboxes = new_room_widget->select_users_widget->children();
+    for(int i = 0; i < checkboxes.size(); ++i) {
+        QObject* checkbox = checkboxes.at(i);
+        if(QWidget* widget = qobject_cast<QWidget*>(checkbox)) {
+            widget->hide();
+        }
+    }
 }
 
 QString MainWindow::get_search_line_edit() {

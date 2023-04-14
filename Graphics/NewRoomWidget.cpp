@@ -85,6 +85,7 @@ QString NewRoomWidget::get_users_search_line_edit() {
 
 void NewRoomWidget::push_on_cancel_button_slot() {
     create_new_room_widget->hide();
+
 }
 
 NewRoomWidget::~NewRoomWidget()
