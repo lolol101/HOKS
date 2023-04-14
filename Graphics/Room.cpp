@@ -32,11 +32,16 @@ Room::Room(const QString &room_name, const int id)  {
     room_inside = new RoomInsideWidget();
     room_icon->room_icon_->hide();
     room_inside->room_inside_->hide();
-    connect(this->room_inside, &RoomInsideWidget::clicked_send_button, this, &::Room::slot_clicked_send_button);
+    connect(room_icon, &RoomIconWidget::clicked_icon, this, &Room::slot_clicked_icon_room);
+    connect(room_inside, &RoomInsideWidget::clicked_send_button, this, &::Room::slot_clicked_send_button);
 }
 
 void Room::slot_clicked_send_button(const QString &text_message) {
     emit clicked_send_button(text_message);
+}
+
+void Room::slot_clicked_icon_room() {
+    emit room_icon_pressed();
 }
 
 void Room::set_room_name_at_top(const QString &room_name) {

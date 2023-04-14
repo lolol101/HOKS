@@ -110,14 +110,6 @@ void authorizationWindow::make_registration_elements() {
     connect(registration_button, &QPushButton::clicked, this, &authorizationWindow::push_on_registration_button);
 }
 
-void authorizationWindow::show_main_window() {
-    this->setWindowTitle("HOKS");
-
-    this->close();
-    MainWindow m;
-    m.show_main_window();
-}
-
 void authorizationWindow::show_authorization() {
     this->setWindowTitle("Вход в HOKS");
 

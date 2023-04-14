@@ -64,6 +64,7 @@ public slots:
     void push_on_creating_new_room_button();
     void push_on_cancel_button_slot();
     void show_checkox(const QString &checkbox_name);
+    void hide_create_room();
 
 signals:
     void creating_new_room_signal(QList<QString> &clicked_users, const QString &room_name);

@@ -25,6 +25,12 @@ public:
 
     ~RoomIconWidget();
 
+signals:
+    void clicked_icon();
+
+public slots:
+    void slot_clicked();
+
 private:
     Ui::RoomIconWidget *ui;
 };

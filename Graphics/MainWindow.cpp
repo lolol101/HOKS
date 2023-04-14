@@ -20,33 +20,24 @@ void MainWindow::show_main_window() {
     make_window_skillet();
     this->setWindowTitle("HOKS");
 
-//    for (int i = 0; i < 20; ++i) {
-//        Room *r = new Room("Комната друзей", 123);
-//        show_room_icon(*r);
-//        show_room_inside(*r);
-//        for (int j = 0; j < 1; ++j) {
-//            MessageWidget& msg1 = r->room_inside->append_user_message("Привет! Привет! ");
-//            MessageWidget& msg2 = r->room_inside->append_other_message("Hi!");
-//            r->room_inside->show_message(&msg1);
-//            r->room_inside->show_message(&msg2);
-//        }
-//    }
     connect(this, &MainWindow::show_checkbox_signal, new_room, &NewRoomWidget::show_checkox);
-
-//    show_creation_new_room();
-//    show_checkbox("Ilia");
-
-//    NewRoomWidget& new_room = make_creation_new_room();
-//    show_creation_new_room(&new_room);
-//    for (int i = 0; i < 10; ++i) {
-//        QWidget &chb1 = new_room.make_checkbox_for_person("Ilia");
-//        new_room.show_checkbox_for_person(&chb1);
-//    }
-
-//    new_room.deleteLater();
+    connect(new_room, &NewRoomWidget::creating_new_room_signal, this, &MainWindow::push_on_finish_create_room_signal);
+    connect(this, &MainWindow::hide_create_room, new_room, &NewRoomWidget::hide_create_room);
+    connect(creating_new_room_button, &QPushButton::clicked, this, &MainWindow::push_on_creating_new_room_slot);
 
     show();
-    connect(creating_new_room_button, &QPushButton::clicked, this, &MainWindow::push_on_creating_new_room_slot);
+
+//        for (int i = 0; i < 20; ++i) {
+//            Room *r = new Room("Комната друзей", 123);
+//            show_room_icon(*r);
+//            show_room_inside(*r);
+//            for (int j = 0; j < 1; ++j) {
+//                MessageWidget& msg1 = r->room_inside->append_user_message("Привет! Привет! ");
+//                MessageWidget& msg2 = r->room_inside->append_other_message("Hi!");
+//                r->room_inside->show_message(&msg1);
+//                r->room_inside->show_message(&msg2);
+//            }
+//        }
 }
 
 void MainWindow::make_window_skillet() {
@@ -238,15 +229,21 @@ void MainWindow::show_creation_new_room() {
     draw_creation_new_room(new_room);
 }
 
+void MainWindow::slot_hide_create_room() {
+    emit hide_create_room();
+}
+
 NewRoomWidget& MainWindow::make_creation_new_room() {
     NewRoomWidget *new_room_widget = new NewRoomWidget();
     new_room_widget->setParent(this);
     return *new_room_widget;
 }
 
+void MainWindow::push_on_finish_create_room_slot(const QList<QString>& peoples, const QString& room_name) {
+    emit push_on_finish_create_room_signal(peoples, room_name);
+}
 
 MainWindow::~MainWindow()
 {
     delete ui;
 }
-

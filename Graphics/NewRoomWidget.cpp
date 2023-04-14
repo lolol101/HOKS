@@ -51,6 +51,9 @@ void NewRoomWidget::show_checkox(const QString &checkbox_name) {
     show_checkbox_for_person(&make_checkbox_for_person(checkbox_name));
 }
 
+void NewRoomWidget::hide_create_room() {
+    create_new_room_widget->hide();
+}
 
 void NewRoomWidget::person_checkbox_changed_slot(int state) {
     QCheckBox *now_sender = static_cast<QCheckBox*>(sender());

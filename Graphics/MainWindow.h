@@ -59,11 +59,16 @@ public:
 public slots:
     void slot_open_main_window();
     void push_on_creating_new_room_slot();
+    void push_on_finish_create_room_slot(const QList<QString>& peoples, const QString& room_name);
     void show_checkbox(const QString &chechbox_name);
+    void slot_hide_create_room();
 
 signals:
+    void hide_create_room();
     void push_on_creating_new_room_signal();
+    void push_on_finish_create_room_signal(const QList<QString>& peoples, const QString& room_name);
     void show_checkbox_signal(const QString &chechbox_name);
+
 
 private:
     Ui::MainWindow *ui;

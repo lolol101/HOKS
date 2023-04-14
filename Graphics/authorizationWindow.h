@@ -56,7 +56,6 @@ public:
 
     void show_authorization();
     void show_registration();
-    void show_main_window();
 
     void show_login_input_error(const QString &new_text);
     void show_password_input_error(const QString &new_text);
