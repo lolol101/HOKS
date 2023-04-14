@@ -64,6 +64,31 @@ public:
             "QMessageBox {"
                 "background-color: " + colors["message_box_standard_background_color"] +
             "}";
+
+    QString scroll_bar_standard =
+            "QScrollBar {"
+                "background-color: rgba(17, 17, 17, 0);"
+                "width: 8px;"
+            "}"
+            "QScrollBar::handle {"
+                "border-radius: 4px;"
+                "background-color: rgba(96, 96, 96, 0.6);"
+            "}"
+            "QScrollBar:handle:hover {"
+                "background-color: rgba(96, 96, 96, 0.8);"
+            "}"
+            "QScrollBar:handle:pressed:hover {"
+                "background-color: rgba(96, 96, 96, 0.8);"
+            "}"
+
+            "QScrollBar::add-page,"
+            "QScrollBar::sub-page,"
+            "QScrollBar::add-line,"
+            "QScrollBar::sub-line {"
+                "border: none;"
+                "background: none;"
+            "}";
+
     QString authorization_label =
             "font-family: Geneva;"
             "font-size: 24px;"
@@ -96,7 +121,7 @@ public:
             "border-bottom: 1px solid #606060;";
     QString inside_messages_widget =
             "background-color: " + colors["room_inside_background_color"];
-    QString rooms_space_scroll_bar = "";
+
     QString rooms_space_widget =
             "QWidget {"
                 "background-color: " + colors["rooms_space_widget_background_color"] +

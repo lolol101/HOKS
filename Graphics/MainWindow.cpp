@@ -10,10 +10,7 @@
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
-    ui(new Ui::MainWindow)
-{
-    make_window_skillet();
-}
+    ui(new Ui::MainWindow) {}
 
 void MainWindow::show_main_window() {
     new_room = &make_creation_new_room();
@@ -27,17 +24,21 @@ void MainWindow::show_main_window() {
 
     show();
 
-//        for (int i = 0; i < 20; ++i) {
-//            Room *r = new Room("Комната друзей", 123);
-//            show_room_icon(*r);
-//            show_room_inside(*r);
-//            for (int j = 0; j < 1; ++j) {
-//                MessageWidget& msg1 = r->room_inside->append_user_message("Привет! Привет! ");
-//                MessageWidget& msg2 = r->room_inside->append_other_message("Hi!");
-//                r->room_inside->show_message(&msg1);
-//                r->room_inside->show_message(&msg2);
-//            }
+//    int n = 20;
+//    for (int i = 0; i < n; ++i) {
+//        Room *r = new Room("Комната друзей", 123);
+//        show_room_icon(*r);
+//        show_room_inside(*r);
+//        if (i != n - 1) {
+//            hide_room_inside(*r);
 //        }
+//        for (int j = 0; j < 10; ++j) {
+//            MessageWidget& msg1 = r->room_inside->append_user_message("Привет! Привет! ");
+//            MessageWidget& msg2 = r->room_inside->append_other_message("Hi!");
+//            r->room_inside->show_message(&msg1);
+//            r->room_inside->show_message(&msg2);
+//        }
+//    }
 }
 
 void MainWindow::make_window_skillet() {
@@ -54,6 +55,7 @@ void MainWindow::make_window_skillet() {
 
     rooms_widget = new QWidget(this);
     scroll_rooms_widget = new QScrollArea(this);
+
     top_widget = new QWidget(this);
     search_line_edit = new QLineEdit(top_widget);
     search_line_edit->setPlaceholderText("Поиск...");
@@ -61,12 +63,11 @@ void MainWindow::make_window_skillet() {
 
     scroll_rooms_widget->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     scroll_rooms_widget->setWidget(rooms_widget);
-    scroll_rooms_widget->setStyleSheet(current_style.rooms_space_scroll_bar);
+    scroll_rooms_widget->setStyleSheet(current_style.scroll_bar_standard);
     scroll_rooms_widget->setMinimumSize(width_rooms_area + delta, this->height() - 50);
     scroll_rooms_widget->move(0, 49);
-    scroll_rooms_widget->show();
 
-    rooms_widget->setFixedSize(width_rooms_area, this->height() - 50);
+    rooms_widget->setFixedSize(width_rooms_area, this->height() - 52);
     rooms_widget->setStyleSheet(current_style.rooms_space_widget);
 
     top_widget->setFixedSize(rooms_widget->width() + 1, 50);
@@ -97,6 +98,14 @@ void MainWindow::show_room_icon(const Room &room) {
 
     room.room_icon->room_icon_->move(delta, height);
     room.room_icon->room_icon_->show();
+}
+
+void MainWindow::hide_room_inside(Room &room) {
+    room.room_inside->room_inside_->hide();
+}
+
+void MainWindow::hide_room_icon(Room &room) {
+    room.room_icon->room_icon_->hide();
 }
 
 void MainWindow::show_room_inside(Room &room) {
@@ -138,6 +147,7 @@ void MainWindow::show_room_inside(Room &room) {
 
 
     room.room_inside->inside_messages_widget->setStyleSheet(current_style.inside_messages_widget);
+
     room.room_inside->inside_messages_widget->setFixedSize(room.room_inside->room_inside_->width() - 2,
                                                            room.room_inside->room_inside_->height() -
                                                            room.room_inside->message_line_area_widget->height() -
@@ -146,13 +156,10 @@ void MainWindow::show_room_inside(Room &room) {
     room.room_inside->inside_messages_scroll_area->move(0, room.room_inside->inside_room_name_widget->height());
     room.room_inside->inside_messages_scroll_area->setFixedSize(room.room_inside->inside_messages_widget->width() + 2,
                                                                 room.room_inside->inside_messages_widget->height() + 2);
-    room.room_inside->inside_messages_scroll_area->setWidget(room.room_inside->inside_messages_widget);
-    room.room_inside->inside_messages_scroll_area->setStyleSheet(current_style.inside_messages_widget);
+    room.room_inside->inside_messages_scroll_area->setStyleSheet(current_style.scroll_bar_standard);
 
     room.room_inside->send_message_button->setGeometry(room.room_inside->message_line->width() + 5, 8, 32, 32);
     room.room_inside->send_message_button->setStyleSheet(current_style.send_message_button);
-
-    room.room_inside->inside_messages_scroll_area->setStyleSheet("");
 }
 
 void MainWindow::draw_creation_new_room(NewRoomWidget* new_room_widget) {

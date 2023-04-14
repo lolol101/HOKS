@@ -18,7 +18,6 @@ RoomInsideWidget::RoomInsideWidget() {
     inside_messages_widget = new QWidget(room_inside_);
     inside_messages_scroll_area = new QScrollArea(room_inside_);
     inside_messages_scroll_area->setWidget(inside_messages_widget);
-    inside_messages_scroll_area->setFixedSize(room_inside_->width(), room_inside_->height() - 100);
 
     send_message_button = new QPushButton(message_line_area_widget);
 
@@ -33,12 +32,12 @@ MessageWidget& RoomInsideWidget::append_user_message(const QString &message_text
     int message_coordinate = index * message_widget_height + 2 + index * 4;;
     ++index;
 
-    if (message_coordinate >= inside_messages_widget->height()) {
-        inside_messages_widget->setFixedSize(inside_messages_widget->width(), message_coordinate);
+    if (message_coordinate >= inside_messages_widget->height() - message_widget->height() - 8) {
+        inside_messages_widget->setFixedSize(inside_messages_widget->width(), message_coordinate + message_widget_height + 8);
     }
 
     message_widget->setStyleSheet(current_style.messages_widget);
-    message_widget->move(340, message_coordinate);
+    message_widget->move(332, message_coordinate);
 
     message_text_label->setText(message_text);
     message_text_label->setFixedSize(message_widget->width(), message_widget->height());
@@ -53,15 +52,15 @@ MessageWidget& RoomInsideWidget::append_other_message(const QString &message_tex
     QLabel *message_text_label = new QLabel(message_widget);
     message_widget->setFixedSize(400, 100);
     int message_widget_height = message_widget->height();
-    int message_coordinate = index * message_widget_height + 2 + index * 4;;
+    int message_coordinate = index * message_widget_height + 2 + index * 4;
     ++index;
 
-    if (message_coordinate >= inside_messages_widget->height()) {
-        inside_messages_widget->setFixedSize(inside_messages_widget->width(), message_coordinate);
+    if (message_coordinate >= inside_messages_widget->height() - message_widget->height() - 8) {
+        inside_messages_widget->setFixedSize(inside_messages_widget->width(), message_coordinate + message_widget_height + 8);
     }
 
     message_widget->setStyleSheet(current_style.messages_widget);
-    message_widget->move(5, message_coordinate);
+    message_widget->move(10, message_coordinate);
 
     message_text_label->setText(message_text);
     message_text_label->setFixedSize(message_widget->width(), message_widget->height());

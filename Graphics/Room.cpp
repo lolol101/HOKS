@@ -30,10 +30,10 @@ Room::Room(const QString &room_name, const int id)  {
     m_id = id;
     room_icon = new RoomIconWidget(room_name);
     room_inside = new RoomInsideWidget();
-    room_icon->room_icon_->hide();
-    room_inside->room_inside_->hide();
+    room_inside->hide();
+    room_icon->hide();
     connect(room_icon, &RoomIconWidget::clicked_icon, this, &Room::slot_clicked_icon_room);
-    connect(room_inside, &RoomInsideWidget::clicked_send_button, this, &::Room::slot_clicked_send_button);
+    connect(room_inside, &RoomInsideWidget::clicked_send_button, this, &::Room::slot_clicked_send_button);    
 }
 
 void Room::slot_clicked_send_button(const QString &text_message) {
