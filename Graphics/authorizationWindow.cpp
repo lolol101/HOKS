@@ -19,7 +19,7 @@ authorizationWindow::authorizationWindow(QWidget *parent)
 }
 
 void authorizationWindow::make_window_skillet() {
-    this->move(400, 180);
+//    this->move(400, 180);
     this->setFixedSize(500, 460);
 
     QString default_style = current_style.button_standard +
@@ -113,7 +113,7 @@ void authorizationWindow::make_registration_elements() {
 void authorizationWindow::show_authorization() {
     this->setWindowTitle("Вход в HOKS");
 
-    this->move(400, 180);
+//    this->move(400, 180);
     this->setFixedSize(500, 460);
 
     authorization_widget->show();
@@ -123,7 +123,7 @@ void authorizationWindow::show_authorization() {
 void authorizationWindow::show_registration() {
     this->setWindowTitle("Регистрация в HOKS");
 
-    this->move(400, 40);
+//    this->move(400, 40);
     this->setFixedSize(500, 682);
 
     authorization_button->hide();
@@ -188,7 +188,6 @@ void authorizationWindow::push_on_registration_button() {
 //    bool is_user_data_correct = true;
 //    // Такой пользователь уже существует
 //    if (std::find(all_users.begin(), all_users.end(), user_login) != all_users.end()) {
-
 //        show_login_input_error("Логин затят");
 //        is_user_data_correct = false;
 //    } if (user_password.size() < 3) { // Пароль не является безопасным
