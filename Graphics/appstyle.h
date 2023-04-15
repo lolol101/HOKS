@@ -102,7 +102,7 @@ public:
                 "width: 8px;"
             "}"
             "QScrollBar::handle {"
-                "border-radius: 3px;"
+                "border-radius: 4px;"
                 "background-color: rgba(96, 96, 96, 0.6);"
             "}"
             "QScrollBar:handle:hover {"
@@ -160,6 +160,10 @@ public:
             "QWidget {"
                 "background-color: " + colors["rooms_space_widget_background_color"] +
             "}";
+    QString users_search_line_edit =
+            "border: 0px;";
+    QString new_room_name_line_edit =
+            "border: 0px;";
     QString inside_message_line =
                 "background-color: " + colors["message_line_background_color"] +
                 "color: " + colors["message_line_color"] +

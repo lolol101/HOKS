@@ -10,6 +10,7 @@
 #include <appstyle.h>
 #include <QLineEdit>
 #include <NewRoomWidget.h>
+#include <QColor>
 
 namespace Ui {
 class MainWindow;
@@ -34,6 +35,9 @@ public:
     void show_room_inside(Room &room_inside);
     void hide_room_inside(Room &room_inside);
     void hide_room_icon(Room &room_inside);
+
+    void set_standard_line_edit_placeholder_color(QLineEdit *line_edit);
+    void set_standard_line_edit_placeholder_color(QTextEdit *line_edit);
 
     const int width_rooms_area = 250;
     const int delta = 2;
