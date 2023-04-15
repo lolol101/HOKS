@@ -212,9 +212,23 @@ public:
                 "background-color: #111111;"
             "}";
     QString person_checkbox =
-            "border: 0px solid;"
-            "background-color: transparent;"
-            "color: #a4a4a4;";
+            "QCheckBox {"
+                "background-color: transparent;"
+                "color: #a4a4a4;"
+                "font-size: 19px;"
+                "border: 0px;"
+            "}"
+            "QCheckBox::indicator {"
+                "width: 16px;"
+                "height: 16px;"
+                "border-radius: 8px;"
+                "border: 1px solid #a4a4a4;"
+            "}"
+            "QCheckBox::indicator:unchecked {"
+            "}"
+            "QCheckBox::indicator:checked {"
+                "background-color: #a4a4a4;"
+            "}";
     QString person_checkbox_widget =
             "font-size: 19px;"
             "border-bottom: 1px solid #606060;";
