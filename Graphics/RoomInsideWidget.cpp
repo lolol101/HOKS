@@ -89,4 +89,5 @@ RoomInsideWidget::~RoomInsideWidget() {
 void RoomInsideWidget::slot_clicked_send_button() {
     QString msg = message_line->toPlainText();
     emit clicked_send_button(msg);
+    message_line->clear();
 }
