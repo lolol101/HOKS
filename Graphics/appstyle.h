@@ -65,13 +65,44 @@ public:
                 "background-color: " + colors["message_box_standard_background_color"] +
             "}";
 
-    QString scroll_bar_standard =
+    QString scroll_rooms_widget =
+            "QWidget {"
+                "background-color: " + colors["room_inside_background_color"] +
+                "border-right: 1px solid #606060;"
+            "}"
             "QScrollBar {"
                 "background-color: rgba(17, 17, 17, 0);"
                 "width: 8px;"
             "}"
             "QScrollBar::handle {"
-                "border-radius: 4px;"
+                "border-radius: 3px;"
+                "background-color: rgba(96, 96, 96, 0.6);"
+            "}"
+            "QScrollBar:handle:hover {"
+                "background-color: rgba(96, 96, 96, 0.8);"
+            "}"
+            "QScrollBar:handle:pressed:hover {"
+                "background-color: rgba(96, 96, 96, 0.8);"
+            "}"
+
+            "QScrollBar::add-page,"
+            "QScrollBar::sub-page,"
+            "QScrollBar::add-line,"
+            "QScrollBar::sub-line {"
+                "border: none;"
+                "background: none;"
+            "}";
+
+    QString scroll_bar_standard =
+            "QWidget {"
+                "background-color: " + colors["room_inside_background_color"] +
+            "}"
+            "QScrollBar {"
+                "background-color: rgba(17, 17, 17, 0);"
+                "width: 8px;"
+            "}"
+            "QScrollBar::handle {"
+                "border-radius: 3px;"
                 "background-color: rgba(96, 96, 96, 0.6);"
             "}"
             "QScrollBar:handle:hover {"
@@ -120,12 +151,14 @@ public:
             "border-radius: 0px;"
             "border-bottom: 1px solid #606060;";
     QString inside_messages_widget =
-            "background-color: " + colors["room_inside_background_color"];
+            "QWidget {"
+                "background-color: " + colors["room_inside_background_color"] +
+                "border: 0px solid;"
+            "}";
 
     QString rooms_space_widget =
             "QWidget {"
                 "background-color: " + colors["rooms_space_widget_background_color"] +
-                 "border-right: 1px solid #606060;"
             "}";
     QString inside_message_line =
                 "background-color: " + colors["message_line_background_color"] +

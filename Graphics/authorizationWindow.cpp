@@ -6,7 +6,7 @@
 #include <vector>
 #include <string>
 #include <algorithm>
-#include <mainwindow.h>
+#include <MainWindow.h>
 
 authorizationWindow::authorizationWindow(QWidget *parent)
     : QMainWindow(parent)

@@ -63,7 +63,7 @@ void MainWindow::make_window_skillet() {
 
     scroll_rooms_widget->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     scroll_rooms_widget->setWidget(rooms_widget);
-    scroll_rooms_widget->setStyleSheet(current_style.scroll_bar_standard);
+    scroll_rooms_widget->setStyleSheet(current_style.scroll_rooms_widget);
     scroll_rooms_widget->setMinimumSize(width_rooms_area + delta, this->height() - 50);
     scroll_rooms_widget->move(0, 49);
 
@@ -141,7 +141,7 @@ void MainWindow::show_room_inside(Room &room) {
     room.room_inside->inside_room_name_widget->show();
 
     room.room_inside->message_line->setFixedSize(700, 47);
-    room.room_inside->message_line->move(0, 1);
+    room.room_inside->message_line->move(1, 1);
     room.room_inside->message_line->setStyleSheet(current_style.inside_message_line);
     room.room_inside->message_line->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 
