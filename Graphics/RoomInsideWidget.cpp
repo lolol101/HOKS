@@ -33,7 +33,7 @@ MessageWidget& RoomInsideWidget::append_user_message(const QString &message_text
     ++index;
 
     if (message_coordinate >= inside_messages_widget->height() - message_widget->height() - 8) {
-        inside_messages_widget->setFixedSize(inside_messages_widget->width(), message_coordinate + message_widget_height + 8);
+        inside_messages_widget->setFixedSize(inside_messages_scroll_area->width() - 10, message_coordinate + message_widget_height + 8);
     }
 
     message_widget->setStyleSheet(current_style.messages_widget);
@@ -56,7 +56,7 @@ MessageWidget& RoomInsideWidget::append_other_message(const QString &message_tex
     ++index;
 
     if (message_coordinate >= inside_messages_widget->height() - message_widget->height() - 8) {
-        inside_messages_widget->setFixedSize(inside_messages_widget->width(), message_coordinate + message_widget_height + 8);
+        inside_messages_widget->setFixedSize(inside_messages_scroll_area->width() - 10, message_coordinate + message_widget_height + 8);
     }
 
     message_widget->setStyleSheet(current_style.messages_widget);

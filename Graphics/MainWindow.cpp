@@ -166,13 +166,13 @@ void MainWindow::show_room_inside(Room &room) {
 
     room.room_inside->inside_messages_widget->setStyleSheet(current_style.inside_messages_widget);
 
-    room.room_inside->inside_messages_widget->setFixedSize(room.room_inside->room_inside_->width() - 2,
+    room.room_inside->inside_messages_widget->setFixedSize(room.room_inside->room_inside_->width() - 8,
                                                            room.room_inside->room_inside_->height() -
                                                            room.room_inside->message_line_area_widget->height() -
                                                            room.room_inside->inside_room_name_widget->height() - 2);
 
     room.room_inside->inside_messages_scroll_area->move(0, room.room_inside->inside_room_name_widget->height());
-    room.room_inside->inside_messages_scroll_area->setFixedSize(room.room_inside->inside_messages_widget->width() + 2,
+    room.room_inside->inside_messages_scroll_area->setFixedSize(room.room_inside->inside_messages_widget->width() + 8,
                                                                 room.room_inside->inside_messages_widget->height() + 2);
     room.room_inside->inside_messages_scroll_area->setStyleSheet(current_style.scroll_bar_standard);
 
@@ -211,7 +211,7 @@ void MainWindow::draw_creation_new_room(NewRoomWidget* new_room_widget) {
     set_standard_line_edit_placeholder_color(new_room_widget->users_search_line_edit);
     new_room_widget->users_search_line_edit->show();
 
-    new_room_widget->select_users_widget->setFixedSize(new_room_widget->create_new_room_widget->width() - 2,
+    new_room_widget->select_users_widget->setFixedSize(new_room_widget->create_new_room_widget->width() - 10,
                                                        new_room_widget->create_new_room_widget->height() -
                                                        new_room_widget->create_new_room_top_widget->height() -
                                                        new_room_widget->create_new_room_bottom_widget->height() - 2);
@@ -222,7 +222,7 @@ void MainWindow::draw_creation_new_room(NewRoomWidget* new_room_widget) {
 
     new_room_widget->select_users_scroll_area->setWidget(new_room_widget->select_users_widget);
     new_room_widget->select_users_scroll_area->move(0, new_room_widget->new_room_name_line_edit->height() + 20);
-    new_room_widget->select_users_scroll_area->setFixedSize(new_room_widget->select_users_widget->width() + 2, new_room_widget->select_users_widget->height() + 2);
+    new_room_widget->select_users_scroll_area->setFixedSize(new_room_widget->select_users_widget->width() + 10, new_room_widget->select_users_widget->height() + 2);
     new_room_widget->select_users_scroll_area->setStyleSheet(current_style.scroll_bar_standard);
 
     new_room_widget->cancel_create_new_room_button->move(12, 13);
