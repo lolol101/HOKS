@@ -23,22 +23,6 @@ void MainWindow::show_main_window() {
     connect(creating_new_room_button, &QPushButton::clicked, this, &MainWindow::push_on_creating_new_room_slot);
 
     show();
-
-//    int n = 20;
-//    for (int i = 0; i < n; ++i) {
-//        Room *r = new Room("Комната друзей", 123);
-//        show_room_icon(*r);
-//        show_room_inside(*r);
-//        if (i != n - 1) {
-//            hide_room_inside(*r);
-//        }
-//        for (int j = 0; j < 10; ++j) {
-//            MessageWidget& msg1 = r->room_inside->append_user_message("Привет! Привет! ");
-//            MessageWidget& msg2 = r->room_inside->append_other_message("Hi!");
-//            r->room_inside->show_message(&msg1);
-//            r->room_inside->show_message(&msg2);
-//        }
-//    }
 }
 
 void MainWindow::make_window_skillet() {

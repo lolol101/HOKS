@@ -67,30 +67,8 @@ public:
 
     QString scroll_rooms_widget =
             "QWidget {"
+                "border-right: 0px solid;"
                 "background-color: " + colors["room_inside_background_color"] +
-                "border-right: 1px solid #606060;"
-            "}"
-            "QScrollBar {"
-                "background-color: rgba(17, 17, 17, 0);"
-                "width: 8px;"
-            "}"
-            "QScrollBar::handle {"
-                "border-radius: 3px;"
-                "background-color: rgba(96, 96, 96, 0.6);"
-            "}"
-            "QScrollBar:handle:hover {"
-                "background-color: rgba(96, 96, 96, 0.8);"
-            "}"
-            "QScrollBar:handle:pressed:hover {"
-                "background-color: rgba(96, 96, 96, 0.8);"
-            "}"
-
-            "QScrollBar::add-page,"
-            "QScrollBar::sub-page,"
-            "QScrollBar::add-line,"
-            "QScrollBar::sub-line {"
-                "border: none;"
-                "background: none;"
             "}";
 
     QString scroll_bar_standard =
@@ -152,12 +130,13 @@ public:
             "border-bottom: 1px solid #606060;";
     QString inside_messages_widget =
             "QWidget {"
-                "background-color: " + colors["room_inside_background_color"] +
                 "border: 0px solid;"
+                "background-color: " + colors["room_inside_background_color"] +
             "}";
 
     QString rooms_space_widget =
             "QWidget {"
+                "border: 0px solid;"
                 "background-color: " + colors["rooms_space_widget_background_color"] +
             "}";
     QString users_search_line_edit =
@@ -171,7 +150,7 @@ public:
                 "padding: 11px 15px;"
                 "font-size: 15px;";
     QString inside_room_name_widget =
-                "border: 0px solid #606060;"
+                "border-left: 0px solid #606060;"
                 "background-color: #111111;"
                 "border-bottom: 1px solid #606060;";
     QString messages_widget =
@@ -203,6 +182,7 @@ public:
             "}";
     QString create_new_room_widget =
             "QWidget {"
+                "border: 0px;"
                 "border-top: 1px solid #606060;"
                 "background-color: #555555;"
             "}";
@@ -232,12 +212,43 @@ public:
     QString person_checkbox_widget =
             "font-size: 19px;"
             "border-bottom: 1px solid #606060;";
+    QString left_widget =
+        "QWidget {"
+            "border-right: 1px solid #606060;"
+        "}"
+        "QScrollBar {"
+            "border-right: 0px solid;"
+            "background-color: rgba(17, 17, 17, 0);"
+            "width: 8px;"
+        "}"
+        "QScrollBar::handle {"
+            "border-right: 0px solid;"
+            "border-radius: 3px;"
+            "background-color: rgba(96, 96, 96, 0.6);"
+        "}"
+        "QScrollBar:handle:hover {"
+            "border-right: 0px solid;"
+            "background-color: rgba(96, 96, 96, 0.8);"
+        "}"
+        "QScrollBar:handle:pressed:hover {"
+            "border-right: 0px solid;"
+            "background-color: rgba(96, 96, 96, 0.8);"
+        "}"
+
+        "QScrollBar::add-page,"
+        "QScrollBar::sub-page,"
+        "QScrollBar::add-line,"
+        "QScrollBar::sub-line {"
+            "border-right: 0px solid;"
+            "background: none;"
+        "}";
     QString top_widget =
-            "background-color: #111111;"
-            "border-right: 1px solid #606060;";
+            "border-right: 0px;"
+            "background-color: #111111;";
 
     QString button_create_new_room =
             "QPushButton {"
+                "border: 1px solid #606060;"
                 "font-size: 17px;"
                 "border-radius: 15px;"
                 "padding-top: 3px;"
@@ -255,8 +266,9 @@ public:
             "border-top: 1px solid #606060;";
     QString create_new_room_top_widget =
             "border-bottom: 1px solid #606060;";
+
     QString inside_room_name_label =
-            "border: 0px;"
+            "border: 0px solid;"
             "font-size: 18px;";
     QString message_line_area_widget =
             "border: 0px;"
