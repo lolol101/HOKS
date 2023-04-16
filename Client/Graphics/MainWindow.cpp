@@ -23,22 +23,6 @@ void MainWindow::show_main_window() {
     connect(creating_new_room_button, &QPushButton::clicked, this, &MainWindow::push_on_creating_new_room_slot);
 
     show();
-
-//    int n = 10;
-//    for (int i = 0; i < n; ++i) {
-//        Room *r = new Room("Комната друзей", 123);
-//        show_room_icon(*r);
-//        show_room_inside(*r);
-//        if (i != n - 1) {
-//            hide_room_inside(*r);
-//        }
-//        for (int j = 0; j < 10; ++j) {
-//            MessageWidget& msg1 = r->room_inside->append_user_message("Привет! Привет! ");
-//            MessageWidget& msg2 = r->room_inside->append_other_message("Hi!");
-//            r->room_inside->show_message(&msg1);
-//            r->room_inside->show_message(&msg2);
-//        }
-//    }
 }
 
 void MainWindow::make_window_skillet() {
@@ -164,17 +148,20 @@ void MainWindow::show_room_inside(Room &room) {
     set_standard_line_edit_placeholder_color(room.room_inside->message_line);
     room.room_inside->message_line->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 
-    room.room_inside->inside_messages_widget->setStyleSheet(current_style.inside_messages_widget);
+    if (room.first_use) {
+        room.first_use = false;
+        room.room_inside->inside_messages_widget->setStyleSheet(current_style.inside_messages_widget);
 
-    room.room_inside->inside_messages_widget->setFixedSize(room.room_inside->room_inside_->width() - 8,
-                                                           room.room_inside->room_inside_->height() -
-                                                           room.room_inside->message_line_area_widget->height() -
-                                                           room.room_inside->inside_room_name_widget->height() - 2);
+        room.room_inside->inside_messages_widget->setFixedSize(room.room_inside->room_inside_->width() - 8,
+                                                               room.room_inside->room_inside_->height() -
+                                                               room.room_inside->message_line_area_widget->height() -
+                                                               room.room_inside->inside_room_name_widget->height() - 2);
 
-    room.room_inside->inside_messages_scroll_area->move(0, room.room_inside->inside_room_name_widget->height());
-    room.room_inside->inside_messages_scroll_area->setFixedSize(room.room_inside->inside_messages_widget->width() + 8,
-                                                                room.room_inside->inside_messages_widget->height() + 2);
-    room.room_inside->inside_messages_scroll_area->setStyleSheet(current_style.scroll_bar_standard);
+        room.room_inside->inside_messages_scroll_area->move(0, room.room_inside->inside_room_name_widget->height());
+        room.room_inside->inside_messages_scroll_area->setFixedSize(room.room_inside->inside_messages_widget->width() + 8,
+                                                                    room.room_inside->inside_messages_widget->height() + 2);
+        room.room_inside->inside_messages_scroll_area->setStyleSheet(current_style.scroll_bar_standard);
+    }
 
     room.room_inside->send_message_button->setGeometry(room.room_inside->message_line->width() + 5, 8, 32, 32);
     room.room_inside->send_message_button->setStyleSheet(current_style.send_message_button);
@@ -186,6 +173,7 @@ void MainWindow::draw_creation_new_room(NewRoomWidget* new_room_widget) {
     new_room_widget->select_users_scroll_area->setParent(new_room_widget->create_new_room_widget);
 
     new_room_widget->create_new_room_widget->setFixedSize(this->width() - width_rooms_area - delta, this->height());
+    new_room_widget->create_new_room_widget->setStyleSheet(current_style.create_new_room_widget);
     new_room_widget->create_new_room_widget->move(width_rooms_area + delta, 0);
 
 

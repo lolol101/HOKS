@@ -25,6 +25,7 @@ private:
     MainWindow main_window;
     Socket_Manager s_manager;
 
+    QPointer<Room> current_room;
     QMap<int, bool> room_open_flags;
     QMap<int, QPointer<Room>> rooms;
     QVector<QString> all_user_names;

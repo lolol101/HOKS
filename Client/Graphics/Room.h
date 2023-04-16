@@ -31,6 +31,8 @@ public:
 
     void set_room_name_at_top(const QString &room_name);
 
+    bool first_use = true;
+
     ~Room();
 
 private:

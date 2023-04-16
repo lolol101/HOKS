@@ -103,6 +103,7 @@ void Client::slot_other_user_message(const QVector<QString> &args) {
 }
 
 void Client::slot_create_room_btn() {
+    main_window.hide_room_inside(*current_room);
     main_window.show_creation_new_room();
     emit get_all_users();
 }
@@ -133,6 +134,8 @@ void Client::slot_room_created(const QString& room_name, const int& id) {
 
 void Client::slot_room_icon_clicked() {
     QPointer<Room> room_sender = static_cast<Room*>(sender());
+    main_window.hide_create_room();
+    current_room = room_sender;
     for (const auto& item : rooms) {
         if (item != room_sender)
             main_window.hide_room_inside(*item);
@@ -146,11 +149,11 @@ void Client::slot_room_icon_clicked() {
 }
 
 void Client::slot_got_msgs(const int& room_id, const QVector<msg>& msgs) {
+    main_window.show_room_inside(*rooms[room_id]);
     for (const auto& item : msgs) {
         if (item.author != m_user_login)
             rooms[room_id]->show_other_message(item.text_message);
         else
             rooms[room_id]->show_user_message(item.text_message);
     }
-    main_window.show_room_inside(*rooms[room_id]);
 }
