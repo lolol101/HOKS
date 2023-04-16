@@ -43,6 +43,7 @@ public:
 
     int index = 0;
 
+    QWidget *left_widget;
     QWidget *top_widget;
 
     QLineEdit *search_line_edit;
