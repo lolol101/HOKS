@@ -2,20 +2,29 @@
 #define COMMANDS_H
 
 enum Command {
-        //DataBaseChecks
-        checkAuthoriziatonData,
-        checkRegistrationData,
+    //DataBaseChecks
+    checkAuthoriziatonData,
+    checkRegistrationData,
 
-        // Client`s requests to Server
-        registrateUser,
-        getRooms,
+    // Client`s appeals to Server
+    registrateUser,
+    appendMessage,
+    appendRoom,
+    getRooms,
+    getAllUsers,
+    loadMsgs,
+    userEnterApp,
 
-        // Account profile commands
-        accountRegisration, // Create a new user
-        accountdelete, // Delete user account & user data
+    //Server`s appeals to Client
+    otherUserMessage,
+    roomCreated,
 
-        // Connection status
-        checkConnection
+    // Account profile commands
+    accountRegisration, // Create a new user
+    accountdelete, // Delete user account & user data
+
+    // Connection status
+    checkConnection
 };
 
 #endif // COMMANDS_H

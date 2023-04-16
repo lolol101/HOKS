@@ -12,6 +12,7 @@ SOURCES += \
 HEADERS += \
     database/database.h \
     Commands.h \
+    msg.h \
     server.h
 
 qnx: target.path = /tmp/$${TARGET}/bin

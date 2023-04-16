@@ -1,11 +1,10 @@
 #ifndef SERVER_H
 #define SERVER_H
 
-#include <vector>
 #include <QTcpServer>
 #include <QTcpSocket>
 #include <QDataStream>
-#include <unordered_map>
+#include <QMap>
 #include <database/database.h>
 #include "Commands.h"
 
@@ -15,14 +14,18 @@ class Server : public QTcpServer {
 private:
     db_space::Database data_base;
 
-    std::unordered_map<QTcpSocket*, quint16> clients_msg_size;
+    QMap<QString, QTcpSocket*> sockets;
+    QMap<QTcpSocket*, quint16> clients_msg_size;
 
     template<class T>
-    QByteArray make_byte_message(const Command &command, const std::vector<T>& arguments);
+    QByteArray make_byte_message(const Command &command, const QVector<T>& arguments);
 
 public:
     Server();
     void start();
+
+signals:
+    void room_created(const QString& room_name, int id);
 
 public slots:
     void new_connection();
