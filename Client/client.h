@@ -61,7 +61,7 @@ public slots:
     void slot_connection_check();
     void slot_authorization_data_check(const QVector<QString>& args);
     void slot_registration_data_check(const QVector<QString>& args);
-    void slot_init_rooms(const QVector<QPair<int, QString>> args);
+    void slot_init_rooms(const QVector<QPair<int, QString>>& args);
     void slot_other_user_message(const QVector<QString>& args);
     void slot_got_all_user_names(const QVector<QString>& user_names);
     void slot_room_created(const QString& room_name, const int& id);
