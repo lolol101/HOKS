@@ -68,8 +68,6 @@ void NewRoomWidget::person_checkbox_changed_slot(int state) {
 
 void NewRoomWidget::push_on_creating_new_room_button() {
     emit creating_new_room_signal(clicked_users, new_room_name_line_edit->text());
-    users_search_line_edit->clear();
-    new_room_name_line_edit->clear();
 }
 
 void NewRoomWidget::show_checkbox_for_person(QWidget *person_checkbox) {

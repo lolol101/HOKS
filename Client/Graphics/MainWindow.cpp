@@ -23,6 +23,22 @@ void MainWindow::show_main_window() {
     connect(creating_new_room_button, &QPushButton::clicked, this, &MainWindow::push_on_creating_new_room_slot);
 
     show();
+
+//    int n = 20;
+//    for (int i = 0; i < n; ++i) {
+//        Room *r = new Room("Комната друзей", 123);
+//        show_room_icon(*r);
+//        show_room_inside(*r);
+//        if (i != n - 1) {
+//            hide_room_inside(*r);
+//        }
+//        for (int j = 0; j < 10; ++j) {
+//            MessageWidget& msg1 = r->room_inside->append_user_message("Привет! Привет! ");
+//            MessageWidget& msg2 = r->room_inside->append_other_message("Hi!");
+//            r->room_inside->show_message(&msg1);
+//            r->room_inside->show_message(&msg2);
+//        }
+//    }
 }
 
 void MainWindow::make_window_skillet() {
@@ -47,7 +63,7 @@ void MainWindow::make_window_skillet() {
 
     scroll_rooms_widget->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     scroll_rooms_widget->setWidget(rooms_widget);
-    scroll_rooms_widget->setStyleSheet(current_style.scroll_bar_standard);
+    scroll_rooms_widget->setStyleSheet(current_style.scroll_rooms_widget);
     scroll_rooms_widget->setMinimumSize(width_rooms_area + delta, this->height() - 50);
     scroll_rooms_widget->move(0, 49);
 
@@ -60,6 +76,7 @@ void MainWindow::make_window_skillet() {
 
     search_line_edit->setFixedSize(196, 30);
     search_line_edit->setStyleSheet(current_style.line_edit_standard);
+    set_standard_line_edit_placeholder_color(search_line_edit);
     search_line_edit->move(10, 10);
     search_line_edit->show();
 
@@ -67,6 +84,20 @@ void MainWindow::make_window_skillet() {
     creating_new_room_button->setText("+");
     creating_new_room_button->setStyleSheet(current_style.button_create_new_room);
     creating_new_room_button->move(213, 10);
+}
+
+void MainWindow::set_standard_line_edit_placeholder_color(QLineEdit *line_edit) {
+    QPalette palette = line_edit->palette();
+    QColor color = QColor(102, 102, 102);
+    palette.setColor(QPalette::PlaceholderText, color);
+    line_edit->setPalette(palette);
+}
+
+void MainWindow::set_standard_line_edit_placeholder_color(QTextEdit *line_edit) {
+    QPalette palette = line_edit->palette();
+    QColor color = QColor(102, 102, 102);
+    palette.setColor(QPalette::PlaceholderText, color);
+    line_edit->setPalette(palette);
 }
 
 void MainWindow::show_room_icon(const Room &room) {
@@ -125,8 +156,9 @@ void MainWindow::show_room_inside(Room &room) {
     room.room_inside->inside_room_name_widget->show();
 
     room.room_inside->message_line->setFixedSize(700, 47);
-    room.room_inside->message_line->move(0, 1);
+    room.room_inside->message_line->move(1, 1);
     room.room_inside->message_line->setStyleSheet(current_style.inside_message_line);
+    set_standard_line_edit_placeholder_color(room.room_inside->message_line);
     room.room_inside->message_line->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 
 
@@ -167,12 +199,14 @@ void MainWindow::draw_creation_new_room(NewRoomWidget* new_room_widget) {
 
     new_room_widget->new_room_name_line_edit->move(99, 10);
     new_room_widget->new_room_name_line_edit->setFixedSize(550, 30);
-    new_room_widget->new_room_name_line_edit->setStyleSheet(current_style.line_edit_standard);
+    new_room_widget->new_room_name_line_edit->setStyleSheet(current_style.new_room_name_line_edit);
+    set_standard_line_edit_placeholder_color(new_room_widget->new_room_name_line_edit);
     new_room_widget->new_room_name_line_edit->show();
 
     new_room_widget->users_search_line_edit->move(48, 10);
     new_room_widget->users_search_line_edit->setFixedSize(700 - 12, 30);
-    new_room_widget->users_search_line_edit->setStyleSheet(current_style.line_edit_standard);
+    new_room_widget->users_search_line_edit->setStyleSheet(current_style.new_room_name_line_edit);
+    set_standard_line_edit_placeholder_color(new_room_widget->users_search_line_edit);
     new_room_widget->users_search_line_edit->show();
 
     new_room_widget->select_users_widget->setFixedSize(new_room_widget->create_new_room_widget->width() - 2,
@@ -187,7 +221,7 @@ void MainWindow::draw_creation_new_room(NewRoomWidget* new_room_widget) {
     new_room_widget->select_users_scroll_area->setWidget(new_room_widget->select_users_widget);
     new_room_widget->select_users_scroll_area->move(0, new_room_widget->new_room_name_line_edit->height() + 20);
     new_room_widget->select_users_scroll_area->setFixedSize(new_room_widget->select_users_widget->width() + 2, new_room_widget->select_users_widget->height() + 2);
-    new_room_widget->select_users_scroll_area->setStyleSheet("");
+    new_room_widget->select_users_scroll_area->setStyleSheet(current_style.scroll_bar_standard);
 
     new_room_widget->cancel_create_new_room_button->move(12, 13);
     new_room_widget->cancel_create_new_room_button->setStyleSheet(current_style.back_to_authorization_button);

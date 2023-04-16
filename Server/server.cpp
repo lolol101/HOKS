@@ -129,7 +129,10 @@ void Server::slot_ready_read() {
                     int id = data_base.create_chat(room_name, people_list.toList());
                     for (const auto& item : people_list)
                         data_base.change_array_chats_for_user(item, QString::number(id));
-                    socket->write(make_byte_message(Command::roomCreated, QVector<QString>{room_name, QString::number(id)}));
+                    for (const auto& item : people_list) {
+                        if (sockets.find(item) != sockets.end())
+                            sockets[item]->write(make_byte_message(Command::roomCreated, QVector<QString>{room_name, QString::number(id)}));
+                    }
                     break;
                 }
                 case Command::getAllUsers: {

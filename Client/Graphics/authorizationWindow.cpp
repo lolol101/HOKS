@@ -1,4 +1,4 @@
-#include "Graphics/authorizationWindow.h"
+#include "authorizationWindow.h"
 #include "ui_authorizationWindow.h"
 #include <Graphics/appstyle.h>
 #include <QMessageBox>
