@@ -7,6 +7,7 @@
 #include <Graphics/RoomInsideWidget.h>
 #include <QCheckBox>
 #include <QSize>
+#include <QScrollBar>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -165,6 +166,7 @@ void MainWindow::show_room_inside(Room &room) {
 
     room.room_inside->send_message_button->setGeometry(room.room_inside->message_line->width() + 5, 8, 32, 32);
     room.room_inside->send_message_button->setStyleSheet(current_style.send_message_button);
+    room.room_inside->inside_messages_scroll_area->verticalScrollBar()->setValue(room.room_inside->inside_messages_scroll_area->verticalScrollBar()->maximum());
 }
 
 void MainWindow::draw_creation_new_room(NewRoomWidget* new_room_widget) {

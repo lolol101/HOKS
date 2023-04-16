@@ -5,7 +5,7 @@
 #include <QLabel>
 #include <QTextEdit>
 #include <QFontMetrics>
-
+#include <QScrollBar>
 
 RoomInsideWidget::RoomInsideWidget() {
     room_inside_ = new QWidget();
@@ -72,6 +72,8 @@ MessageWidget& RoomInsideWidget::append_other_message(const QString &message_tex
 
 void RoomInsideWidget::show_message(MessageWidget *message_widget) {
     message_widget->show();
+    inside_messages_scroll_area->verticalScrollBar()->setValue(inside_messages_scroll_area->verticalScrollBar()->maximum());
+
 }
 
 QString RoomInsideWidget::get_message_line() {
