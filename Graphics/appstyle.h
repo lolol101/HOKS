@@ -140,9 +140,11 @@ public:
                 "background-color: " + colors["rooms_space_widget_background_color"] +
             "}";
     QString users_search_line_edit =
-            "border: 0px;";
+            "border: 0px;"
+            "background-color: #333333;";
     QString new_room_name_line_edit =
-            "border: 0px;";
+            "border: 0px;"
+            "background-color: #333333;";
     QString inside_message_line =
                 "background-color: " + colors["message_line_background_color"] +
                 "color: " + colors["message_line_color"] +
@@ -182,9 +184,7 @@ public:
             "}";
     QString create_new_room_widget =
             "QWidget {"
-                "border: 0px;"
-                "border-top: 1px solid #606060;"
-                "background-color: #555555;"
+                "background-color: #111111;"
             "}";
 
     QString select_people_widget =
