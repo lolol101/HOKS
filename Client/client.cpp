@@ -81,7 +81,7 @@ void Client::slot_registration_data_check(const QVector<QString>& args) {
     }
 }
 
-void Client::slot_init_rooms(const QVector<QPair<int, QString>> args) {
+void Client::slot_init_rooms(const QVector<QPair<int, QString>>& args) {
     for (const auto& item : args) {
         if (item.first != 0) {
             rooms.insert(item.first, QPointer<Room>(new Room(item.second, item.first)));
