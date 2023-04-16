@@ -1,7 +1,0 @@
-<RCC>
-    <qresource prefix="/icons">
-        <file>icons/back_button_default.png</file>
-        <file>icons/back_button_hovered_pushed.png</file>
-        <file>icons/back_button_hovered.png</file>
-    </qresource>
-</RCC>

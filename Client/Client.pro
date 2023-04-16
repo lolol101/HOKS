@@ -11,7 +11,9 @@ SOURCES += \
     Graphics/RoomIconWidget.cpp \
     Graphics/RoomInsideWidget.cpp \
     Graphics/MessageWidget.cpp \
-    Graphics/MainWindow.cpp
+    Graphics/MainWindow.cpp \
+    Graphics/NewRoomWidget.cpp \
+    socket_manager.cpp \
 
 HEADERS += \
     client.h \
@@ -22,7 +24,10 @@ HEADERS += \
     Graphics/RoomIconWidget.h \
     Graphics/RoomInsideWidget.h \
     Graphics/MessageWidget.h \
-    Graphics/MainWindow.h
+    Graphics/MainWindow.h \
+    Graphics/NewRoomWidget.h \
+    msg.h \
+    socket_manager.h \
 
 FORMS += \
     Graphics/authorizationWindow.ui \
@@ -30,7 +35,8 @@ FORMS += \
     Graphics/MessageWidget.ui \
     Graphics/Room.ui \
     Graphics/RoomInsideWidget.ui \
-    Graphics/RoomIconWidget.ui
+    Graphics/RoomIconWidget.ui \
+    Graphics/NewRoomWidget.ui
 
 RESOURCES += \
     Graphics/resource.qrc
