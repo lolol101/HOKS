@@ -103,7 +103,8 @@ void Client::slot_other_user_message(const QVector<QString> &args) {
 }
 
 void Client::slot_create_room_btn() {
-    main_window.hide_room_inside(*current_room);
+    if (!current_room.isNull())
+        main_window.hide_room_inside(*current_room);
     main_window.show_creation_new_room();
     emit get_all_users();
 }
