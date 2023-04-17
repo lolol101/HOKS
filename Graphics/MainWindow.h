@@ -7,7 +7,6 @@
 #include <RoomIconWidget.h>
 #include <RoomInsideWidget.h>
 #include <Room.h>
-#include <appstyle.h>
 #include <QLineEdit>
 #include <NewRoomWidget.h>
 #include <QColor>

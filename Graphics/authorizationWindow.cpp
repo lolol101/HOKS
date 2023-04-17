@@ -19,7 +19,6 @@ authorizationWindow::authorizationWindow(QWidget *parent)
 }
 
 void authorizationWindow::make_window_skillet() {
-//    this->move(400, 180);
     this->setFixedSize(500, 460);
 
     QString default_style = current_style.button_standard +
@@ -53,6 +52,7 @@ void authorizationWindow::make_authorization_elements() {
 
     password_authorization_line_edit = new QLineEdit(authorization_widget);
     password_authorization_line_edit->setGeometry(130, 249, 240, 30);
+    password_authorization_line_edit->setEchoMode(QLineEdit::Password);
 
     // Кнопка авторизации
     authorization_button = new QPushButton(this);
@@ -113,7 +113,6 @@ void authorizationWindow::make_registration_elements() {
 void authorizationWindow::show_authorization() {
     this->setWindowTitle("Вход в HOKS");
 
-//    this->move(400, 180);
     this->setFixedSize(500, 460);
 
     authorization_widget->show();
@@ -123,7 +122,6 @@ void authorizationWindow::show_authorization() {
 void authorizationWindow::show_registration() {
     this->setWindowTitle("Регистрация в HOKS");
 
-//    this->move(400, 40);
     this->setFixedSize(500, 682);
 
     authorization_button->hide();
@@ -161,19 +159,6 @@ void authorizationWindow::push_on_authorization_button() {
     QString user_login = login_authorization_line_edit->text();
     QString user_password = password_authorization_line_edit->text();
     emit user_authorization_signal(user_login, user_password);
-
-//    if (user_login == "ilia" && user_password == "123") { // Пользователь есть в
-//            show_main_window();
-//        } else { // Пользователя в БД нет
-//            QMessageBox::StandardButton registration_dialog_box;
-//            registration_dialog_box = QMessageBox::question(nullptr,
-//            "Зарегистрироваться?",
-//            "Пользователь с введёнными данными не найден. \nХотите зарегистрироваться?",
-//            QMessageBox::Yes | QMessageBox::No);
-//                if (registration_dialog_box == QMessageBox::Yes) {
-//                    show_registration();
-//                }
-//        }
 }
 
 void authorizationWindow::push_on_registration_button() {
@@ -183,28 +168,6 @@ void authorizationWindow::push_on_registration_button() {
     QString user_first_name = first_name_registration_line_edit->text();
     QString user_last_name = last_name_registration_line_edit->text();
     emit user_registration_signal(user_login, user_password, user_email, user_first_name, user_last_name);
-
-//    std::vector<QString> all_users = {"ilia", "nikita", "igor"};
-//    bool is_user_data_correct = true;
-//    // Такой пользователь уже существует
-//    if (std::find(all_users.begin(), all_users.end(), user_login) != all_users.end()) {
-//        show_login_input_error("Логин затят");
-//        is_user_data_correct = false;
-//    } if (user_password.size() < 3) { // Пароль не является безопасным
-//        show_password_input_error("Пароль слишком короткий");
-//        is_user_data_correct = false;
-//    } if (user_email.indexOf("@") == -1) { // E-mail некорректен
-//        show_email_input_error("E-mail указан неверно");
-//        is_user_data_correct = false;
-//    } if (user_first_name == "") { // Имя пустое
-//        show_first_name_input_error("Имя не может быть пустым");
-//        is_user_data_correct = false;
-//    } if (user_last_name == "") { // Фамилия пустая
-//        show_last_name_input_error("Фамилия не может быть пустой");
-//        is_user_data_correct = false;
-//    } if (is_user_data_correct) { // Пользователь успешно зарегистрировался
-//        show_main_window();
-//    }
 }
 
 void authorizationWindow::push_on_back_to_authorization_button() {
