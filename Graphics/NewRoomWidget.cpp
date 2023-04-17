@@ -52,6 +52,7 @@ void NewRoomWidget::show_checkox(const QString &checkbox_name) {
 }
 
 void NewRoomWidget::hide_create_room() {
+    clicked_users.clear();
     create_new_room_widget->hide();
 }
 
@@ -84,8 +85,8 @@ QString NewRoomWidget::get_users_search_line_edit() {
 }
 
 void NewRoomWidget::push_on_cancel_button_slot() {
+    clicked_users.clear();
     create_new_room_widget->hide();
-
 }
 
 NewRoomWidget::~NewRoomWidget()
