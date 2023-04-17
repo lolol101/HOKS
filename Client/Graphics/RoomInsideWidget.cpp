@@ -6,11 +6,12 @@
 #include <QTextEdit>
 #include <QFontMetrics>
 #include <QScrollBar>
+#include <Graphics/MessageLine.h>
 
 RoomInsideWidget::RoomInsideWidget() {
     room_inside_ = new QWidget();
     message_line_area_widget = new QWidget(room_inside_);
-    message_line = new QTextEdit(message_line_area_widget);
+    message_line = new MessageLine(message_line_area_widget);
     message_line->setPlaceholderText("Сообщение...");
     inside_room_name_widget = new QWidget(room_inside_);
     inside_room_name_label = new QLabel(inside_room_name_widget);
@@ -22,6 +23,7 @@ RoomInsideWidget::RoomInsideWidget() {
     send_message_button = new QPushButton(message_line_area_widget);
 
     connect(send_message_button, &QPushButton::clicked, this, &RoomInsideWidget::slot_clicked_send_button);
+    connect(message_line, &MessageLine::push_on_enter_to_send_signal, this, &RoomInsideWidget::slot_clicked_send_button);
 }
 
 MessageWidget& RoomInsideWidget::append_user_message(const QString &message_text) {

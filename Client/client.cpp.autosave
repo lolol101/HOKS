@@ -110,6 +110,7 @@ void Client::slot_create_room_btn() {
 }
 
 void Client::slot_finish_create_room_btn(const QList<QString>& people, const QString& room_name) {
+    if (room_name.isEmpty())
     QList<QString> all_people = people;
     all_people.push_back(m_user_login);
     emit create_new_room(all_people, room_name);

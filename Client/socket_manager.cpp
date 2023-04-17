@@ -123,7 +123,7 @@ void Socket_Manager::slot_registrate_user(const QVector<QString> &args) {
 }
 
 void Socket_Manager::slot_get_rooms_data(const QString& user_name) {
-    socket->write(make_byte_message(Command::getRooms, QVector<QString>{ user_name }));
+    socket->write(make_byte_message(Command::getRooms, QVector<QString>{user_name}));
 }
 
 void Socket_Manager::slot_user_msg_sent(const QVector<QString> &args) {

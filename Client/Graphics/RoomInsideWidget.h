@@ -11,6 +11,7 @@
 #include <Graphics/MessageWidget.h>
 #include <QPushButton>
 #include <QLabel>
+#include <Graphics/MessageLine.h>
 
 namespace Ui {
 class RoomInsideWidget;
@@ -27,7 +28,7 @@ public:
 
     QWidget *room_inside_;
 
-    QTextEdit *message_line;
+    MessageLine *message_line;
 
     QWidget *message_line_area_widget;
 

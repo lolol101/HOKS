@@ -9,6 +9,7 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    MessageLine.cpp \
     MainWindow.cpp \
     MessageWidget.cpp \
     NewRoomWidget.cpp \
@@ -19,6 +20,7 @@ SOURCES += \
     main.cpp
 
 HEADERS += \
+    MessageLine.h \
     MainWindow.h \
     MessageWidget.h \
     NewRoomWidget.h \
@@ -29,6 +31,7 @@ HEADERS += \
     appstyle.h
 
 FORMS += \
+    MessageLine.ui \
     MainWindow.ui \
     MessageWidget.ui \
     NewRoomWidget.ui \

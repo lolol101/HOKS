@@ -13,6 +13,7 @@ SOURCES += \
     Graphics/MessageWidget.cpp \
     Graphics/MainWindow.cpp \
     Graphics/NewRoomWidget.cpp \
+    Graphics/MessageLine.cpp \
     socket_manager.cpp \
 
 HEADERS += \
@@ -26,6 +27,7 @@ HEADERS += \
     Graphics/MessageWidget.h \
     Graphics/MainWindow.h \
     Graphics/NewRoomWidget.h \
+    Graphics/MessageLine.h \
     msg.h \
     socket_manager.h \
 
@@ -36,7 +38,8 @@ FORMS += \
     Graphics/Room.ui \
     Graphics/RoomInsideWidget.ui \
     Graphics/RoomIconWidget.ui \
-    Graphics/NewRoomWidget.ui
+    Graphics/NewRoomWidget.ui \
+    Graphics/MessageLine.ui \
 
 RESOURCES += \
     Graphics/resource.qrc

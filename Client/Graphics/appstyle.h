@@ -149,7 +149,7 @@ public:
                 "background-color: " + colors["message_line_background_color"] +
                 "color: " + colors["message_line_color"] +
                 "border: 0px solid;"
-                "padding: 11px 15px;"
+                "padding: 10px 15px;"
                 "font-size: 15px;";
     QString inside_room_name_widget =
                 "border-left: 0px solid #606060;"
