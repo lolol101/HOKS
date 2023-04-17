@@ -93,9 +93,11 @@ void Client::slot_init_rooms(const QVector<QPair<int, QString>> &args) {
 }
 
 void Client::slot_message_send_btn(const QString& text_message) {
-    Room *room_sender = static_cast<Room*>(sender());
-    room_sender->show_user_message(text_message);
-    emit message_send(QVector<QString>{text_message, QString::number(room_sender->get_id()) , m_user_login, "0"});
+    if (!text_message.isEmpty()) {
+        Room *room_sender = static_cast<Room*>(sender());
+        room_sender->show_user_message(text_message);
+        emit message_send(QVector<QString>{text_message, QString::number(room_sender->get_id()) , m_user_login, "0"});
+    }
 }
 
 void Client::slot_other_user_message(const QVector<QString> &args) {
@@ -110,10 +112,12 @@ void Client::slot_create_room_btn() {
 }
 
 void Client::slot_finish_create_room_btn(const QList<QString>& people, const QString& room_name) {
-    QList<QString> all_people = people;
-    all_people.push_back(m_user_login);
-    emit create_new_room(all_people, room_name);
-    main_window.slot_hide_create_room();
+    if (!room_name.isEmpty() && !people.isEmpty()) {
+        QList<QString> all_people = people;
+        all_people.push_back(m_user_login);
+        emit create_new_room(all_people, room_name);
+        main_window.slot_hide_create_room();
+    }
 }
 
 void Client::slot_got_all_user_names(const QVector<QString> &user_names) {
