@@ -105,7 +105,7 @@ const QString path_to_files_on_server = "/home/HOKS_files/";
         QString get_hashstring_from_string(QString password);
 
         QFile get_file(QString filename);
-        QString make_file(const QFile& file);
+        QString make_file(QFile& file);
 
     private:
        QSqlDatabase obj;

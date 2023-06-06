@@ -46,7 +46,7 @@ namespace db_space {
         query.prepare("INSERT INTO users(username,password,email,created_on,first_name,last_name)"
                       " VALUES(:user, :pass, :em, :dt, :first, :last)");
         query.bindValue(":user",username);
-        query.bindValue(":pass",get_hashstring_from_string(password));
+        query.bindValue(":pass",get_hashstring_from_string(password).left(45));
         query.bindValue(":em",email);
         query.bindValue(":dt",dt);
         query.bindValue(":first",first_name);
@@ -295,7 +295,7 @@ namespace db_space {
         }
         query.next();
         QString bd_pass = query.value(2).toString();
-        return (bd_pass == get_hashstring_from_string(pass));
+        return (bd_pass == get_hashstring_from_string(pass).left(45));
     }
 
     QString Database::get_hashstring_from_string(QString password)
@@ -308,7 +308,7 @@ namespace db_space {
         return QFile(path_to_files_on_server+filename);
     }
 
-    QString Database::make_file(const QFile& file)
+    QString Database::make_file(QFile& file)
     {
         QStringList list(file.fileName().split('/'));
         QString only_name = list[list.size()-1];
