@@ -2,13 +2,13 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include <appstyle.h>
+#include <Graphics/appstyle.h>
 #include <QScrollArea>
-#include <RoomIconWidget.h>
-#include <RoomInsideWidget.h>
-#include <Room.h>
+#include <Graphics/RoomIconWidget.h>
+#include <Graphics/RoomInsideWidget.h>
+#include <Graphics/Room.h>
 #include <QLineEdit>
-#include <NewRoomWidget.h>
+#include <Graphics/NewRoomWidget.h>
 #include <QColor>
 
 namespace Ui {

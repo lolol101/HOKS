@@ -6,7 +6,7 @@
 #include <QCheckBox>
 #include <QPushButton>
 #include <QScrollArea>
-#include <appstyle.h>
+#include <Graphics/appstyle.h>
 #include <QLabel>
 #include <QVector>
 #include <QString>

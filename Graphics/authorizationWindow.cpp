@@ -1,12 +1,12 @@
 #include "authorizationWindow.h"
 #include "ui_authorizationWindow.h"
-#include <appstyle.h>
+#include <Graphics/appstyle.h>
 #include <QMessageBox>
 #include <QString>
 #include <vector>
 #include <string>
 #include <algorithm>
-#include <MainWindow.h>
+#include <Graphics/MainWindow.h>
 
 authorizationWindow::authorizationWindow(QWidget *parent)
     : QMainWindow(parent)

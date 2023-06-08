@@ -3,15 +3,16 @@
 
 #include <QWidget>
 #include <QString>
-#include <RoomIconWidget.h>
+#include <Graphics/RoomIconWidget.h>
 #include <QTextEdit>
-#include "appstyle.h"
+#include "Graphics/appstyle.h"
 #include <QList>
 #include <QScrollArea>
-#include <MessageWidget.h>
+#include <Graphics/MessageWidget.h>
 #include <QPushButton>
 #include <QLabel>
-#include <MessageLine.h>
+#include <Graphics/MessageLine.h>
+#include <QFileDialog>
 
 namespace Ui {
 class RoomInsideWidget;
@@ -44,8 +45,10 @@ public:
 
     QPushButton *send_message_button;
 
-    MessageWidget& append_user_message(const QString &message_text);
-    MessageWidget& append_other_message(const QString &message_text);
+    QPushButton *clip_button;
+
+    MessageWidget& append_user_message(const QString &message_text, const QString &author, bool is_media);
+    MessageWidget& append_other_message(const QString &message_text, const QString &author, bool is_media);
 
     void show_message(MessageWidget *message_widget);
 
@@ -57,9 +60,13 @@ public:
 
 signals:
     void clicked_send_button(const QString& text_message);
+    void clicked_clip_button(const QString &path);
+    void signal_open_file_button(const QString &file_name, const QString &author);
 
 private slots:
     void slot_clicked_send_button();
+    void slot_clicked_clip_button();
+    void slot_open_file_button(const MessageWidget& sender_);
 
 private:
     Ui::RoomInsideWidget *ui;

@@ -6,7 +6,7 @@
 #include <QLineEdit>
 #include <QPushButton>
 #include <QWidget>
-#include <appstyle.h>
+#include <Graphics/appstyle.h>
 #include <QString>
 
 QT_BEGIN_NAMESPACE

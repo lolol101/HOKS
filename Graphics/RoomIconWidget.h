@@ -4,7 +4,7 @@
 #include <QWidget>
 #include <QString>
 #include <QPushButton>
-#include <appstyle.h>
+#include <Graphics/appstyle.h>
 
 namespace Ui {
 class RoomIconWidget;
