@@ -127,6 +127,9 @@ void MainWindow::show_room_inside(Room &room) {
     else {
         inside_room_name_label_width = inside_room_name_label_size_base.width() + 1;
     }
+    room.room_inside->clip_button->setGeometry(7, 7, 32, 32);
+    room.room_inside->clip_button->setStyleSheet(current_style.clip_button);
+
 
     room.room_inside->message_line_area_widget->setFixedSize(room.room_inside->room_inside_->width(), 48);
     room.room_inside->message_line_area_widget->move(0, this->height() - room.room_inside->message_line_area_widget->height());
@@ -144,7 +147,7 @@ void MainWindow::show_room_inside(Room &room) {
     room.room_inside->inside_room_name_widget->show();
 
     room.room_inside->message_line->setFixedSize(700, 47);
-    room.room_inside->message_line->move(1, 1);
+    room.room_inside->message_line->move(32, 1);
     room.room_inside->message_line->setStyleSheet(current_style.inside_message_line);
     set_standard_line_edit_placeholder_color(room.room_inside->message_line);
     room.room_inside->message_line->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
@@ -166,6 +169,8 @@ void MainWindow::show_room_inside(Room &room) {
 
     room.room_inside->send_message_button->setGeometry(room.room_inside->message_line->width() + 5, 8, 32, 32);
     room.room_inside->send_message_button->setStyleSheet(current_style.send_message_button);
+
+
     room.room_inside->inside_messages_scroll_area->verticalScrollBar()->setValue(room.room_inside->inside_messages_scroll_area->verticalScrollBar()->maximum());
 }
 

@@ -3,12 +3,14 @@
 
 #include <QMap>
 #include <QPointer>
+#include <QProcess>
 #include <Graphics/authorizationWindow.h>
 #include <Graphics/MainWindow.h>
 #include <Graphics/Room.h>
 #include <Graphics/RoomIconWidget.h>
 #include <Graphics/RoomInsideWidget.h>
 #include <Graphics/MessageWidget.h>
+#include <QCoreApplication>
 #include <socket_manager.h>
 
 class Client : public QObject {
@@ -30,9 +32,6 @@ private:
     QMap<int, QPointer<Room>> rooms;
     QVector<QString> all_user_names;
 
-    template<class T>
-    QByteArray make_byte_message(const Command &command, const QVector<T>& arguments);
-
 public:
     Client(QObject *parent = nullptr);
     void start();
@@ -48,14 +47,18 @@ signals:
     void get_msgs(const int& room_id);
     void get_all_users();
     void user_enter_app(const QString& user_name);
+    void get_file(const QString& file_name, const int& room_id);
 
 public slots:
     // graphic`s slots
     void slot_authorization_btn(const QString &user_login, const QString &user_password);
     void slot_registration_btn(const QString& user_login, const QString& user_password, const QString& user_email, const QString& user_first_name, const QString& user_last_name);
     void slot_message_send_btn(const QString& text_message);
+    void slot_room_icon_clicked();
     void slot_create_room_btn();
     void slot_finish_create_room_btn(const QList<QString>& people, const QString& room_name);
+    void slot_file_message_btn(const QString& file_name);
+    void slot_file_upload_btn(const QString& file_path);
 
     // socket manager`s slots
     void slot_connection_check();
@@ -65,8 +68,9 @@ public slots:
     void slot_other_user_message(const QVector<QString>& args);
     void slot_got_all_user_names(const QVector<QString>& user_names);
     void slot_room_created(const QString& room_name, const int& id);
-    void slot_room_icon_clicked();
     void slot_got_msgs(const int& room_id, const QVector<msg>& msgs);
+    void slot_got_file(const QByteArray& bytes, const QString& filename);
 
 };
+
 #endif // CLIENT_H

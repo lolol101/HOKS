@@ -47,6 +47,14 @@ public:
             "QPushButton:pressed:hover {"
                 "background-color: " + colors["button_standard_background_color_pressed_hover"] +
             "}";
+    QString open_file_button =
+            "QPushButton {"
+                "background-color: 2c2c2c;"
+                "border: 0px solid;"
+                "color: #757575;"
+                "padding: 0px 0px;"
+                "font-size: 11pt;"
+            "}";
     QString line_edit_standard =
             "QLineEdit {"
                 "border: 0px solid;"
@@ -123,6 +131,47 @@ public:
             "QPushButton:pressed:hover {"
                 "background-image: url(:/icons/icons/back_button_hovered_pushed.png);"
             "}";
+    QString clip_button =
+            "QPushButton {"
+                "border-top: 0px solid;"
+            "}"
+            "QPushButton:pressed:hover {"
+                "border-top: 0px solid;"
+                "background-color: " + colors["main_window_background_color"] +
+            "}"
+            "QPushButton {"
+                "border-top: 0px solid;"
+                "background-image: url(:/icons/icons/clip_button.png);"
+            "}"
+            "QPushButton:hover {"
+                "border-top: 0px solid;"
+                "background-image: url(:/icons/icons/clip_button.png);"
+            "}"
+            "QPushButton:pressed:hover {"
+                "border-top: 0px solid;"
+                "background-image: url(:/icons/icons/clip_button.png);"
+            "}";
+
+    QString sent_file_icon =
+            "QPushButton {"
+                "border-top: 0px solid;"
+            "}"
+            "QPushButton:pressed:hover {"
+                "border-top: 0px solid;"
+            "}"
+            "QPushButton {"
+                "border-top: 0px solid;"
+                "background-image: url(:/icons/icons/sent_file_icon.png);"
+            "}"
+            "QPushButton:hover {"
+                "border-top: 0px solid;"
+                "background-image: url(:/icons/icons/sent_file_icon.png);"
+            "}"
+            "QPushButton:pressed:hover {"
+                "border-top: 0px solid;"
+                "background-image: url(:/icons/icons/sent_file_icon.png);"
+            "}";
+
     QString room_icon =
             "background-color: "  + colors["room_icon_background_color"] +
             "border: 0px solid;"
@@ -156,15 +205,24 @@ public:
                 "background-color: #111111;"
                 "border-bottom: 1px solid #606060;";
     QString messages_widget =
-                "background-color: #2c2c2c;"
-                "border-radius: 15px;"
-                "border: 0px solid;";
+                "QWidget {"
+                    "background-color: #2c2c2c;"
+                    "border-radius: 15px;"
+                    "border: 0px solid;"
+                "}";
     QString messages_label =
             "QLabel {"
                 "color: #ffffff;"
                 "font-family: Geneva;"
                 "font-size: 14px;"
                 "qproperty-alignment: AlignCenter;"
+            "}";
+    QString file_name =
+            "QLabel {"
+                "color: #ffffff;"
+                "font-family: Geneva;"
+                "font-size: 14px;"
+                "qproperty-alignment: AlignLeft;"
             "}";
     QString send_message_button =
             "QPushButton {"

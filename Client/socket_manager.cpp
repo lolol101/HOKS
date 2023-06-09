@@ -28,7 +28,6 @@ void Socket_Manager::connect_signals_to_slots() {
 void Socket_Manager::slot_read_server_msg() {
     block_size = 0;
     QDataStream in(socket);
-    in.setVersion(QDataStream::Qt_5_15);
     if (in.status() == QDataStream::Ok) {
         while (true) {
             if (block_size == 0) {
@@ -95,7 +94,7 @@ void Socket_Manager::slot_read_server_msg() {
                 }
                 case Command::loadMsgs: {
                     QVector<msg> msgs;
-                    QVector<QString>item;
+                    QVector<QString> item;
                     in >> item;
                     int room_id = item[0].toInt();
                     while (!in.atEnd()) {
@@ -103,6 +102,13 @@ void Socket_Manager::slot_read_server_msg() {
                         msgs.push_back(msg(item[0], item[1], item[2], item[3].toInt()));
                     }
                     emit got_msgs(room_id, msgs);
+                    break;
+                }
+                case Command::getFile: {
+                    QString filename;
+                    QByteArray bytes;
+                    in >> filename >> bytes;
+                    emit got_file(bytes, filename);
                     break;
                 }
             }
@@ -136,14 +142,18 @@ void Socket_Manager::slot_create_new_room(const QList<QString> &people, const QS
     socket->write(make_byte_message(Command::appendRoom, args));
 }
 
- void Socket_Manager::slot_get_all_users() {
-    socket->write(make_byte_message(Command::getAllUsers, QVector<int>{}));
- }
+void Socket_Manager::slot_get_all_users() {
+   socket->write(make_byte_message(Command::getAllUsers, QVector<int>{}));
+}
 
- void Socket_Manager::slot_load_msgs(const int& room_id) {
-    socket->write(make_byte_message(Command::loadMsgs, QVector<int>{room_id}));
- }
+void Socket_Manager::slot_load_msgs(const int& room_id) {
+   socket->write(make_byte_message(Command::loadMsgs, QVector<int>{room_id}));
+}
 
- void Socket_Manager::slot_user_enter_app(const QString& user_name) {
-    socket->write(make_byte_message(Command::userEnterApp, QVector<QString>{user_name}));
- }
+void Socket_Manager::slot_user_enter_app(const QString& user_name) {
+   socket->write(make_byte_message(Command::userEnterApp, QVector<QString>{user_name}));
+}
+
+void Socket_Manager::slot_get_file(const QString &file_name, const int &room_id) {
+    socket->write(make_byte_message(Command::getFile, QVector<QString>{QString::number(room_id), file_name}));
+}

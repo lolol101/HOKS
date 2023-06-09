@@ -5,5 +5,7 @@
         <file>icons/back_button_hovered.png</file>
         <file>icons/send_message_button_pushed.png</file>
         <file>icons/send_message_button.png</file>
+        <file>icons/clip_button.png</file>
+        <file>icons/sent_file_icon.png</file>
     </qresource>
 </RCC>

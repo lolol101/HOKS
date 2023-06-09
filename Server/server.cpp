@@ -19,7 +19,7 @@ QByteArray Server::make_byte_message(const Command &command, const QVector<T>& a
 Server::Server() : data_base("QPSQL", "127.0.0.1", "database_qt", "postgres", "postgres") {}
 
 void Server::start() {
-    if (this->listen(QHostAddress("185.125.201.130"), 1101)) {
+    if (this->listen(QHostAddress("0.0.0.0"), 1101)) {
         qDebug() << "Start\n";
         connect(this, &QTcpServer::newConnection, this, &Server::new_connection);
     }
@@ -92,9 +92,8 @@ void Server::slot_ready_read() {
                 case Command::appendMessage: {
                     QString message, id, user_name, media_flag;
                     in >> message >> id >> user_name >> media_flag;
-                    data_base.insert_message(id.toInt(), message, user_name, static_cast<bool>(media_flag.toInt()));
                     QStringList people_names = data_base.get_array_of_users_in_chat(id.toInt());
-                    data_base.insert_message(id.toInt(), user_name, message, false);
+                    data_base.insert_message(id.toInt(), user_name, message, static_cast<bool>(media_flag.toInt()));
                     for (const auto& item : people_names) {
                         if (sockets.find(item) != sockets.end() && user_name != item)
                             sockets[item]->write(make_byte_message(Command::otherUserMessage, QVector<QString>{message, id, user_name, media_flag}));
@@ -144,12 +143,21 @@ void Server::slot_ready_read() {
                 case Command::loadMsgs: {
                     int room_id;
                     in >> room_id;
-                    QVector<msg> msgs = data_base.get_all_msg_from_chat(room_id);
+                    QVector<db_space::msg> msgs = data_base.get_all_msg_from_chat(room_id);
                     QVector<QVector<QString>> msgs_raw;
                     msgs_raw.push_back(QVector<QString>{QString::number(room_id)});
                     for (const auto& item : msgs)
                         msgs_raw.push_back(QVector<QString>{item.author, item.time, item.text_message, QString::number((int)item.media)});
                     socket->write(make_byte_message(Command::loadMsgs, msgs_raw));
+                    break;
+                }
+                case Command::getFile: {
+                    QString room_id, file_name;
+                    in >> room_id >> file_name;
+                    QFile file(data_base.get_file(file_name));
+                    QByteArray bytes = file.readAll();
+                    socket->write(make_byte_message(Command::getFile, QVector<QByteArray>{bytes}));
+                    break;
                 }
             }
         }

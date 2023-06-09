@@ -1,7 +1,6 @@
 #ifndef DATABASE_H
 #define DATABASE_H
 
-#include <msg.h>
 #include <QtSql/QSqlDatabase>
 #include <QtSql/QSqlQuery>
 #include <QtSql/QSqlTableModel>
@@ -11,12 +10,17 @@
 #include <QVector>
 #include <iostream>
 #include <QMap>
+#include <QCryptographicHash>
+#include <QFile>
+#include <QProcess>
 
 namespace db_space {
 
     enum class USER  {ID=1,USERNAME,PASSWORD,EMAIL,
                       CREATE_DATA,LAST_LOGIN,NAME,
                       SURNAME,CHAT_OF_USER,STATUS};
+
+const QString path_to_files_on_server = "/home/HOKS_files/";
 
     enum class TABLE {USERS=1, CHATS, MESSAGES};
 
@@ -44,6 +48,16 @@ namespace db_space {
     const QMap<CHATS, QString> enum_chats_to_string = {
         {CHATS::NAME, "name_or_private"},
         {CHATS::ARRAY_PEOPLE, "people"}
+    };
+
+    struct msg {
+        QString author;
+        QString time;
+        QString text_message;
+        bool media;
+
+        msg() = default;
+        msg(QString author_, QString time_, QString text_, bool media_);
     };
 
     class Database
@@ -88,6 +102,11 @@ namespace db_space {
 
         bool check_user_in_bd(QString username);
         bool check_pass_by_username(QString username, QString pass);
+        QString get_hashstring_from_string(QString password);
+
+        QFile get_file(QString filename);
+        QString make_file(QFile& file);
+
     private:
        QSqlDatabase obj;
        QString driver;

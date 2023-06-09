@@ -1,5 +1,4 @@
 #include "database.h"
-
 #include <QDebug>
 namespace db_space {
     Database::Database(QString type_driver,
@@ -47,7 +46,7 @@ namespace db_space {
         query.prepare("INSERT INTO users(username,password,email,created_on,first_name,last_name)"
                       " VALUES(:user, :pass, :em, :dt, :first, :last)");
         query.bindValue(":user",username);
-        query.bindValue(":pass",password);
+        query.bindValue(":pass",get_hashstring_from_string(password).left(45));
         query.bindValue(":em",email);
         query.bindValue(":dt",dt);
         query.bindValue(":first",first_name);
@@ -86,11 +85,7 @@ namespace db_space {
         bool status_transaction = query.exec("UPDATE users SET " + enum_commands_to_string.value(column)
                                              + " = '" + new_data + "' WHERE username ='"+username+"'");
 
-        if (!status_transaction) {
-            return false;
-        } else {
-            return true;
-        }
+        return status_transaction;
     }
 
     void Database::change_array_chats_for_user(QString username, QString new_data)
@@ -124,12 +119,7 @@ namespace db_space {
         QSqlQuery query(obj);
         bool status_transaction = query.exec("UPDATE chats SET " + enum_chats_to_string.value(column)
                                              + " = '" + new_data + "'");
-
-        if (!status_transaction) {
-            return false;
-        } else {
-            return true;
-        }
+        return status_transaction;
     }
 
     QStringList Database::get_array_of_chat_id_for_user(QString username)
@@ -305,6 +295,32 @@ namespace db_space {
         }
         query.next();
         QString bd_pass = query.value(2).toString();
-        return (bd_pass == pass);
+        return (bd_pass == get_hashstring_from_string(pass).left(45));
     }
+
+    QString Database::get_hashstring_from_string(QString password)
+    {
+        return QCryptographicHash::hash(password.toLocal8Bit(), QCryptographicHash::Sha256).toHex();
+    }
+
+    QFile Database::get_file(QString filename)
+    {
+        return QFile(path_to_files_on_server+filename);
+    }
+
+    QString Database::make_file(QFile& file)
+    {
+        QStringList list(file.fileName().split('/'));
+        QString only_name = list[list.size()-1];
+        QString hash_prefix_10 = get_hashstring_from_string(QDate::currentDate().toString()
+                                                            + QTime::currentTime().toString()).left(10);
+        QFile new_file(path_to_files_on_server+hash_prefix_10+only_name);
+        new_file.open(QIODevice::WriteOnly);
+        new_file.write(QByteArray(file.readAll()));
+        new_file.close();
+        return (hash_prefix_10+only_name);
+    }
+
+    msg::msg(QString author_, QString time_, QString text_, bool media_): author(std::move(author_)),time(std::move(time_)),text_message(std::move(text_)),media(media_){}
+
 }
