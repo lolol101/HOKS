@@ -9,11 +9,13 @@ enum Command {
     // Client`s appeals to Server
     registrateUser,
     appendMessage,
+    getFile,
     appendRoom,
     getRooms,
     getAllUsers,
     loadMsgs,
     userEnterApp,
+    uploadFile,
 
     //Server`s appeals to Client
     otherUserMessage,
