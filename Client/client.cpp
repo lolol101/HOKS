@@ -5,7 +5,7 @@ Client::Client(QObject *parent) : QObject(parent) {}
 
 void Client::start() {
     connect_signals_to_slots();
-    s_manager.connect_to_server("0.0.0.0", 1101);
+    s_manager.connect_to_server("185.125.201.130", 1101);
     auth_window.show();
     auth_window.show_authorization();
 }
