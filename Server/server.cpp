@@ -29,7 +29,7 @@ QByteArray Server::make_byte_message(const Command &command, const QString& file
 Server::Server() : data_base("QPSQL", "127.0.0.1", "database_qt", "postgres", "postgres") {}
 
 void Server::start() {
-    if (this->listen(QHostAddress("0.0.0.0"), 1101)) {
+    if (this->listen(QHostAddress("185.125.201.130"), 1101)) {
         qDebug() << "Start\n";
         connect(this, &QTcpServer::newConnection, this, &Server::new_connection);
     }
