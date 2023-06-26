@@ -5,6 +5,8 @@
 #include <QTcpSocket>
 #include <QDataStream>
 #include <QMap>
+#include <QFile>
+#include <QFileInfo>
 #include <database/database.h>
 #include "Commands.h"
 
@@ -19,6 +21,7 @@ private:
 
     template<class T>
     QByteArray make_byte_message(const Command &command, const QVector<T>& arguments);
+    QByteArray make_byte_message(const Command &command, const QString& file_name, const QByteArray& bytes);
 
 public:
     Server();

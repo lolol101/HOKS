@@ -12,6 +12,16 @@ QByteArray Socket_Manager::make_byte_message(const Command &command, const QVect
     return block;
 }
 
+QByteArray Socket_Manager::make_byte_message(const Command &command, const QString& file_name, const QByteArray& bytes) {
+    QByteArray block;
+    QDataStream out(&block, QIODevice::WriteOnly);
+    out << (quint16)0 << quint8(command);
+    out << file_name << bytes.size() << bytes;
+    out.device()->seek(0);
+    out << (quint16)(block.size() - sizeof(quint16));
+    return block;
+}
+
 Socket_Manager::Socket_Manager(QObject *parent) : QObject(parent) {
     socket = new QTcpSocket;
 }
@@ -107,8 +117,11 @@ void Socket_Manager::slot_read_server_msg() {
                 case Command::getFile: {
                     QString filename;
                     QByteArray bytes;
-                    in >> filename >> bytes;
-                    emit got_file(bytes, filename);
+                    int size;
+                    in >> filename >> size;
+                    in.skipRawData(4);
+                    in.readRawData(bytes.data(), size);
+                    emit got_file(bytes, QFileInfo(filename).fileName());
                     break;
                 }
             }
@@ -151,7 +164,12 @@ void Socket_Manager::slot_load_msgs(const int& room_id) {
 }
 
 void Socket_Manager::slot_user_enter_app(const QString& user_name) {
-   socket->write(make_byte_message(Command::userEnterApp, QVector<QString>{user_name}));
+    socket->write(make_byte_message(Command::userEnterApp, QVector<QString>{user_name}));
+}
+
+void Socket_Manager::slot_file_send(const QString& file_name, const QByteArray& bytes, const QVector<QString>& args) {
+    socket->write(make_byte_message(Command::appendMessage, args));
+    socket->write(make_byte_message(Command::uploadFile, file_name, bytes));
 }
 
 void Socket_Manager::slot_get_file(const QString &file_name, const int &room_id) {

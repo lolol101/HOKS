@@ -162,8 +162,8 @@ void RoomInsideWidget::slot_clicked_send_button() {
 }
 
 void RoomInsideWidget::slot_clicked_clip_button() {
-   QString path = QFileDialog::getOpenFileName();
-   emit clicked_clip_button(path);
+   QFileInfo file(QFileDialog::getOpenFileName());
+   emit clicked_clip_button(file.fileName());
 }
 
 void RoomInsideWidget::slot_open_file_button(const MessageWidget& sender_) {

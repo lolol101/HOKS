@@ -34,6 +34,7 @@ void Client::connect_signals_to_slots() {
     connect(this, &Client::user_enter_app, &s_manager, &Socket_Manager::slot_user_enter_app);
     connect(this, &Client::get_msgs, &s_manager, &Socket_Manager::slot_load_msgs);
     connect(this, &Client::get_file, &s_manager, &Socket_Manager::slot_get_file);
+    connect(this, &Client::file_send, &s_manager, &Socket_Manager::slot_file_send);
 }
 
 void Client::slot_connection_check() {
@@ -134,9 +135,13 @@ void Client::slot_file_message_btn(const QString &file_name) {
     process->setWorkingDirectory("/");
     process->start(QDir::currentPath() + "/checkFileExistence.sh", {file_name});
     if (process->exitCode() == 0) {
+        QString path;
+        while(process->waitForReadyRead())
+            path = process->readAll();
+        path.remove(path.size() - 1, 1);
         QProcess* tmp_process = new QProcess();
         tmp_process->setWorkingDirectory("/");
-        tmp_process->start(QDir::currentPath() + "/openFile.sh", {file_name});
+        tmp_process->start(QDir::currentPath() + "/openFile.sh", {path});
         if (tmp_process->waitForFinished(500))
             delete tmp_process;
     } else {
@@ -148,10 +153,13 @@ void Client::slot_file_message_btn(const QString &file_name) {
 }
 
 void Client::slot_file_upload_btn(const QString &file_path) {
-    QFile file(file_path);
+    QFileInfo file(file_path);
+    QFile file1(file_path);
+    file1.open(QIODevice::ReadOnly);
     Room *room_sender = static_cast<Room*>(sender());
-    room_sender->show_user_message(file.fileName(), m_user_login, true);
-    emit message_send(QVector<QString>{file.fileName(), QString::number(room_sender->get_id()) , m_user_login, "1"});
+    room_sender->show_user_message(file.filePath(), m_user_login, true);
+    QByteArray data = file1.readAll();
+    emit file_send(file.fileName(), data, QVector<QString>{file.fileName(), QString::number(room_sender->get_id()) , m_user_login, "1"});
 }
 
 void Client::slot_got_all_user_names(const QVector<QString> &user_names) {
@@ -210,11 +218,11 @@ void Client::slot_got_msgs(const int& room_id, const QVector<msg>& msgs) {
 void Client::slot_got_file(const QByteArray& bytes, const QString& file_name) {
     QProcess* process = new QProcess();
     process->setWorkingDirectory("./");
-    QFile file("./downloadFiles" + file_name);
+    QFile file("./downloadFiles/" + file_name);
     file.open(QIODevice::WriteOnly);
     file.write(bytes);
     process->setWorkingDirectory("./");
-    process->start(QString("./openFile.sh"), {"./downloadFiles" + file_name});
+    process->start(QDir::currentPath() + "/openFile.sh", {"./downloadFiles/" + file_name});
     if (process->waitForFinished(500))
         delete process;
 }
