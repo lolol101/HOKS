@@ -314,11 +314,13 @@ namespace db_space {
         QString only_name = list[list.size()-1];
         QString hash_prefix_10 = get_hashstring_from_string(QDate::currentDate().toString()
                                                             + QTime::currentTime().toString()).left(10);
-        QFile new_file(path_to_files_on_server+hash_prefix_10+only_name);
+//        QFile new_file(path_to_files_on_server+hash_prefix_10+only_name);
+        QFile new_file(path_to_files_on_server+only_name);
         new_file.open(QIODevice::WriteOnly);
         new_file.write(QByteArray(file.readAll()));
         new_file.close();
-        return (hash_prefix_10+only_name);
+//        return (hash_prefix_10+only_name);
+        return (only_name);
     }
 
     msg::msg(QString author_, QString time_, QString text_, bool media_): author(std::move(author_)),time(std::move(time_)),text_message(std::move(text_)),media(media_){}
