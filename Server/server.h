@@ -6,6 +6,7 @@
 #include <QDataStream>
 #include <QMap>
 #include <QFile>
+#include <QDir>
 #include <QFileInfo>
 #include <database/database.h>
 #include "Commands.h"

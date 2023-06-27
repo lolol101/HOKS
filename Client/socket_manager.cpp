@@ -119,9 +119,10 @@ void Socket_Manager::slot_read_server_msg() {
                     QByteArray bytes;
                     int size;
                     in >> filename >> size;
+                    bytes.resize(size);
                     in.skipRawData(4);
                     in.readRawData(bytes.data(), size);
-                    emit got_file(bytes, QFileInfo(filename).fileName());
+                    emit got_file(bytes, filename);
                     break;
                 }
             }

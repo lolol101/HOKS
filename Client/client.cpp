@@ -5,7 +5,7 @@ Client::Client(QObject *parent) : QObject(parent) {}
 
 void Client::start() {
     connect_signals_to_slots();
-    s_manager.connect_to_server("185.125.201.130", 1101);
+    s_manager.connect_to_server("0.0.0.0", 1101);
     auth_window.show();
     auth_window.show_authorization();
 }
@@ -201,12 +201,12 @@ void Client::slot_got_msgs(const int& room_id, const QVector<msg>& msgs) {
             if (item.media) {
                 message = item.text_message.mid(9);
                 if (item.author != m_user_login)
-                    rooms[room_id]->show_other_message(item.text_message, m_user_login, true);
+                    rooms[room_id]->show_other_message(item.text_message, item.author, true);
                 else
                     rooms[room_id]->show_user_message(item.text_message, m_user_login, true);
             } else {
                 if (item.author != m_user_login)
-                    rooms[room_id]->show_other_message(item.text_message, m_user_login, false);
+                    rooms[room_id]->show_other_message(item.text_message, item.author, false);
                 else
                     rooms[room_id]->show_user_message(item.text_message, m_user_login, false);
             }
