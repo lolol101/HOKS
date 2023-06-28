@@ -8,18 +8,28 @@ template<class T>
 QByteArray Server::make_byte_message(const Command &command, const QVector<T>& arguments) {
     QByteArray block;
     QDataStream out(&block, QIODevice::WriteOnly);
-    out << (quint16)0 << quint8(command);
+    out << (quint64)0 << quint8(command);
     for (const auto& item : arguments)
         out << item;
     out.device()->seek(0);
-    out << (quint16)(block.size() - sizeof(quint16));
+    out << (quint64)(block.size() - sizeof(quint64));
+    return block;
+}
+
+QByteArray Server::make_byte_message1(const Command &command, const QString& file_name, const QByteArray& bytes) {
+    QByteArray block;
+    QDataStream out(&block, QIODevice::WriteOnly);
+    out << (quint64)0 << quint8(command);
+    out << file_name << bytes.size() << bytes;
+    out.device()->seek(0);
+    out << (quint64)(block.size() - sizeof(quint64));
     return block;
 }
 
 Server::Server() : data_base("QPSQL", "127.0.0.1", "database_qt", "postgres", "postgres") {}
 
 void Server::start() {
-    if (this->listen(QHostAddress("0.0.0.0"), 1101)) {
+    if (this->listen(QHostAddress("185.125.201.130"), 1101)) {
         qDebug() << "Start\n";
         connect(this, &QTcpServer::newConnection, this, &Server::new_connection);
     }
@@ -37,15 +47,14 @@ void Server::new_connection() {
 void Server::slot_ready_read() {
     QTcpSocket* socket = static_cast<QTcpSocket*>(sender());
     QDataStream in(socket);
-    in.setVersion(QDataStream::Qt_5_15);
     if (in.status() == QDataStream::Ok) {
         while (true) {
             if (clients_msg_size[socket] == 0) {
-                if (socket->bytesAvailable() < 2)
+                if (socket->bytesAvailable() < 8)
                     break;
                 in >> clients_msg_size[socket];
             }
-            if (socket->bytesAvailable() < clients_msg_size[socket])
+            if (socket->bytesAvailable() < qint64(clients_msg_size[socket]))
                 break;
             clients_msg_size[socket] = 0;
             quint8 command;
@@ -72,7 +81,7 @@ void Server::slot_ready_read() {
                         login_error = "Некорректный логин";
                     if(!check_reg_exp(QRegExp("[A-Za-z0-9]{8,}"), password))
                         password_error = "Некорректный пароль";
-                    if(!check_reg_exp(QRegExp("[A-Za-z0-9]+@[a-z]+.com"), email))
+                    if(!check_reg_exp(QRegExp("[A-Za-z0-9]+@[a-z]+.(com|ru|org|us)"), email))
                         email_error = "Некорректный email";
                     if(!check_reg_exp(QRegExp("[A-Z][a-z]+"), first_name))
                         first_name_error = "Некорректное имя";
@@ -98,6 +107,19 @@ void Server::slot_ready_read() {
                         if (sockets.find(item) != sockets.end() && user_name != item)
                             sockets[item]->write(make_byte_message(Command::otherUserMessage, QVector<QString>{message, id, user_name, media_flag}));
                     }
+                    break;
+                }
+                case Command::uploadFile: {
+                    QString file_name;
+                    int size;
+                    in >> file_name >> size;
+                    in.skipRawData(4);
+                    QByteArray bytes;
+                    bytes.resize(size);
+                    in.readRawData(bytes.data(), size);
+                    QFile file("./Files/" + file_name);
+                    file.open(QIODevice::WriteOnly);
+                    file.write(bytes, size);
                     break;
                 }
                 case Command::userEnterApp: {
@@ -152,11 +174,12 @@ void Server::slot_ready_read() {
                     break;
                 }
                 case Command::getFile: {
-                    QString room_id, file_name;
-                    in >> room_id >> file_name;
-                    QFile file(data_base.get_file(file_name));
-                    QByteArray bytes = file.readAll();
-                    socket->write(make_byte_message(Command::getFile, QVector<QByteArray>{bytes}));
+                    QString file_name;
+                    in >> file_name;
+                    QFile file(QDir::currentPath() + "/Files/" + file_name);
+                    file.open(QIODevice::ReadWrite);
+                    QByteArray data = file.readAll();
+                    socket->write(make_byte_message1(Command::getFile, file_name, data));
                     break;
                 }
             }
