@@ -4,6 +4,7 @@
 #include <QMap>
 #include <QPointer>
 #include <QProcess>
+#include <QString>
 #include <Graphics/authorizationWindow.h>
 #include <Graphics/MainWindow.h>
 #include <Graphics/Room.h>
@@ -43,11 +44,12 @@ signals:
     void registrate_user(const QVector<QString>& args);
     void init_rooms(const QString& user_name);
     void message_send(const QVector<QString>& args);
+    void file_send(const QString& file_name, const QByteArray& bytes, const QVector<QString>& args);
     void create_new_room(const QList<QString>& people, const QString& room_name);
     void get_msgs(const int& room_id);
     void get_all_users();
     void user_enter_app(const QString& user_name);
-    void get_file(const QString& file_name, const int& room_id);
+    void get_file(const QString& file_name);
 
 public slots:
     // graphic`s slots

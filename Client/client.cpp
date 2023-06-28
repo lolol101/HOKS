@@ -5,7 +5,7 @@ Client::Client(QObject *parent) : QObject(parent) {}
 
 void Client::start() {
     connect_signals_to_slots();
-    s_manager.connect_to_server("0.0.0.0", 1101);
+    s_manager.connect_to_server("185.125.201.130", 1101);
     auth_window.show();
     auth_window.show_authorization();
 }
@@ -34,6 +34,7 @@ void Client::connect_signals_to_slots() {
     connect(this, &Client::user_enter_app, &s_manager, &Socket_Manager::slot_user_enter_app);
     connect(this, &Client::get_msgs, &s_manager, &Socket_Manager::slot_load_msgs);
     connect(this, &Client::get_file, &s_manager, &Socket_Manager::slot_get_file);
+    connect(this, &Client::file_send, &s_manager, &Socket_Manager::slot_file_send);
 }
 
 void Client::slot_connection_check() {
@@ -133,25 +134,28 @@ void Client::slot_file_message_btn(const QString &file_name) {
     QProcess* process = new QProcess();
     process->setWorkingDirectory("/");
     process->start(QDir::currentPath() + "/checkFileExistence.sh", {file_name});
+    while(process->waitForFinished());
     if (process->exitCode() == 0) {
+        QString path;
+        path = process->readAll();
+        path.remove(path.size() - 1, 1);
         QProcess* tmp_process = new QProcess();
-        tmp_process->setWorkingDirectory("/");
-        tmp_process->start(QDir::currentPath() + "/openFile.sh", {file_name});
+        tmp_process->start(QDir::currentPath() + "/openFile.sh", {path});
         if (tmp_process->waitForFinished(500))
             delete tmp_process;
     } else {
-        QPointer<Room> room_sender = static_cast<Room*>(sender());
-        emit get_file(file_name, room_sender->get_id());
+        emit get_file(file_name);
     }
-    if (process->waitForFinished(500))
-        delete process;
+    delete process;
 }
 
 void Client::slot_file_upload_btn(const QString &file_path) {
-    QFile file(file_path);
+    QFileInfo file(file_path);
+    QFile file1(file_path);
+    file1.open(QIODevice::ReadOnly);
     Room *room_sender = static_cast<Room*>(sender());
     room_sender->show_user_message(file.fileName(), m_user_login, true);
-    emit message_send(QVector<QString>{file.fileName(), QString::number(room_sender->get_id()) , m_user_login, "1"});
+    emit file_send(file.fileName(), file1.readAll(), QVector<QString>{file.fileName(), QString::number(room_sender->get_id()) , m_user_login, "1"});
 }
 
 void Client::slot_got_all_user_names(const QVector<QString> &user_names) {
@@ -193,12 +197,12 @@ void Client::slot_got_msgs(const int& room_id, const QVector<msg>& msgs) {
             if (item.media) {
                 message = item.text_message.mid(9);
                 if (item.author != m_user_login)
-                    rooms[room_id]->show_other_message(item.text_message, m_user_login, true);
+                    rooms[room_id]->show_other_message(item.text_message, item.author, true);
                 else
                     rooms[room_id]->show_user_message(item.text_message, m_user_login, true);
             } else {
                 if (item.author != m_user_login)
-                    rooms[room_id]->show_other_message(item.text_message, m_user_login, false);
+                    rooms[room_id]->show_other_message(item.text_message, item.author, false);
                 else
                     rooms[room_id]->show_user_message(item.text_message, m_user_login, false);
             }
@@ -209,12 +213,10 @@ void Client::slot_got_msgs(const int& room_id, const QVector<msg>& msgs) {
 
 void Client::slot_got_file(const QByteArray& bytes, const QString& file_name) {
     QProcess* process = new QProcess();
-    process->setWorkingDirectory("./");
-    QFile file("./downloadFiles" + file_name);
-    file.open(QIODevice::WriteOnly);
+    QFile file(QDir::currentPath() + "/downloadFiles/" + file_name);
+    file.open(QIODevice::ReadWrite);
     file.write(bytes);
-    process->setWorkingDirectory("./");
-    process->start(QString("./openFile.sh"), {"./downloadFiles" + file_name});
+    process->start(QDir::currentPath() + "/openFile.sh", {QDir::currentPath() + "/downloadFiles/" + file_name});
     if (process->waitForFinished(500))
         delete process;
 }
