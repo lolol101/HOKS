@@ -49,7 +49,7 @@ signals:
     void get_msgs(const int& room_id);
     void get_all_users();
     void user_enter_app(const QString& user_name);
-    void get_file(const QString& file_name, const int& room_id);
+    void get_file(const QString& file_name);
 
 public slots:
     // graphic`s slots

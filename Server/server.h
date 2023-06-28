@@ -18,11 +18,11 @@ private:
     db_space::Database data_base;
 
     QMap<QString, QTcpSocket*> sockets;
-    QMap<QTcpSocket*, quint16> clients_msg_size;
+    QMap<QTcpSocket*, quint64> clients_msg_size;
 
     template<class T>
     QByteArray make_byte_message(const Command &command, const QVector<T>& arguments);
-    QByteArray make_byte_message(const Command &command, const QString& file_name, const QByteArray& bytes);
+    QByteArray make_byte_message1(const Command &command, const QString& file_name, const QByteArray& bytes);
 
 public:
     Server();

@@ -14,7 +14,7 @@ class Socket_Manager : public QObject {
 
 private:
     QTcpSocket* socket;
-    quint16 block_size{0};
+    quint64 block_size{0};
 
     template<class T>
     QByteArray make_byte_message(const Command &command, const QVector<T>& arguments);
@@ -37,7 +37,7 @@ signals:
     void room_created(const QString& room_name, int id);
 
 public slots:
-    void slot_get_file(const QString& file_name, const int& room_id);
+    void slot_get_file(const QString& file_name);
     void slot_read_server_msg();
     void slot_check_authorization_data(const QVector<QString>& args);
     void slot_check_registration_data(const QVector<QString>& args);
