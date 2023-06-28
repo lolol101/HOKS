@@ -13,14 +13,17 @@ HOKS – мессенджер с открытым исходным кодом. \
 `make`
 
 
-3. Находясь в директории `Client`, создаём папку `downloadFiles`.
+3. В файле `ui_authorizationWindow.h` заменяем строчку `#include "authorizationWindow.h"` на строчку `#include "Graphics/authorizationWindow.h"`.
 
 
-4. Находясь в директории `Client`, выполняем команду: \
+4. Находясь в директории `Client`, создаём папку `downloadFiles`.
+
+
+5. Находясь в директории `Client`, выполняем команду: \
 `chmod +x checkFileExistence.sh openFile.sh`
 
 
-5. Находясь в директории `Client`, запускаем клиент HOKS: \
+6. Находясь в директории `Client`, запускаем клиент HOKS: \
 `./Client`
 
 ### macOS
@@ -36,12 +39,15 @@ HOKS – мессенджер с открытым исходным кодом. \
 `make`
 
 
-4. Находясь в директории `Client`, создаём папку `downloadFiles`.
+4. В файле `ui_authorizationWindow.h` заменяем строчку `#include "authorizationWindow.h"` на строчку `#include "Graphics/authorizationWindow.h"`.
 
 
-5. Находясь в директории `Client`, выполняем команду: \
+5. Находясь в директории `Client`, создаём папку `downloadFiles`.
+
+
+6. Находясь в директории `Client`, выполняем команду: \
 `chmod +x checkFileExistence.sh openFile.sh`
 
 
-6. Находясь в директории `Client`, запускаем клиент HOKS: \
+7. Находясь в директории `Client`, запускаем клиент HOKS: \
 `./Client`
